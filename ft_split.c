@@ -56,15 +56,18 @@ static int	ft_words_count(char *s, char c)
 			flag3 = 0;
 			i++;
 		}
-		if ((s[i] == c || s[i] == '\0') && flag)
+		printf("%d %d\n", flag, s[i]);
+		if ((s[i] == c || s[i] == '\0' || s[i] == '|' || s[i] == '<' || s[i] == '>') && flag)
 		{
+			printf("aaa\n");
 			count++;
 			flag = 0;
 		}
-		else if (s[i] != c)
+		else if (s[i] != c  || s[i] != '\0' || s[i] != '|' || s[i] != '<' || s[i] != '>')
 			flag = 1;
 		i++;
 	}
+	printf("%d\n", count);
 	return (count);
 }
 
@@ -126,7 +129,7 @@ static int	fill(char **arr, char *s, char c)
 			flag2 = 0;
 			len++;
 		}
-		if ((s[len] == c || s[len] == '\0') && len)
+		if ((s[len] == c || s[len] == '\0' || s[len] == '|' || s[len] == '<' || s[len] == '>') && len)
 		{
 			arr[i] = init(len, s);
 			if (!arr[i])

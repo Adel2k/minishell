@@ -3,6 +3,7 @@
 int main()
 {
     char *input;
+	rl_on_new_line();
 	while (1)
 	{
 		input = readline("MINISHELL  ");
