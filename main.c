@@ -1,11 +1,18 @@
 #include "minishell.h"
 
-int main() {
+int main()
+{
     char *input;
 	while (1)
 	{
 		input = readline("MINISHELL  ");
-		printf("%s\n", input);
+		char **str = ft_split(input);
+		int i = 0;
+        while (str[i])
+        {
+            printf("%s\n", str[i]);
+            i++;
+        }
 		if (input)
 		{
 			if (!strcmp(input, "prc"))

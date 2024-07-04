@@ -1,11 +1,11 @@
+NAME = minishell
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I ./
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I ./
 LDFLAGS = -lreadline
 
-NAME = minishell
 
-SRCS = main.c
+SRCS = main.c ft_split.c
 
 OBJS = $(SRCS:.c=.o)
 
