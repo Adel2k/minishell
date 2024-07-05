@@ -10,7 +10,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-static int	ft_words_count(char *s, char c)
+int	ft_words_count(char *s, char c)
 {
 	int	i;
 	int	flag, flag2, flag3;
