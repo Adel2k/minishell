@@ -28,6 +28,7 @@ int main()
 		else
 			printf("No input received.\n");
 		tokens = tokenisation(strs, tokens_count);
+		free(strs);
 		//just for check
 		int j = 0;
 		while (j < tokens_count)
@@ -35,6 +36,8 @@ int main()
 			printf("str: %s, type: %s\n", tokens[j].str, tokens[j].type);
 			j++;
 		}
+
+		check_for_invalid_input(tokens, tokens_count);
 	}
     return 0;
 }

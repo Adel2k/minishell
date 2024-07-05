@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -I ./
+CFLAGS = -Wall -Wextra -Werror -I ./ -g3 -fsanitize=address
 LDFLAGS = -lreadline
 
 
