@@ -30,10 +30,7 @@ static int	ft_words_count(char *s, char c)
 			while (s[i] && s[i] != '"')
 				i++;
 			if (!s[i])
-			{
-				printf("incu %d\n", i);
 				exit(printf("No closing qoute\n"));
-			}
 		}
 		else if(s[i] == '"')
 		{
@@ -47,19 +44,17 @@ static int	ft_words_count(char *s, char c)
 			while (s[i] && s[i] != 39)
 				i++;
 			if (!s[i])
-			{
 				exit(printf("No closing qoute\n"));
-			}
 		}
 		else if(s[i] == 39)
 		{
 			flag3 = 0;
 			i++;
 		}
-		printf("%d %d\n", flag, s[i]);
 		if ((s[i] == c || s[i] == '\0' || s[i] == '|' || s[i] == '<' || s[i] == '>') && flag)
 		{
-			printf("aaa\n");
+			if(s[i] == '|' || s[i] == '<' || s[i] == '>')
+				count++;
 			count++;
 			flag = 0;
 		}
@@ -67,6 +62,7 @@ static int	ft_words_count(char *s, char c)
 			flag = 1;
 		i++;
 	}
+	(void)flag3; //vor compile lini 
 	printf("%d\n", count);
 	return (count);
 }
@@ -137,12 +133,27 @@ static int	fill(char **arr, char *s, char c)
 			s += len;
 			len = 0;
 			i++;
+			if (s[len] == '|' || s[len] == '<' || s[len] == '>')
+			{
+				if (s[len] == '|' || s[len] == '<' || s[len] == '>')
+				{
+					arr[i] = malloc(sizeof(char) * 2);
+					if (!arr[i])
+						return (0);
+					arr[i][0] = '|';
+					arr[i][1] = 0;
+					s += len;
+					len = 0;
+					i++;
+				}
+			}
 		}
 		else if (s[len] != c && s[len] != '\0')
 			len++;
 		else
 			s++;
 	}
+	(void)flag2;
 	return (1);
 }
 
