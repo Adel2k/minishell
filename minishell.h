@@ -23,14 +23,24 @@ typedef struct s_token
 	// out_file after >
 	// append_file after >>
 	// limiter after <<
-} t_token;
+}	t_token;
 
-int	ft_words_count(char *s, char c);
-char	**ft_split(char const *s);
+
+////////////////////////tokenisation////////////////////////
+t_token	*tokenisation(char **args, int count);
+char	*find_type(char *str, t_token *tokens, int i);
+void	check_for_invalid_input(t_token *tokens, int count);
+
+
+////////////////////////utils//////////////////////////////
+int		ft_words_count(char *s, char c);
 size_t	ft_strlen(const char *s);
-int	ft_strcmp(const char *s1, const char *s2);
-t_token *tokenisation(char **args, int count);
-char *find_type(char *str, t_token *tokens, int i);
-void check_for_invalid_input(t_token *tokens, int count);
+int		ft_strcmp(const char *s1, const char *s2);
+
+
+////////////////////////ft_split///////////////////////////
+char	**ft_split(char const *s);
+
+
 
 #endif

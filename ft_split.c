@@ -1,81 +1,5 @@
 #include <minishell.h>
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_words_count(char *s, char c)
-{
-	int	i;
-	int	flag, flag2, flag3;
-	int	count;
-
-	i = 0;
-	flag = 0;
-	flag2 = 0;
-	flag3 = 0;
-	count = 0;
-	while (i <= (int)ft_strlen(s))
-	{
-		if (s[i] == '"' && flag2 == 0)
-		{
-			flag2 = 1;
-			i++;
-			while (s[i] && s[i] != '"')
-				i++;
-			if (!s[i])
-				exit(printf("No closing qoute\n"));
-		}
-		else if(s[i] == '"')
-		{
-			flag2 = 0;
-			i++;
-		}
-		if (s[i] == 39 && flag2 == 0)
-		{
-			flag3 = 1;
-			i++;
-			while (s[i] && s[i] != 39)
-				i++;
-			if (!s[i])
-				exit(printf("No closing qoute\n"));
-		}
-		else if(s[i] == 39)
-		{
-			flag3 = 0;
-			i++;
-		}
-		if (s[i] == c || s[i] == '\0' || s[i] == '|' || s[i] == '<' || s[i] == '>')
-		{
-			if(s[i] == '|' || s[i] == '<' || s[i] == '>')
-			{
-				if (s[i + 1] && ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '>' && s[i + 1] == '>')))
-					i++;
-				count++;
-			}
-			if (flag)
-			{
-				count++;
-				flag = 0;
-			}
-		}
-		else if (s[i] != c  || s[i] != '\0' || s[i] != '|' || s[i] != '<' || s[i] != '>')
-			flag = 1;
-		i++;
-	}
-	(void)flag3; //vor compile lini 
-	printf("%d\n", count);
-	return (count);
-}
-
 static char	*init(int len, char *s)
 {
 	char	*element;
@@ -94,46 +18,56 @@ static char	*init(int len, char *s)
 	return (element);
 }
 
+int	fill_single_quotes(char *s, int len, int flag)
+{
+	int	flag2;
+
+	flag2 = 0;
+	if (s[len] == 39 && flag == 0)
+	{
+		flag2 = 1;
+		len++;
+		while (s[len] && s[len] != 39)
+			len++;
+	}
+	else if(s[len] == 39)
+	{
+		flag2 = 0;
+		len++;
+	}
+	return (len);
+}
+int	fill_quotes(int len, char *s)
+{
+	int	flag;
+
+	flag = 0;
+	if (s[len] == '"' && flag == 0)
+	{
+		flag = 1;
+		len++;
+		while (s[len] && s[len] != '"')
+			len++;
+	}
+	else if(s[len] == '"')
+	{
+		flag = 0;
+		len++;
+	}
+	len = fill_single_quotes(s, len, flag);
+	return (len);
+}
+
 static int	fill(char **arr, char *s, char c)
 {
 	int	i;
 	int	len;
-	int flag, flag2;
 
 	i = 0;
 	len = 0;
-	flag = 0;
-	flag2 = 0;
 	while (*s)
 	{
-		if (s[len] == '"' && flag == 0)
-		{
-			flag = 1;
-			len++;
-			while (s[len] && s[len] != '"')
-				len++;
-			if (!s[len])
-				exit(printf("No closing qoute\n"));
-		}
-		else if(s[len] == '"')
-		{
-			flag = 0;
-			len++;
-		}
-		if (s[len] == 39 && flag == 0)
-		{
-			flag2 = 1;
-			len++;
-			while (s[len] && s[len] != 39)
-				len++;
-			if (!s[len])
-				exit(printf("No closing qoute\n"));
-		}
-		else if(s[len] == 39)
-		{
-			flag2 = 0;
-			len++;
-		}
+		len = fill_quotes(len, s);
 		if ((s[len] == c || s[len] == '\0' || s[len] == '|' || s[len] == '<' || s[len] == '>'))
 		{
 			if (len)
@@ -170,7 +104,6 @@ static int	fill(char **arr, char *s, char c)
 		else
 			s++;
 	}
-	(void)flag2;
 	return (1);
 }
 

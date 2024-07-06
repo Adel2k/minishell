@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_token *tokenisation(char **args, int count)
+t_token	*tokenisation(char **args, int count)
 {
 	t_token *tokens;
 	int i;
@@ -18,7 +18,7 @@ t_token *tokenisation(char **args, int count)
 	return (tokens);
 }
 
-char *find_type(char *str, t_token *tokens, int i)
+char	*find_type(char *str, t_token *tokens, int i)
 {
 	if (!ft_strcmp(str, "|"))
 		return ("pipe");
@@ -58,7 +58,7 @@ void error_exit_free_tokens(t_token *tokens, int count, char *message)
 	exit(printf("%s", message));
 }
 
-void check_for_invalid_input(t_token *tokens, int count)
+void	check_for_invalid_input(t_token *tokens, int count)
 {
 	int i;
 
