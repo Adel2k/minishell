@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/07 13:15:04 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/07 13:15:06 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 static char	*init(int len, char *s)
@@ -30,13 +42,14 @@ int	fill_single_quotes(char *s, int len, int flag)
 		while (s[len] && s[len] != 39)
 			len++;
 	}
-	else if(s[len] == 39)
+	else if (s[len] == 39)
 	{
 		flag2 = 0;
 		len++;
 	}
 	return (len);
 }
+
 int	fill_quotes(int len, char *s)
 {
 	int	flag;
@@ -49,7 +62,7 @@ int	fill_quotes(int len, char *s)
 		while (s[len] && s[len] != '"')
 			len++;
 	}
-	else if(s[len] == '"')
+	else if (s[len] == '"')
 	{
 		flag = 0;
 		len++;
@@ -68,7 +81,8 @@ static int	fill(char **arr, char *s, char c)
 	while (*s)
 	{
 		len = fill_quotes(len, s);
-		if ((s[len] == c || s[len] == '\0' || s[len] == '|' || s[len] == '<' || s[len] == '>'))
+		if ((s[len] == c || s[len] == '\0' || s[len] == '|'
+				|| s[len] == '<' || s[len] == '>'))
 		{
 			if (len)
 			{
@@ -83,7 +97,8 @@ static int	fill(char **arr, char *s, char c)
 				s++;
 			if (s[len] == '|' || s[len] == '<' || s[len] == '>')
 			{
-				if (s[len + 1] && ((s[len] == '<' && s[len + 1] == '<') || (s[len] == '>' && s[len + 1] == '>')))
+				if (s[len + 1] && ((s[len] == '<' && s[len + 1] == '<')
+						|| (s[len] == '>' && s[len + 1] == '>')))
 				{
 					arr[i] = init(2, s);
 					s += 2;

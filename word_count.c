@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   word_count.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/07 13:15:37 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/07 13:15:39 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	single_quote(char *s, int i, int flag2)
@@ -14,7 +26,7 @@ int	single_quote(char *s, int i, int flag2)
 		if (!s[i])
 			exit(printf("No closing qoute\n"));
 	}
-	else if(s[i] == 39)
+	else if (s[i] == 39)
 	{
 		flag = 0;
 		i++;
@@ -36,7 +48,7 @@ int	quotes(char *s, int i)
 		if (!s[i])
 			exit(printf("No closing qoute\n"));
 	}
-	else if(s[i] == '"')
+	else if (s[i] == '"')
 	{
 		flag = 0;
 		i++;
@@ -45,12 +57,13 @@ int	quotes(char *s, int i)
 	return (i);
 }
 
-int if_double(int i, int *count, int *flag, char *s)
+int	if_double(int i, int *count, int *flag, char *s)
 {
-	if(s[i] == '|' || s[i] == '<' || s[i] == '>')
+	if (s[i] == '|' || s[i] == '<' || s[i] == '>')
 	{
-		if (s[i + 1] && ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '>' && s[i + 1] == '>')))
-		i++;
+		if (s[i + 1] && ((s[i] == '<' && s[i + 1] == '<')
+				|| (s[i] == '>' && s[i + 1] == '>')))
+			i++;
 		(*count)++;
 	}
 	if (*flag)
@@ -73,11 +86,13 @@ int	ft_words_count(char *s, char c)
 	while (i <= (int)ft_strlen(s))
 	{
 		i = quotes(s, i);
-		if (s[i] == c || s[i] == '\0' || s[i] == '|' || s[i] == '<' || s[i] == '>')
+		if (s[i] == c || s[i] == '\0' || s[i] == '|'
+			|| s[i] == '<' || s[i] == '>')
 		{
 			i = if_double(i, &count, &flag, s);
 		}
-		else if (s[i] != c  || s[i] != '\0' || s[i] != '|' || s[i] != '<' || s[i] != '>')
+		else if (s[i] != c || s[i] != '\0' || s[i] != '|'
+			|| s[i] != '<' || s[i] != '>')
 			flag = 1;
 		i++;
 	}
