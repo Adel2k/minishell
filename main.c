@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		input = readline("MINISHELL  ");
+		input = readline("\033[0;034m PONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		tokens_count = ft_words_count(input, ' ');
 		strs = ft_split(input);

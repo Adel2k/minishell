@@ -2,13 +2,13 @@
 
 int	if_dollar(char *s)
 {
-	int i;
+	int	i;
 	int	index;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
-		if(s[i] == '$')
+		if (s[i] == '$')
 		{
 			index = i;
 			break;
@@ -46,7 +46,10 @@ int	quotes_type(char *str)
 				flag = 1;
 			}
 			else if(flag == 1 && type == 1)
+			{
+				type = 0;
 				flag = 0;
+			}
 		}
 		if (str[i] == '"')
 		{
@@ -74,9 +77,9 @@ int	quotes_type(char *str)
 	return (type);
 }
 
-char *to_find(int start, t_token *tokens, int i)
+char	*to_find(int start, t_token *tokens, int i)
 {
-	int end;
+	int	end;
 
 	end = start + 1;
 	while (tokens[i].str[end])
@@ -92,7 +95,7 @@ char *to_find(int start, t_token *tokens, int i)
 	return (ft_substr(tokens[i].str, start + 1, end - start));
 }
 
-char *find_replacement(char **env, char *s)
+char	*find_replacement(char **env, char *s)
 {
 	int	i;
 
@@ -112,9 +115,58 @@ char *find_replacement(char **env, char *s)
 
 void dollar_sign(t_token *tokens, int count, char **env)
 {
-	int	i;
-	int start;
-	char *s;
+	int		i;
+	int		start;
+	char	*s;
+
+	// i = 0;
+	// while (i < count)
+	// {
+	// 	if (ft_strcmp(tokens[i].type, "word"))
+	// 			return ;
+	// 	start = 0;
+	// 	while ((size_t)start < ft_strlen(tokens[i].str))
+	// 	{
+	// 		//int kjnj = quotes_type(tokens[i].str + start);
+	// 		// printf("start: %d\n", start);
+	// 		if (if_dollar(tokens[i].str + start) != -1)
+	// 		{
+	// 			start += if_dollar(tokens[i].str + start);
+	// 			s = to_find(start, tokens, i);
+	// 			// printf("this is unchanged: %s\n", s);
+	// 			char *l =	join_trio(tokens[i].str, find_replacement(env, s), start, start + 1 + ft_strlen(s));
+	// 			free(tokens[i].str);
+	// 			free(s);
+	// 			tokens[i].str = l;
+	// 		}
+	// 		else
+	// 		{
+	// 			while (tokens[i].str[start])
+	// 			{
+	// 				if (tokens[i].str[start] == 39)
+	// 				{
+	// 					start++;
+	// 					while (tokens[i].str[start] &&  tokens[i].str[start] != 39)
+	// 						start++;
+	// 					start++;
+	// 					break;
+	// 				}
+	// 				start++;
+	// 			}
+	// 		}
+	// 		//printf("hello %s   %d\n", tokens[i].str, start);
+	// 		// while ((tokens[i].str[start]))
+	// 		// {
+	// 		// 	if ((tokens[i].str[start] == '$' || tokens[i].str[start] == ' ' || (kjnj == 2 && tokens[i].str[start] == '"') || (kjnj == 1 && tokens[i].str[start] == 39)))
+	// 		// 		break;
+	// 		// 	// printf("eeeeee %s\n", tokens[i].str + start);
+	// 		// 	start++;
+	// 		// }
+	// 		// printf("hello %s   %d\n", tokens[i].str, start);
+
+	// 	}
+	// 	i++;
+	// }
 
 	i = 0;
 	while (i < count)
@@ -124,43 +176,16 @@ void dollar_sign(t_token *tokens, int count, char **env)
 		start = 0;
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
-			//int kjnj = quotes_type(tokens[i].str + start);
-			// printf("start: %d\n", start);
-			if (if_dollar(tokens[i].str + start) != -1)
+			start = if_dollar(tokens[i].str);
+			if (start != -1)
 			{
-				start += if_dollar(tokens[i].str + start);
 				s = to_find(start, tokens, i);
-				// printf("this is unchanged: %s\n", s);
 				char *l =	join_trio(tokens[i].str, find_replacement(env, s), start, start + 1 + ft_strlen(s));
 				free(tokens[i].str);
 				free(s);
 				tokens[i].str = l;
+				start++;
 			}
-			else
-			{
-				while (tokens[i].str[start])
-				{
-					if (tokens[i].str[start] == 39)
-					{
-						start++;
-						while (tokens[i].str[start] &&  tokens[i].str[start] != 39)
-							start++;
-						start++;
-						break;
-					}
-					start++;
-				}
-			}
-			//printf("hello %s   %d\n", tokens[i].str, start);
-			// while ((tokens[i].str[start]))
-			// {
-			// 	if ((tokens[i].str[start] == '$' || tokens[i].str[start] == ' ' || (kjnj == 2 && tokens[i].str[start] == '"') || (kjnj == 1 && tokens[i].str[start] == 39)))
-			// 		break;
-			// 	// printf("eeeeee %s\n", tokens[i].str + start);
-			// 	start++;
-			// }
-			// printf("hello %s   %d\n", tokens[i].str, start);
-
 		}
 		i++;
 	}

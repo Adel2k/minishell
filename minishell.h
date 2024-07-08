@@ -57,7 +57,7 @@ char	**ft_split(char *s);
 
 ////////////////////////dollar/////////////////////////////
 void	dollar_sign(t_token *tokens, int count, char **env);
-int	quotes_type(char *str);
+int		quotes_type(char *str);
 
 
 #endif
