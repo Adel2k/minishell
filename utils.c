@@ -117,7 +117,7 @@ char	*join_trio(char *s, char *s2, int start, int end)
 	char *res;
 
 	res = malloc(start + ft_strlen(s2) + ft_strlen(s) - end + 1);
-	printf("len: %lu\n", start + ft_strlen(s2) + ft_strlen(s) - end);
+	// printf("len: %lu\n", start + ft_strlen(s2) + ft_strlen(s) - end);
 	if (!res)
 		return (0);
 	res[start + ft_strlen(s2) + ft_strlen(s) - end] = 0;
@@ -129,9 +129,9 @@ char	*join_trio(char *s, char *s2, int start, int end)
 		i++;
 	}	
 	int j = 0;
-	if(!s2)
-		return (res);
-	while (s2[j])
+	// if(!s2)
+	// 	return (res);
+	while (s2 &&  s2[j])
 	{
 
 		res[i] = s2[j];
