@@ -59,7 +59,16 @@ int	quotes_type(char *str)
 				flag = 0;
 		}
 		if (str[i] == '$')
-			return (type);
+		{
+			if (type == 2 || type == 0)
+				return (type);
+			if (type == 1 || flag == 1)
+			{
+				while (str[i] != 39)
+					i++;
+				break ;
+			}
+		}
 		i++;
 	}
 	return (type);
@@ -115,7 +124,7 @@ void dollar_sign(t_token *tokens, int count, char **env)
 		start = 0;
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
-			int kjnj = quotes_type(tokens[i].str + start);
+			//int kjnj = quotes_type(tokens[i].str + start);
 			// printf("start: %d\n", start);
 			if (if_dollar(tokens[i].str + start) != -1)
 			{
@@ -142,14 +151,16 @@ void dollar_sign(t_token *tokens, int count, char **env)
 					start++;
 				}
 			}
+			//printf("hello %s   %d\n", tokens[i].str, start);
+			// while ((tokens[i].str[start]))
+			// {
+			// 	if ((tokens[i].str[start] == '$' || tokens[i].str[start] == ' ' || (kjnj == 2 && tokens[i].str[start] == '"') || (kjnj == 1 && tokens[i].str[start] == 39)))
+			// 		break;
+			// 	// printf("eeeeee %s\n", tokens[i].str + start);
+			// 	start++;
+			// }
 			// printf("hello %s   %d\n", tokens[i].str, start);
-			while ((tokens[i].str[start]))
-			{
-				if ((tokens[i].str[start] == '$' || tokens[i].str[start] == ' ' || (kjnj == 2 && tokens[i].str[start] == '"') || (kjnj == 1 && tokens[i].str[start] == 39)))
-					break;
-				// printf("eeeeee %s\n", tokens[i].str + start);
-				start++;
-			}
+
 		}
 		i++;
 	}

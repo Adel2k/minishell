@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		input = readline("MINISHELL  ");
+		add_history(input);
 		tokens_count = ft_words_count(input, ' ');
 		strs = ft_split(input);
 		i = 0;
