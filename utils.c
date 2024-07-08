@@ -62,7 +62,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-int ft_strstr(char *str, char *to_find)
+int	ft_strstr(char *str, char *to_find)
 {
 	int		i;
 
@@ -95,52 +95,4 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		n--;
 	}
 	return (dest);
-}
-
-char	*ft_strdup(const char *s)
-{
-	const char	*str;
-	size_t		size;
-	char		*result;
-
-	size = ft_strlen(s);
-	str = (char *)malloc(size + 1);
-	if (!str)
-		return (NULL);
-	result = (char *)ft_memcpy((void *)str, s, size);
-	result[size] = '\0';
-	return (result);
-}
-
-char	*join_trio(char *s, char *s2, int start, int end)
-{
-	char *res;
-
-	res = malloc(start + ft_strlen(s2) + ft_strlen(s) - end + 1);
-	printf("len: %lu\n", start + ft_strlen(s2) + ft_strlen(s) - end);
-	if (!res)
-		return (0);
-	res[start + ft_strlen(s2) + ft_strlen(s) - end] = 0;
-	int i;
-	i = 0;
-	while (i < start)
-	{
-		res[i] = s[i];
-		i++;
-	}
-	int j = 0;
-	while (s2 && s2[j])
-	{
-		res[i] = s2[j];
-		i++;
-		j++;
-	}
-	free(s2);
-	while ((size_t) end < ft_strlen(s))
-	{
-		res[i] = s[end];
-		i++;
-		end++;
-	}
-	return (res);
 }

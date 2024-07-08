@@ -50,7 +50,14 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strstr(char *str, char *to_find);
 char	*ft_strdup(const char *s);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*join_trio(char *s, char *s2, int start, int end);
+
+////////////////////////utils2//////////////////////////////
+char	*ft_strdup(const char *s);
+char	*join_trio(char *s, char *s2, int start, int end);
+int		check1(char c);
+char	*to_find(int start, t_token *tokens, int i);
 
 ////////////////////////ft_split///////////////////////////
 char	**ft_split(char *s);
@@ -59,5 +66,7 @@ char	**ft_split(char *s);
 void	dollar_sign(t_token *tokens, int count, char **env);
 int		quotes_type(char *str);
 
+////////////////////////free/////////////////////////////
+void	free_tokens(t_token *tokens, char *s, int i)
 
 #endif

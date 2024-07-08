@@ -71,13 +71,6 @@ int	fill_quotes(int len, char *s)
 	len = fill_single_quotes(s, len, flag);
 	return (len);
 }
-int check1(char c)
-{
-	if ((c == ' ' || c == '\0' || c == '|'
-			|| c == '<' || c == '>'))
-		return 1;
-	return 0;
-}
 
 static int	fill(char **arr, char *s, int i, int len)
 {

@@ -99,8 +99,7 @@ void	remove_quotes(t_token *tokens, int count)
 {
 	int	i;
 	int	flag;
-	int j;
-
+	int	j;
 
 	i = 0;
 	while (i < count)
