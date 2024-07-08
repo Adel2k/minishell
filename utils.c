@@ -39,3 +39,111 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	char	*ptr;
+
+	if (!s)
+		return (NULL);
+	else if ((start >= ft_strlen(s)))
+		len = 0;
+	else if (len > (ft_strlen(s) - start))
+		len = ft_strlen(s) - start;
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	s += start;
+	ptr = str;
+	*(str + len) = '\0';
+	while (len-- && *s)
+		*str++ = *s++;
+	return (ptr);
+}
+
+int ft_strstr(char *str, char *to_find)
+{
+	int		i;
+
+	i = 0;
+	if (*to_find == '\0')
+		return (0);
+	while (str[i] && to_find[i])
+	{
+		if (str[i] != to_find[i])
+			return (0);
+		i++;
+	}
+	if (str[i] == '=')
+		return (1);
+	return (0);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char	*dest_p;
+	unsigned char	*src_p;
+
+	src_p = (unsigned char *)src;
+	dest_p = (unsigned char *)dest;
+	if (dest == 0 && src == 0)
+		return (NULL);
+	while (n != 0)
+	{
+		*dest_p++ = *src_p++;
+		n--;
+	}
+	return (dest);
+}
+
+char	*ft_strdup(const char *s)
+{
+	const char	*str;
+	size_t		size;
+	char		*result;
+
+	size = ft_strlen(s);
+	str = (char *)malloc(size + 1);
+	if (!str)
+		return (NULL);
+	result = (char *)ft_memcpy((void *)str, s, size);
+	result[size] = '\0';
+	return (result);
+}
+
+char	*join_trio(char *s, char *s2, int start, int end)
+{
+	char *res;
+
+	res = malloc(start + ft_strlen(s2) + ft_strlen(s) - end + 1);
+	printf("len: %lu\n", start + ft_strlen(s2) + ft_strlen(s) - end);
+	if (!res)
+		return (0);
+	res[start + ft_strlen(s2) + ft_strlen(s) - end] = 0;
+	int i;
+	i = 0;
+	while (i < start)
+	{
+		res[i] = s[i];
+		i++;
+	}	
+	int j = 0;
+	if(!s2)
+		return (res);
+	while (s2[j])
+	{
+
+		res[i] = s2[j];
+		i++;
+		j++;
+	}
+	free(s2);
+	while ((size_t) end < ft_strlen(s))
+	{
+		res[i] = s[end];
+		i++;
+		end++;
+	}
+	return (res);
+}

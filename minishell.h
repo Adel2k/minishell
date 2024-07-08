@@ -41,13 +41,21 @@ typedef struct s_token
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
 void	check_for_invalid_input(t_token *tokens, int count);
+void	remove_quotes(t_token *tokens, int count);
 
 ////////////////////////utils//////////////////////////////
 int		ft_words_count(char *s, char c);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		ft_strstr(char *str, char *to_find);
+char	*ft_strdup(const char *s);
+char	*join_trio(char *s, char *s2, int start, int end);
 
 ////////////////////////ft_split///////////////////////////
-char	**ft_split(char const *s);
+char	**ft_split(char *s);
+
+////////////////////////dollar/////////////////////////////
+void	dollar_sign(t_token *tokens, int count, char **env);
 
 #endif

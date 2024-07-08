@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-static char	*init(int len, char *s)
+static char	*init(int len, char **s)
 {
 	char	*element;
 	int		i;
@@ -23,10 +23,11 @@ static char	*init(int len, char *s)
 		return (0);
 	while (i < len)
 	{
-		element[i] = s[i];
+		element[i] = (*s)[i];
 		i++;
 	}
 	element[len] = '\0';
+	(*s) += len;
 	return (element);
 }
 
@@ -70,51 +71,43 @@ int	fill_quotes(int len, char *s)
 	len = fill_single_quotes(s, len, flag);
 	return (len);
 }
-
-static int	fill(char **arr, char *s, char c)
+int check1(char c)
 {
-	int	i;
-	int	len;
+	if ((c == ' ' || c == '\0' || c == '|'
+			|| c == '<' || c == '>'))
+		return 1;
+	return 0;
+}
 
-	i = 0;
-	len = 0;
+static int	fill(char **arr, char *s, int i, int len)
+{
 	while (*s)
 	{
 		len = fill_quotes(len, s);
-		if ((s[len] == c || s[len] == '\0' || s[len] == '|'
-				|| s[len] == '<' || s[len] == '>'))
+		if (check1(s[len]))
 		{
 			if (len)
 			{
-				arr[i] = init(len, s);
-				if (!arr[i])
+				arr[i] = init(len, &s);
+				if (!arr[(++i) - 1])
 					return (0);
-				s += len;
 				len = 0;
-				i++;
 			}
-			else if (s[len] == c || s[len] == '\0')
+			else if (s[len] == ' ' || s[len] == '\0')
 				s++;
 			if (s[len] == '|' || s[len] == '<' || s[len] == '>')
 			{
 				if (s[len + 1] && ((s[len] == '<' && s[len + 1] == '<')
 						|| (s[len] == '>' && s[len + 1] == '>')))
-				{
-					arr[i] = init(2, s);
-					s += 2;
-				}
+					arr[i] = init(2, &s);
 				else
-				{
-					arr[i] = init(1, s);
-					s++;
-				}
-				if (!arr[i])
+					arr[i] = init(1, &s);
+				if (!arr[(++i) - 1])
 					return (0);
 				len = 0;
-				i++;
 			}
 		}
-		else if (s[len] != '\0' && s[len] != c )
+		else if (s[len] != '\0' && s[len] != ' ')
 			len++;
 		else
 			s++;
@@ -122,7 +115,7 @@ static int	fill(char **arr, char *s, char c)
 	return (1);
 }
 
-char	**ft_split(char const *s)
+char	**ft_split(char *s)
 {
 	int		w_count;
 	char	**arr;
@@ -137,7 +130,7 @@ char	**ft_split(char const *s)
 	arr[w_count] = 0;
 	if (!w_count)
 		return (arr);
-	if (!fill(arr, (char *) s, ' '))
+	if (!fill(arr, (char *) s, 0, 0))
 		return (0);
 	return (arr);
 }

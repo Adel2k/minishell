@@ -12,13 +12,15 @@
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;
 	char	**strs;
 	int		i;
 	int		tokens_count;
+	(void) argc;
+	(void) argv;
 
 	while (1)
 	{
@@ -41,14 +43,14 @@ int	main(void)
 			printf("No input received.\n");
 		tokens = tokenisation(strs, tokens_count);
 		free(strs);
-		//just for check
+		check_for_invalid_input(tokens, tokens_count);
+		dollar_sign(tokens, tokens_count, env);
 		int j = 0;
 		while (j < tokens_count)
 		{
 			printf("str: %s, type: %s\n", tokens[j].str, tokens[j].type);
 			j++;
 		}
-		check_for_invalid_input(tokens, tokens_count);
 	}
 	return (0);
 }
