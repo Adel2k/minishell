@@ -1,32 +1,5 @@
 #include "minishell.h"
 
-int	if_dollar(char *s)
-{
-	int	i;
-	int	index;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-		{
-			index = i;
-			break ;
-		}
-		i++;
-	}
-	if (!s[i] || !s[i + 1])
-		return (-1);
-	i = 0;
-	while (s[i])
-	{
-		if (quotes_type(s) == 1)
-			return (-1);
-		i++;
-	}
-	return (index);
-}
-
 void	cut(char c, int *type, int *flag)
 {
 	if (c == 39)
@@ -54,6 +27,7 @@ void	cut(char c, int *type, int *flag)
 	}
 }
 
+
 int	quotes_type(char *str)
 {
 	int	i;
@@ -69,17 +43,17 @@ int	quotes_type(char *str)
 		if (str[i] == '$')
 		{
 			if (type == 2 || type == 0)
-				return (type);
+				return (i);
 			if (type == 1 || flag == 1)
 			{
-				while (str[i] != 39)
+				while (str[i] && str[i] != 39)
 					i++;
-				break ;
+				continue ;
 			}
 		}
 		i++;
 	}
-	return (type);
+	return (-1);
 }
 
 char	*find_replacement(char **env, char *s)
@@ -115,7 +89,8 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 		start = 0;
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
-			start = if_dollar(tokens[i].str);
+			start = quotes_type(tokens[i].str);
+			printf("start: %d\n", start);
 			if (start != -1)
 			{
 				s = to_find(start, tokens, i);
@@ -126,5 +101,30 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 				start++;
 			}
 		}
+			// if (if_dollar(tokens[i].str + start) != -1)
+			// {
+			// 	start += if_dollar(tokens[i].str + start);
+			// 	s = to_find(start, tokens, i);
+			// 	// printf("this is unchanged: %s\n", s);
+			// 	char *l =	join_trio(tokens[i].str, find_replacement(env, s), start, start + 1 + ft_strlen(s));
+			// 	free(tokens[i].str);
+			// 	free(s);
+			// 	tokens[i].str = l;
+			// }
+			// else
+			// {
+			// 	while (tokens[i].str[start])
+			// 	{
+			// 		if (tokens[i].str[start] == 39)
+			// 		{
+			// 			start++;
+			// 			while (tokens[i].str[start] &&  tokens[i].str[start] != 39)
+			// 				start++;
+			// 			start++;
+			// 			break;
+			// 		}
+			// 		start++;
+			// 	}
+			// }
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/07 13:14:47 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:08:48 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	dollar_sign(t_token *tokens, int count, char **env);
 int		quotes_type(char *str);
 
 ////////////////////////free/////////////////////////////
-void	free_tokens(t_token *tokens, char *s, int i)
+void	free_tokens(t_token *tokens, char *s, int i);
 
 #endif
