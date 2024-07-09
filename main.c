@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void print_tokens(t_token *tokens, int tokens_count)
+void	print_tokens(t_token *tokens, int tokens_count)
 {
-	int j;
-	
+	int	j;
+
 	j = 0;
 	while (j < tokens_count)
 	{
@@ -30,9 +30,9 @@ int	main(int argc, char **argv, char **env)
 	t_token	*tokens;
 	char	**strs;
 	int		tokens_count;
+
 	(void) argc;
 	(void) argv;
-
 	while (1)
 	{
 		input = readline("\033[0;034m PONCHIKI_MINISHELL:  \033[0;000m");
@@ -46,6 +46,7 @@ int	main(int argc, char **argv, char **env)
 		free(input);
 		check_for_invalid_input(tokens, tokens_count);
 		dollar_sign(tokens, tokens_count, env);
+		remove_quotes(tokens, tokens_count);
 		print_tokens(tokens, tokens_count);
 	}
 	return (0);

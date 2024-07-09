@@ -6,7 +6,7 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/07 13:15:00 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:53:15 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,6 @@ char	*find_type(char *str, t_token *tokens, int i)
 	return ("word");
 }
 
-void	err(t_token *tokens, int count, char *message)
-{
-	int	j;
-
-	j = 0;
-	while (j < count)
-	{
-		free(tokens[j].str);
-		j++;
-	}
-	free(tokens);
-	exit(printf("%s", message));
-}
-
 void	check_for_invalid_input(t_token *tokens, int count)
 {
 	int	i;
@@ -95,30 +81,30 @@ void	check_for_invalid_input(t_token *tokens, int count)
 	}
 }
 
-void	remove_quotes(t_token *tokens, int count)
-{
-	int	i;
-	int	flag;
-	int	j;
+// void	remove_quotes(t_token *tokens, int count)
+// {
+// 	int	i;
+// 	int	flag;
+// 	int	j;
 
-	i = 0;
-	while (i < count)
-	{
-		j = 0;
-		flag = 0;
-		while (tokens[i].str[j])
-		{
-			if (tokens[i].str[j] == 39)
-			{
-				flag = 1;
-				break ;
-			}
-			if (tokens[i].str[j] == '"')
-			{
-				flag = 2;
-				break ;
-			}
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < count)
+// 	{
+// 		j = 0;
+// 		flag = 0;
+// 		while (tokens[i].str[j])
+// 		{
+// 			if (tokens[i].str[j] == 39)
+// 			{
+// 				flag = 1;
+// 				break ;
+// 			}
+// 			if (tokens[i].str[j] == '"')
+// 			{
+// 				flag = 2;
+// 				break ;
+// 			}
+// 		}
+// 		i++;
+// 	}
+// }
