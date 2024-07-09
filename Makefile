@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -I ./ -g3 -fsanitize=address
 LDFLAGS = -lreadline
 
 
-SRCS = main.c ft_split.c tokenisation.c utils.c word_count.c dollar.c utils2.c free.c quotes.c
+SRCS = main.c ft_split_tokens.c tokenisation.c utils.c word_count.c dollar.c utils2.c free.c quotes.c ft_split.c
 
 OBJS = $(SRCS:.c=.o)
 

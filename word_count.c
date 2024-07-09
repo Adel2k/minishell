@@ -74,7 +74,7 @@ int	if_double(int i, int *count, int *flag, char *s)
 	return (i);
 }
 
-int	ft_words_count(char *s, char c)
+int	ft_words_count_tokens(char *s, char c)
 {
 	int	i;
 	int	flag;

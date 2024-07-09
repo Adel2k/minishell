@@ -81,3 +81,17 @@ char	*join_trio(char *s, char *s2, int start, int end)
 	}
 	return (res);
 }
+
+char	*cut2(char **s, int *len)
+{
+	if ((*s)[*len] == '|' || (*s)[*len] == '<' || (*s)[*len] == '>')
+	{
+		if ((*s)[*len + 1] && (((*s)[*len + 1] == '<' && (*s)[*len + 1] == '<')
+				|| ((*s)[*len] == '>' && (*s)[*len + 1] == '>')))
+			return (init_tokens(2, s));
+		else
+			return (init_tokens(1, s));
+		*len = 0;
+	}
+	return (0);
+}

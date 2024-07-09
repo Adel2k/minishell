@@ -37,8 +37,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = readline("\033[0;034m PONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
-		tokens_count = ft_words_count(input, ' ');
-		strs = ft_split(input);
+		tokens_count = ft_words_count_tokens(input, ' ');
+		strs = ft_split_tokens(input);
 		if (!input)
 			exit(printf("No input received.\n"));
 		tokens = tokenisation(strs, tokens_count);
@@ -48,6 +48,15 @@ int	main(int argc, char **argv, char **env)
 		dollar_sign(tokens, tokens_count, env);
 		remove_quotes(tokens, tokens_count);
 		print_tokens(tokens, tokens_count);
+		t_minishell *minishell;
+
+		minishell = malloc(sizeof(t_minishell));
+		if (!minishell)
+			return (1);
+		minishell->tokens = tokens;
+		minishell->tokens_count = tokens_count;
+		minishell->env = env;
+		//run_command(minishell);
 	}
 	return (0);
 }

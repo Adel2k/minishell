@@ -37,6 +37,13 @@ typedef struct s_token
 	// limiter after <<
 }	t_token;
 
+typedef struct s_minishell
+{
+	t_token	*tokens;
+	int		tokens_count;
+	char	**env;
+}	t_minishell;
+
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
@@ -55,9 +62,11 @@ char	*ft_strdup(const char *s);
 char	*join_trio(char *s, char *s2, int start, int end);
 int		check1(char c);
 char	*to_find(int start, t_token *tokens, int i);
+char	*cut2(char **s, int *len);
 
-////////////////////////ft_split///////////////////////////
-char	**ft_split(char *s);
+////////////////////////ft_split_tokens///////////////////////////
+char		**ft_split_tokens(char *s);
+char		*init_tokens(int len, char **s);
 
 ////////////////////////dollar/////////////////////////////
 void	dollar_sign(t_token *tokens, int count, char **env);
@@ -68,11 +77,9 @@ void	free_tokens(t_token *tokens, char *s, int i);
 void	err(t_token *tokens, int count, char *message);
 
 ////////////////////////words_count/////////////////////////////
-int		ft_words_count(char *s, char c);
-
+int		ft_words_count_tokens(char *s, char c);
 void	remove_quotes(t_token *tokens, int count);
-void loop_for_quotes(t_token *tokens, int i, int count);
-char *creating_new(char *old, int start, int j);
-
+void	loop_for_quotes(t_token *tokens, int i, int count);
+char	*creating_new(char *old, int start, int j);
 
 #endif
