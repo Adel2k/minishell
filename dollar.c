@@ -90,7 +90,6 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
 			start = quotes_type(tokens[i].str);
-			printf("start: %d\n", start);
 			if (start != -1)
 			{
 				s = to_find(start, tokens, i);
@@ -101,30 +100,5 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 				start++;
 			}
 		}
-			// if (if_dollar(tokens[i].str + start) != -1)
-			// {
-			// 	start += if_dollar(tokens[i].str + start);
-			// 	s = to_find(start, tokens, i);
-			// 	// printf("this is unchanged: %s\n", s);
-			// 	char *l =	join_trio(tokens[i].str, find_replacement(env, s), start, start + 1 + ft_strlen(s));
-			// 	free(tokens[i].str);
-			// 	free(s);
-			// 	tokens[i].str = l;
-			// }
-			// else
-			// {
-			// 	while (tokens[i].str[start])
-			// 	{
-			// 		if (tokens[i].str[start] == 39)
-			// 		{
-			// 			start++;
-			// 			while (tokens[i].str[start] &&  tokens[i].str[start] != 39)
-			// 				start++;
-			// 			start++;
-			// 			break;
-			// 		}
-			// 		start++;
-			// 	}
-			// }
 	}
 }
