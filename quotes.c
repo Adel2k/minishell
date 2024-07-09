@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 19:10:53 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/09 19:10:59 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	remove_quotes(t_token *tokens, int count)
@@ -12,13 +24,13 @@ void	remove_quotes(t_token *tokens, int count)
 	}
 }
 
-void loop_for_quotes(t_token *tokens, int i, int count)
+void	loop_for_quotes(t_token *tokens, int i, int count)
 {
-	int j;
-	int start;
-	char *s;
-	int c;
-	
+	int		j;
+	int		start;
+	char	*s;
+	int		c;
+
 	j = 0;
 	while ((size_t) j < ft_strlen(tokens[i].str))
 	{
@@ -41,11 +53,11 @@ void loop_for_quotes(t_token *tokens, int i, int count)
 	}
 }
 
-char *creating_new(char *old, int start, int j)
+char	*creating_new(char *old, int start, int j)
 {
-	char *s;
-	int k;
-	int l;
+	char	*s;
+	int		k;
+	int		l;
 
 	s = malloc(ft_strlen(old) - 1);
 	if (!s)
