@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-size_t	ft_strlen_split(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 static int	ft_words_count(char *s, char c)
 {
 	int	i;
@@ -31,6 +21,8 @@ static int	ft_words_count(char *s, char c)
 	i = 0;
 	flag = 0;
 	count = 0;
+	if (!s)
+		return (0);
 	while (i <= (int)ft_strlen(s))
 	{
 		if ((s[i] == c || s[i] == '\0') && flag)

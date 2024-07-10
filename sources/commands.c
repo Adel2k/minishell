@@ -1,64 +1,14 @@
 #include "minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	s1_size;
-	size_t	s2_size;
-	char	*s3;
-	int		i;
-
-	i = 0;
-	s1_size = ft_strlen(s1);
-	s2_size = ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(char) * (s1_size + s2_size + 2));
-	if (!s3)
-		return (NULL);
-	while (s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	s3[i++] = '/';
-	while (s2[i - s1_size - 1])
-	{
-		s3[i] = s2[i - s1_size - 1];
-		i++;
-	}
-	s3[i] = '\0';
-	return (s3);
-}
-
-char	*ft_strstr(char *str, char *to_find)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	if (*to_find == '\0')
-		return (str);
-	while (str[i] != '\0')
-	{
-		j = 0;
-		while (to_find[j] != '\0' && str[i + j] == to_find[j])
-		{
-			if (to_find[j + 1] == 0)
-				return (&str[i]);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-char	*check_in_dirs(char *command, t_cmd *cmd)
+char	*check_in_dirs(char *command, t_minishell *minishell)
 {
 	int		i;
 	char	*joined_cmd;
 
 	i = 0;
-	while (cmd -> dirs[i])
+	while (minishell -> cmd_dirs[i])
 	{
-		joined_cmd = ft_strjoin(cmd -> dirs[i], command);
+		joined_cmd = ft_strjoin(minishell -> cmd_dirs[i], command);
 		if (access(joined_cmd, X_OK) != -1)
 		{
 			free(command);
@@ -68,41 +18,92 @@ char	*check_in_dirs(char *command, t_cmd *cmd)
 		free(joined_cmd);
 		i++;
 	}
-	if (!cmd -> dirs[i])
+	if (!minishell -> cmd_dirs[i])
 		return (0);
 	return (command);
 }
 
-char	**check_for_command(t_cmd *cmd)
+int	count_cmd_args(t_minishell *minishell)
 {
-	char	**command;
-	char	*cmd1;
+	int	i;
+	int	count;
 
-	command = ft_split(cmd -> argv[cmd -> cmd_index], ' ');
-	cmd1 = check_in_dirs(ft_strdup(command[0]), cmd);
-	if (!cmd1)
+	i = 0;
+	count = 0;
+	while (i < minishell->tokens_count && ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
-		if (access(command[0], X_OK) != -1)
-			return (command);
-		command_not_found(cmd, command);
+		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char **cmd_args(t_minishell *minishell)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+	char **args = malloc((count_cmd_args(minishell) + 1) * sizeof(char *));
+	if (!args)
+		err(minishell->tokens, minishell->tokens_count, "Malloc_err\n");
+	while (i < minishell->tokens_count && ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
+	{
+		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
+		{
+			args[j] = minishell->tokens[i].str;
+			j++;
+		}
+		i++;
+	}
+	args[j] = 0;
+	return (args);
+}
+
+char **check_cmd(t_minishell *minishell)
+{
+	char **command;
+	char *cmd;
+
+	command = cmd_args(minishell);
+	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
+	if (!cmd)
+	{
+		if (access(command[0], X_OK) == -1)
+			err(minishell->tokens, minishell->tokens_count, "No command");
 	}
 	else
 	{
 		free(command[0]);
-		command[0] = cmd1;
+		command[0] = cmd;
 	}
 	return (command);
 }
 
-// void run_command(t_minishell *minishell)
-// {
-// 	int pid;
+void run_commands(t_minishell *minishell)
+{
+	char **command;
+	int	i;
+	int pid;
 
-// 	pid = fork();
-// 	if (pid == -1)
-// 		err(minishell->tokens, minishell->tokens_count, "fork error\n");
-// 	if (pid == 0)
-// 	{
-// 		char **command = 
-// 	}
-// }
+	pid = fork();
+	if (pid == -1)
+		err(minishell->tokens, minishell->tokens_count, "Fork failed");
+	if (pid == 0)
+	{
+		command = check_cmd(minishell);
+		if (execve(command[0], command, minishell -> env) == -1)
+		{
+			i = 0;
+			while (command[i])
+				free(command[i++]);
+			free(command);
+			err(minishell->tokens, minishell->tokens_count, "Executing command failed\n");
+		}
+		printf("kkkkkkkkkkkk\n");
+	}
+	else
+		waitpid(pid, NULL, 0);
+}

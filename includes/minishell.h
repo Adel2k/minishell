@@ -42,6 +42,9 @@ typedef struct s_minishell
 	t_token	*tokens;
 	int		tokens_count;
 	char	**env;
+	char	**cmd_dirs;
+	int		index;
+	(int *) 
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -86,5 +89,18 @@ char	*creating_new(char *old, int start, int j);
 ////////////////////////error/////////////////////////////
 void	malloc_check(void *str);
 void	error_handle(void);
+
+////////////////////////commands.c/////////////////////////////
+int	count_cmd_args(t_minishell *minishell);
+void run_commands(t_minishell *minishell);
+
+////////////////////////ft_split/////////////////////////////
+char	**ft_split(char const *s, char c);
+
+
+
+char	*ft_strjoin(char *s1, char *s2);
+
+
 
 #endif

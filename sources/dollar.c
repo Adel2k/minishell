@@ -109,8 +109,7 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 					free(s);
 					return ;
 				}
-				char *pid = ft_itoa(getpid());
-				if (ft_strcmp(s, pid) == 0)
+				if (ft_strcmp(s, ft_itoa(getpid())) == 0)
 					l = join_trio(tokens[i].str, s, start, start + 2);
 				else
 				{

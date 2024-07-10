@@ -24,6 +24,74 @@ void	print_tokens(t_token *tokens, int tokens_count)
 	}
 }
 
+char	*ft_strstr_alt(char *str, char *to_find)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	if (*to_find == '\0')
+		return (str);
+	while (str[i] != '\0')
+	{
+		j = 0;
+		while (to_find[j] != '\0' && str[i + j] == to_find[j])
+		{
+			if (to_find[j + 1] == 0)
+				return (&str[i]);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	s1_size;
+	size_t	s2_size;
+	char	*s3;
+	int		i;
+
+	i = 0;
+	s1_size = ft_strlen(s1);
+	s2_size = ft_strlen(s2);
+	s3 = (char *)malloc(sizeof(char) * (s1_size + s2_size + 2));
+	if (!s3)
+		return (NULL);
+	while (s1[i])
+	{
+		s3[i] = s1[i];
+		i++;
+	}
+	s3[i++] = '/';
+	while (s2[i - s1_size - 1])
+	{
+		s3[i] = s2[i - s1_size - 1];
+		i++;
+	}
+	s3[i] = '\0';
+	return (s3);
+}
+
+char **init_dirs(t_minishell *minishell)
+{
+	int		i;
+	char	**dirs;
+
+	i = 0;
+	while (minishell -> env[i])
+	{
+		if (ft_strstr_alt(minishell -> env[i], "PATH="))
+			break ;
+		i++;
+	}
+	dirs = ft_split(minishell -> env[i] + 5, ':');
+	if (!dirs)
+		err(minishell->tokens, minishell->tokens_count, "split_err\n");
+	return (dirs);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
@@ -56,7 +124,12 @@ int	main(int argc, char **argv, char **env)
 		minishell->tokens = tokens;
 		minishell->tokens_count = tokens_count;
 		minishell->env = env;
-		//run_command(minishell);
+		minishell->cmd_dirs = init_dirs(minishell);
+		while (minishell->index < minishell->tokens_count)
+		{
+			pipex(minishell);
+			run_commands(minishell);
+		}
 	}
 	return (0);
 }

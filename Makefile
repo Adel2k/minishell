@@ -14,7 +14,7 @@ SRCS_DIR = sources/
 
 OBJS_DIR = objects/
 
-SRCS_NAME = main.c ft_split_tokens.c error_handle.c tokenisation.c ft_itoa.c utils.c word_count.c dollar.c utils2.c free.c quotes.c ft_split.c
+SRCS_NAME = main.c ft_split_tokens.c error_handle.c tokenisation.c ft_itoa.c utils.c word_count.c dollar.c utils2.c free.c quotes.c ft_split.c commands.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
