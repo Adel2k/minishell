@@ -104,9 +104,16 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 			if (start != -1)
 			{
 				s = to_find(start, tokens, i);
-				l = join_trio(tokens[i].str, find_replacement(env, s),
-						start, start + 1 + ft_strlen(s));
-				free_tokens(tokens, s, i);
+				char *pid = ft_itoa(getpid());
+				if (ft_strcmp(s, pid) == 0)
+					l = join_trio(tokens[i].str, s, start, start + 2);
+				else
+				{
+					l = join_trio(tokens[i].str, find_replacement(env, s),
+					start, start + 1 + ft_strlen(s));
+					free(s);	
+				}
+				free(tokens[i].str);
 				tokens[i].str = l;
 				start++;
 			}

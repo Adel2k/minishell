@@ -63,6 +63,7 @@ char	*join_trio(char *s, char *s2, int start, int end);
 int		check1(char c);
 char	*to_find(int start, t_token *tokens, int i);
 char	*cut2(char **s, int *len);
+char	*ft_itoa(int n);
 
 ////////////////////////ft_split_tokens///////////////////////////
 char	**ft_split_tokens(char *s);
@@ -81,5 +82,9 @@ int		ft_words_count_tokens(char *s, char c);
 void	remove_quotes(t_token *tokens, int count);
 void	loop_for_quotes(t_token *tokens, int i, int count);
 char	*creating_new(char *old, int start, int j);
+
+////////////////////////error/////////////////////////////
+void	malloc_check(void *str);
+void	error_handle(void);
 
 #endif

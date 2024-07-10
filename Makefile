@@ -4,7 +4,7 @@ READLINE = readline
 CC = cc
 
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 fsanitize=address
+CFLAGS = -Wall -Wextra -Werror $(INC_DIRS) -g3 -fsanitize=address
 LIBS_DIR = libraries
 READLINE_LIB_PATH = $(LIBS_DIR)/readline/lib
 
@@ -14,7 +14,7 @@ SRCS_DIR = sources/
 
 OBJS_DIR = objects/
 
-SRCS_NAME = main.c ft_split_tokens.c tokenisation.c utils.c word_count.c dollar.c utils2.c free.c quotes.c ft_split.c
+SRCS_NAME = main.c ft_split_tokens.c error_handle.c tokenisation.c ft_itoa.c utils.c word_count.c dollar.c utils2.c free.c quotes.c ft_split.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
