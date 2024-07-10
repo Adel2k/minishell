@@ -65,8 +65,8 @@ char	*to_find(int start, t_token *tokens, int i);
 char	*cut2(char **s, int *len);
 
 ////////////////////////ft_split_tokens///////////////////////////
-char		**ft_split_tokens(char *s);
-char		*init_tokens(int len, char **s);
+char	**ft_split_tokens(char *s);
+char	*init_tokens(int len, char **s);
 
 ////////////////////////dollar/////////////////////////////
 void	dollar_sign(t_token *tokens, int count, char **env);
