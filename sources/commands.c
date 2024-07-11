@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   commands.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/11 13:55:24 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*check_in_dirs(char *command, t_minishell *minishell)
@@ -28,9 +40,10 @@ int	count_cmd_args(t_minishell *minishell)
 	int	i;
 	int	count;
 
-	i = 0;
+	i = minishell->index;
 	count = 0;
-	while (i < minishell->tokens_count && ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
+	while (i < minishell->tokens_count
+		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
 		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
 			count++;
@@ -39,17 +52,19 @@ int	count_cmd_args(t_minishell *minishell)
 	return (count);
 }
 
-char **cmd_args(t_minishell *minishell)
+char	**cmd_args(t_minishell *minishell)
 {
-	int	i;
-	int j;
+	int		i;
+	int		j;
+	char	**args;
 
-	i = 0;
+	i = minishell->index;
 	j = 0;
-	char **args = malloc((count_cmd_args(minishell) + 1) * sizeof(char *));
+	args = malloc((count_cmd_args(minishell) + 1) * sizeof(char *));
 	if (!args)
 		err(minishell->tokens, minishell->tokens_count, "Malloc_err\n");
-	while (i < minishell->tokens_count && ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
+	while (i < minishell->tokens_count
+		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
 		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
 		{
@@ -59,13 +74,14 @@ char **cmd_args(t_minishell *minishell)
 		i++;
 	}
 	args[j] = 0;
+	minishell->index = i;
 	return (args);
 }
 
-char **check_cmd(t_minishell *minishell)
+char	**check_cmd(t_minishell *minishell)
 {
-	char **command;
-	char *cmd;
+	char	**command;
+	char	*cmd;
 
 	command = cmd_args(minishell);
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
@@ -82,28 +98,25 @@ char **check_cmd(t_minishell *minishell)
 	return (command);
 }
 
-void run_commands(t_minishell *minishell)
+void	run_commands(t_minishell *minishell)
 {
-	char **command;
-	int	i;
-	int pid;
+	char	**command;
+	int		pid;
 
+	command = check_cmd(minishell);
 	pid = fork();
 	if (pid == -1)
 		err(minishell->tokens, minishell->tokens_count, "Fork failed");
 	if (pid == 0)
 	{
-		command = check_cmd(minishell);
+		pipex(minishell);
 		if (execve(command[0], command, minishell -> env) == -1)
 		{
-			i = 0;
-			while (command[i])
-				free(command[i++]);
 			free(command);
-			err(minishell->tokens, minishell->tokens_count, "Executing command failed\n");
+			err(minishell->tokens, minishell->tokens_count,
+				"Executing command failed\n");
 		}
-		printf("kkkkkkkkkkkk\n");
 	}
-	else
-		waitpid(pid, NULL, 0);
+	// else
+		// waitpid(pid, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
 }

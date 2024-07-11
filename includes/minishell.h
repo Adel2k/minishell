@@ -20,6 +20,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <limits.h>
+# include <fcntl.h>
 
 typedef struct s_token
 {
@@ -44,7 +45,9 @@ typedef struct s_minishell
 	char	**env;
 	char	**cmd_dirs;
 	int		index;
-	(int *) 
+	int (*fd)[2];
+	int pipe_count;
+	int pipe_index;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -91,16 +94,16 @@ void	malloc_check(void *str);
 void	error_handle(void);
 
 ////////////////////////commands.c/////////////////////////////
-int	count_cmd_args(t_minishell *minishell);
-void run_commands(t_minishell *minishell);
+int		count_cmd_args(t_minishell *minishell);
+void	run_commands(t_minishell *minishell);
 
 ////////////////////////ft_split/////////////////////////////
 char	**ft_split(char const *s, char c);
-
-
-
 char	*ft_strjoin(char *s1, char *s2);
 
+int pipe_count(t_minishell *minishell);
+void	init_fd(t_minishell *minishell);
+void pipex(t_minishell *minishell);
 
 
 #endif

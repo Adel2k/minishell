@@ -43,7 +43,7 @@ char	*to_find(int start, t_token *tokens, int i)
 	end = start + 1;
 	pid = getpid();
 	if (tokens[i].str[end] == '$')
-		return(ft_itoa(pid));
+		return (ft_itoa(pid));
 	while (tokens[i].str[end])
 	{
 		if (tokens[i].str[end] == ' ' || tokens[i].str[end] == 39
@@ -68,12 +68,9 @@ char	*join_trio(char *s, char *s2, int start, int end)
 	res = malloc(start + ft_strlen(s2) + ft_strlen(s) - end + 1);
 	malloc_check(res);
 	res[start + ft_strlen(s2) + ft_strlen(s) - end] = 0;
-	i = 0;
-	while (i < start)
-	{
+	i = -1;
+	while (++i < start)
 		res[i] = s[i];
-		i++;
-	}
 	j = 0;
 	while (s2 && s2[j])
 		res[(++i) - 1] = s2[(++j) - 1];

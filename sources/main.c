@@ -103,7 +103,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	while (1)
 	{
-		input = readline("\033[0;034m PONCHIKI_MINISHELL:  \033[0;000m");
+		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		tokens_count = ft_words_count_tokens(input, ' ');
 		strs = ft_split_tokens(input);
@@ -125,10 +125,33 @@ int	main(int argc, char **argv, char **env)
 		minishell->tokens_count = tokens_count;
 		minishell->env = env;
 		minishell->cmd_dirs = init_dirs(minishell);
+		minishell->pipe_count = pipe_count(minishell);
+		minishell->pipe_index = 0;
+		minishell->index = 0;
+		init_fd(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
-			pipex(minishell);
+			// printf("%d   %d\n", minishell->pipe_index, minishell->pipe_count);
 			run_commands(minishell);
+			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
+			{
+				minishell->pipe_index++;
+				minishell->index++;
+			}
+		}
+		printf("AAAAAAAAAA\n");
+		int i = 0;
+		while (i < minishell->pipe_count)
+		{
+			close(minishell->fd[i][0]);
+			close(minishell->fd[i][1]);
+			i++;
+		}
+				int k = 0;
+		while (k < minishell->pipe_count + 1)
+		{
+			waitpid(-1, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
+			k++;
 		}
 	}
 	return (0);

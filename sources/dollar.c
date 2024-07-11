@@ -85,12 +85,38 @@ char	*find_replacement(char **env, char *s)
 	return (0);
 }
 
-void	dollar_sign(t_token *tokens, int count, char **env)
+int	dollar_sign2(int start, t_token *tokens, int i, char **env)
 {
-	int		i;
-	int		start;
 	char	*s;
 	char	*l;
+
+	if (start != -1)
+	{
+		s = to_find(start, tokens, i);
+		if (ft_strlen(s) == 0)
+		{
+			free(s);
+			return (0);
+		}
+		if (ft_strcmp(s, ft_itoa(getpid())) == 0)
+			l = join_trio(tokens[i].str, s, start, start + 2);
+		else
+		{
+			l = join_trio(tokens[i].str, find_replacement(env, s),
+					start, start + 1 + ft_strlen(s));
+			free(s);
+		}
+		free(tokens[i].str);
+		tokens[i].str = l;
+		start++;
+	}
+	return (start);
+}
+
+void	dollar_sign(t_token *tokens, int count, char **env)
+{
+	int	i;
+	int	start;
 
 	i = -1;
 	while (++i < count)
@@ -101,26 +127,9 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
 			start = quotes_type(tokens[i].str);
-			if (start != -1)
-			{
-				s = to_find(start, tokens, i);
-				if (ft_strlen(s) == 0)
-				{
-					free(s);
-					return ;
-				}
-				if (ft_strcmp(s, ft_itoa(getpid())) == 0)
-					l = join_trio(tokens[i].str, s, start, start + 2);
-				else
-				{
-					l = join_trio(tokens[i].str, find_replacement(env, s),
-					start, start + 1 + ft_strlen(s));
-					free(s);	
-				}
-				free(tokens[i].str);
-				tokens[i].str = l;
-				start++;
-			}
+			start = dollar_sign2(start, tokens, i, env);
+			if (start == 0)
+				return ;
 		}
 	}
 }
