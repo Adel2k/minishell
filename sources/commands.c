@@ -78,17 +78,15 @@ char	**cmd_args(t_minishell *minishell)
 	return (args);
 }
 
-char	**check_cmd(t_minishell *minishell)
+char	**check_cmd(char **command, t_minishell *minishell)
 {
-	char	**command;
 	char	*cmd;
 
-	command = cmd_args(minishell);
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
 	if (!cmd)
 	{
 		if (access(command[0], X_OK) == -1)
-			err(minishell->tokens, minishell->tokens_count, "No command");
+			err(minishell->tokens, minishell->tokens_count, "No command\n");
 	}
 	else
 	{
@@ -103,12 +101,13 @@ void	run_commands(t_minishell *minishell)
 	char	**command;
 	int		pid;
 
-	command = check_cmd(minishell);
+	command = cmd_args(minishell);
 	pid = fork();
 	if (pid == -1)
 		err(minishell->tokens, minishell->tokens_count, "Fork failed");
 	if (pid == 0)
 	{
+		command = check_cmd(command, minishell);
 		pipex(minishell);
 		if (execve(command[0], command, minishell -> env) == -1)
 		{
@@ -117,6 +116,4 @@ void	run_commands(t_minishell *minishell)
 				"Executing command failed\n");
 		}
 	}
-	// else
-		// waitpid(pid, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
 }

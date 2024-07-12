@@ -131,7 +131,6 @@ int	main(int argc, char **argv, char **env)
 		init_fd(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
-			// printf("%d   %d\n", minishell->pipe_index, minishell->pipe_count);
 			run_commands(minishell);
 			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
 			{
@@ -139,7 +138,6 @@ int	main(int argc, char **argv, char **env)
 				minishell->index++;
 			}
 		}
-		printf("AAAAAAAAAA\n");
 		int i = 0;
 		while (i < minishell->pipe_count)
 		{
