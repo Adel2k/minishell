@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/07 13:14:55 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:37:07 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,18 @@ int	main(int argc, char **argv, char **env)
 		minishell->tokens = tokens;
 		minishell->tokens_count = tokens_count;
 		minishell->env = env;
+		// t_env *envm = init_env(minishell);
+		// while (envm)
+		// {
+		// 	printf("key: %s     value: %s \n", envm->key, envm->value);
+		// 	envm = envm->next;
+		// }
 		minishell->cmd_dirs = init_dirs(minishell);
 		minishell->pipe_count = pipe_count(minishell);
 		minishell->pipe_index = 0;
 		minishell->index = 0;
 		init_fd(minishell);
+		builtin(tokens);
 		while (minishell->index < minishell->tokens_count)
 		{
 			// printf("%d   %d\n", minishell->pipe_index, minishell->pipe_count);

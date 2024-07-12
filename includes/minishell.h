@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/09 14:08:48 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:38:57 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef struct s_token
 	// append_file after >>
 	// limiter after <<
 }	t_token;
+typedef struct s_env
+{
+	char			*info;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_minishell
 {
@@ -45,9 +52,10 @@ typedef struct s_minishell
 	char	**env;
 	char	**cmd_dirs;
 	int		index;
-	int (*fd)[2];
-	int pipe_count;
-	int pipe_index;
+	int		(*fd)[2];
+	int		pipe_count;
+	int		pipe_index;
+	t_env	*envm;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -100,10 +108,14 @@ void	run_commands(t_minishell *minishell);
 ////////////////////////ft_split/////////////////////////////
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
-
-int pipe_count(t_minishell *minishell);
+int		pipe_count(t_minishell *minishell);
 void	init_fd(t_minishell *minishell);
-void pipex(t_minishell *minishell);
+void	pipex(t_minishell *minishell);
 
+////////////////////////init/////////////////////////////
+t_env	*init_env(t_minishell *minishell);
+
+////////////////////////builtin/////////////////////////////
+void	builtin(t_token *tokens);
 
 #endif

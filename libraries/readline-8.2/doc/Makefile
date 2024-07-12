@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/aeminian/Desktop/minishell/libraries/readline
+prefix = /Users/hrigrigo/Desktop/minishell/libraries/readline
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/aeminian/Desktop/minishell/libraries/readline-8.2
+BUILD_DIR = /Users/hrigrigo/Desktop/minishell/libraries/readline-8.2
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo
