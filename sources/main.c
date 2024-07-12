@@ -131,6 +131,8 @@ int	main(int argc, char **argv, char **env)
 		init_fd(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
+			minishell->infile = 0;
+			minishell->outfile = 1;
 			run_commands(minishell);
 			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
 			{

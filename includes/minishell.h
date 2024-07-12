@@ -48,6 +48,8 @@ typedef struct s_minishell
 	int (*fd)[2];
 	int pipe_count;
 	int pipe_index;
+	int infile;
+	int outfile;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
