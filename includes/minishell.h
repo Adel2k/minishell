@@ -50,6 +50,8 @@ typedef struct s_minishell
 	int pipe_index;
 	int infile;
 	int outfile;
+	int if_here_doc;
+	int (*here_doc)[2];
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -107,5 +109,6 @@ int pipe_count(t_minishell *minishell);
 void	init_fd(t_minishell *minishell);
 void pipex(t_minishell *minishell);
 
+int	here_doc(char *limiter, t_minishell *minishell);
 
 #endif

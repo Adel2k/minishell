@@ -17,11 +17,13 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 	int		i;
 	char	*joined_cmd;
 
+	if (!command || !*command)
+		exit(0);
 	i = 0;
 	while (minishell -> cmd_dirs[i])
 	{
 		joined_cmd = ft_strjoin(minishell -> cmd_dirs[i], command);
-		if (access(joined_cmd, X_OK) != -1)
+		if (access(joined_cmd, X_OK | F_OK) != -1)
 		{
 			free(command);
 			command = joined_cmd;
@@ -89,12 +91,6 @@ char	**cmd_args(t_minishell *minishell)
 	while (i < minishell->tokens_count
 		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
-		if (ft_strcmp(minishell->tokens[i].type, "in_file") == 0)
-			minishell->infile = open_infile(minishell->tokens[i].str);
-		if (ft_strcmp(minishell->tokens[i].type, "out_file") == 0)
-			minishell->outfile = open_outfile(minishell->tokens[i].str, 0);
-		if (ft_strcmp(minishell->tokens[i].type, "append_file") == 0)
-			minishell->outfile = open_outfile(minishell->tokens[i].str, 1);
 		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
 		{
 			args[j] = minishell->tokens[i].str;
@@ -107,10 +103,29 @@ char	**cmd_args(t_minishell *minishell)
 	return (args);
 }
 
+void init_redirs(t_minishell *minishell)
+{
+	int i;
+
+	i = 0;
+	while (i < minishell->tokens_count
+		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
+	{
+		if (ft_strcmp(minishell->tokens[i].type, "in_file") == 0)
+			minishell->infile = open_infile(minishell->tokens[i].str);
+		if (ft_strcmp(minishell->tokens[i].type, "out_file") == 0)
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 0);
+		if (ft_strcmp(minishell->tokens[i].type, "append_file") == 0)
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 1);
+		if (ft_strcmp(minishell->tokens[i].type, "limiter") == 0)
+			minishell->if_here_doc = here_doc(minishell->tokens[i].str, minishell);
+		i++;
+	}
+}
+
 char	**check_cmd(char **command, t_minishell *minishell)
 {
 	char	*cmd;
-
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
 	if (!cmd)
 	{
@@ -127,9 +142,19 @@ char	**check_cmd(char **command, t_minishell *minishell)
 
 void redirs(t_minishell *minishell)
 {
+	if (minishell->if_here_doc)
+	{
+		if (dup2((*minishell -> here_doc)[0], 0) == -1)
+		{
+			close((*minishell -> here_doc)[0]);
+			close((*minishell -> here_doc)[1]);
+			err(minishell->tokens, minishell->tokens_count, "dup2 error\n");
+		}
+			close((*minishell -> here_doc)[0]);
+			close((*minishell->here_doc)[1]);
+	}
 	if (minishell->outfile > 1)
 	{
-			printf("line: %d\n", __LINE__);
 		if (dup2(minishell->outfile, 1) == -1)
 		{
 			close(minishell->outfile);
@@ -153,6 +178,10 @@ void	run_commands(t_minishell *minishell)
 	char	**command;
 	int		pid;
 
+	init_redirs(minishell);
+	printf("count %d\n", count_cmd_args(minishell));
+	if (count_cmd_args(minishell) == 0)
+		err(minishell->tokens, minishell->tokens_count, "");
 	command = cmd_args(minishell);
 	pid = fork();
 	if (pid == -1)
