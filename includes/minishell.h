@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/12 15:38:57 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:09:35 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_minishell
 	int		pipe_count;
 	int		pipe_index;
 	t_env	*envm;
+	int infile;
+	int outfile;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -104,6 +106,7 @@ void	error_handle(void);
 ////////////////////////commands.c/////////////////////////////
 int		count_cmd_args(t_minishell *minishell);
 void	run_commands(t_minishell *minishell);
+char	**cmd_args(t_minishell *minishell);
 
 ////////////////////////ft_split/////////////////////////////
 char	**ft_split(char const *s, char c);
@@ -116,6 +119,9 @@ void	pipex(t_minishell *minishell);
 t_env	*init_env(t_minishell *minishell);
 
 ////////////////////////builtin/////////////////////////////
-void	builtin(t_token *tokens);
+void	builtin(t_minishell *minishell);
+
+////////////////////////utils3//////////////////////////////
+int	matrix_len(char **array);
 
 #endif

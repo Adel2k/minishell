@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/12 15:37:07 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:15:09 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int argc, char **argv, char **env)
 		check_for_invalid_input(tokens, tokens_count);
 		dollar_sign(tokens, tokens_count, env);
 		remove_quotes(tokens, tokens_count);
-		print_tokens(tokens, tokens_count);
+	// print_tokens(tokens, tokens_count);
 		t_minishell *minishell;
 
 		minishell = malloc(sizeof(t_minishell));
@@ -135,10 +135,11 @@ int	main(int argc, char **argv, char **env)
 		minishell->pipe_index = 0;
 		minishell->index = 0;
 		init_fd(minishell);
-		builtin(tokens);
+		builtin(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
-			// printf("%d   %d\n", minishell->pipe_index, minishell->pipe_count);
+			minishell->infile = 0;
+			minishell->outfile = 1;
 			run_commands(minishell);
 			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
 			{
@@ -146,7 +147,6 @@ int	main(int argc, char **argv, char **env)
 				minishell->index++;
 			}
 		}
-		printf("AAAAAAAAAA\n");
 		int i = 0;
 		while (i < minishell->pipe_count)
 		{
