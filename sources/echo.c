@@ -1,9 +1,17 @@
 #include "minishell.h"
 
-void	ft_putstr_fd(char *s)
+int	pwd(void)
 {
-	if (s)
-		write (1, s, ft_strlen(s));
+	char	path[PATH_MAX];
+
+	if (!getcwd(path, PATH_MAX))
+	{
+		ft_putstr_fd("getcwd ERROR!\n");
+		return (1);
+	}
+	ft_putstr_fd(path);
+	write(1, "\n", 1);
+	return (0);
 }
 
 int	check_newline(char *str)
@@ -72,6 +80,11 @@ int	builtin(t_minishell *minishell, char **command)
 	if (ft_strcmp(command[0], "/usr/bin/env") == 0 || ft_strcmp(command[0], "env") == 0)
 	{
 		env(minishell);
+		return (1);
+	}
+	if (ft_strcmp(command[0], "/bin/pwd") == 0 || ft_strcmp(command[0], "pwd") == 0)
+	{
+		pwd();
 		return (1);
 	}
 	return (0);

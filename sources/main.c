@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 17:05:33 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:04:37 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	main(int argc, char **argv, char **env)
 		init_fd(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
-			printf("%d\n", __LINE__);
+			// printf("%d\n", __LINE__);
 			minishell->infile = 0;
 			minishell->outfile = 1;
 			minishell->if_here_doc = 0;
@@ -146,7 +146,7 @@ int	main(int argc, char **argv, char **env)
 				close(minishell->infile);
 			if (minishell->outfile > 1)
 				close(minishell->outfile);
-			printf("Im here\n");
+			// printf("Im here\n");
 		}
 		int i = 0;
 		while (i < minishell->pipe_count)
