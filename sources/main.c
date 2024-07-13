@@ -138,7 +138,9 @@ int	main(int argc, char **argv, char **env)
 		builtin(tokens);
 		while (minishell->index < minishell->tokens_count)
 		{
-			// printf("%d   %d\n", minishell->pipe_index, minishell->pipe_count);
+			minishell->infile = 0;
+			minishell->outfile = 1;
+			minishell->if_here_doc = 0;
 			run_commands(minishell);
 			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
 			{
@@ -146,7 +148,6 @@ int	main(int argc, char **argv, char **env)
 				minishell->index++;
 			}
 		}
-		printf("AAAAAAAAAA\n");
 		int i = 0;
 		while (i < minishell->pipe_count)
 		{

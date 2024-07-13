@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/12 15:38:57 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:38:16 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ typedef struct s_minishell
 	char	**env;
 	char	**cmd_dirs;
 	int		index;
-	int		(*fd)[2];
-	int		pipe_count;
-	int		pipe_index;
+	int (*fd)[2];
+	int pipe_count;
+	int pipe_index;
+	int infile;
+	int outfile;
+	int if_here_doc;
+	int (*here_doc)[2];
 	t_env	*envm;
 }	t_minishell;
 
@@ -115,7 +119,5 @@ void	pipex(t_minishell *minishell);
 ////////////////////////init/////////////////////////////
 t_env	*init_env(t_minishell *minishell);
 
-////////////////////////builtin/////////////////////////////
-void	builtin(t_token *tokens);
 
 #endif
