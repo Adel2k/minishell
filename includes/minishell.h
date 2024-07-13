@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:51:20 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:04:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,15 @@ char	*ft_strjoin(char *s1, char *s2);
 int		pipe_count(t_minishell *minishell);
 void	init_fd(t_minishell *minishell);
 void	pipex(t_minishell *minishell);
+void redirs(t_minishell *minishell);
 
 ////////////////////////init/////////////////////////////
 t_env	*init_env(t_minishell *minishell);
 
 ////////////////////////builtin/////////////////////////////
-void	builtin(t_token *tokens);
+void	builtin(t_minishell *minishell);
+
+////////////////////////utils3//////////////////////////////
+int	matrix_len(char **array);
 
 #endif

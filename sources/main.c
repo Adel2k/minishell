@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:49:03 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:05:33 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,20 +124,15 @@ int	main(int argc, char **argv, char **env)
 		minishell->tokens = tokens;
 		minishell->tokens_count = tokens_count;
 		minishell->env = env;
-		// t_env *envm = init_env(minishell);
-		// while (envm)
-		// {
-		// 	printf("key: %s     value: %s \n", envm->key, envm->value);
-		// 	envm = envm->next;
-		// }
+
 		minishell->cmd_dirs = init_dirs(minishell);
 		minishell->pipe_count = pipe_count(minishell);
 		minishell->pipe_index = 0;
 		minishell->index = 0;
 		init_fd(minishell);
-		builtin(minishell);
 		while (minishell->index < minishell->tokens_count)
 		{
+			printf("%d\n", __LINE__);
 			minishell->infile = 0;
 			minishell->outfile = 1;
 			minishell->if_here_doc = 0;
@@ -147,6 +142,11 @@ int	main(int argc, char **argv, char **env)
 				minishell->pipe_index++;
 				minishell->index++;
 			}
+			if (minishell->infile > 0)
+				close(minishell->infile);
+			if (minishell->outfile > 1)
+				close(minishell->outfile);
+			printf("Im here\n");
 		}
 		int i = 0;
 		while (i < minishell->pipe_count)
@@ -155,7 +155,7 @@ int	main(int argc, char **argv, char **env)
 			close(minishell->fd[i][1]);
 			i++;
 		}
-				int k = 0;
+		int k = 0;
 		while (k < minishell->pipe_count + 1)
 		{
 			waitpid(-1, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
