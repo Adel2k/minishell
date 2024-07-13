@@ -11,18 +11,16 @@ int	check_newline(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == 0 || str[i] != '-')
+	if (!str || str[i] == 0 || str[i] != '-')
 		return (0);
-	printf("hres\n");
 	if (str[i] == '-' && str[i + 1] == 'n')
 	{
 		i++;
 		while (str[i] == 'n' && (str[i + 1] == 'n' || str[i + 1] == ' ' || str[i + 1] == 0))
 		{
+			if (str[i + 1] == 0)
+				return (1);
 			i++;
-			printf("%d\n", i);
-			// if (str[i + 1] == 0)
-			// 	return (1);
 		}
 	}
 	return (0);
@@ -35,14 +33,13 @@ void	echo(char **str)
 
 	i = 1;
 	flag = 0;
-	while (check_newline(str[i]))
+	while (check_newline(str[i]) == 1)
 	{
 		flag = 1;
 		i++;
 	}
 	while (str[i])
 	{
-		
 		ft_putstr_fd(str[i]);
 		if (i + 1 != matrix_len(str))
 			write(1, " ", 1);
@@ -51,12 +48,31 @@ void	echo(char **str)
 	if (flag == 0)
 		write(1, "\n", 1);
 }
-
-void	builtin(t_minishell *minishell)
+void	env(t_minishell *minishell)
 {
-	char **command;
+	int	i;
 
-	command = cmd_args(minishell);
-	if (ft_strcmp(minishell->tokens->str, "echo") == 0)
+	i = 0;
+	while (minishell->env[i])
+	{
+		ft_putstr_fd(minishell->env[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+	
+}
+
+int	builtin(t_minishell *minishell, char **command)
+{
+	if (ft_strcmp(command[0], "/bin/echo") == 0 || ft_strcmp(command[0], "echo") == 0)
+	{
 		echo(command);
+		return (1);
+	}
+	if (ft_strcmp(command[0], "/usr/bin/env") == 0 || ft_strcmp(command[0], "env") == 0)
+	{
+		env(minishell);
+		return (1);
+	}
+	return (0);
 }
