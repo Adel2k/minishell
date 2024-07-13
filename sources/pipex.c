@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:40 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/11 13:55:42 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:48:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	pipe_count(t_minishell *minishell)
 {
+	int	i;
+	int	count;
 	int	i;
 	int	count;
 

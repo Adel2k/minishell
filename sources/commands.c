@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/12 15:43:35 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:48:49 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ char	**cmd_args(t_minishell *minishell)
 	while (i < minishell->tokens_count
 		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
+		if (ft_strcmp(minishell->tokens[i].type, "in_file") == 0)
+			minishell->infile = open_infile(minishell->tokens[i].str);
+		if (ft_strcmp(minishell->tokens[i].type, "out_file") == 0)
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 0);
+		if (ft_strcmp(minishell->tokens[i].type, "append_file") == 0)
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 1);
 		if (ft_strcmp(minishell->tokens[i].type, "word") == 0)
 		{
 			args[j] = minishell->tokens[i].str;
@@ -126,6 +132,7 @@ void init_redirs(t_minishell *minishell)
 char	**check_cmd(char **command, t_minishell *minishell)
 {
 	char	*cmd;
+
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
 	if (!cmd)
 	{
@@ -188,6 +195,7 @@ void	run_commands(t_minishell *minishell)
 		err(minishell->tokens, minishell->tokens_count, "Fork failed");
 	if (pid == 0)
 	{
+		command = check_cmd(command, minishell);
 		command = check_cmd(command, minishell);
 		pipex(minishell);
 		redirs(minishell);

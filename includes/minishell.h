@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:38:16 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:51:20 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_minishell
 	int if_here_doc;
 	int (*here_doc)[2];
 	t_env	*envm;
+	int infile;
+	int outfile;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
@@ -108,6 +110,7 @@ void	error_handle(void);
 ////////////////////////commands.c/////////////////////////////
 int		count_cmd_args(t_minishell *minishell);
 void	run_commands(t_minishell *minishell);
+char	**cmd_args(t_minishell *minishell);
 
 ////////////////////////ft_split/////////////////////////////
 char	**ft_split(char const *s, char c);
@@ -119,5 +122,7 @@ void	pipex(t_minishell *minishell);
 ////////////////////////init/////////////////////////////
 t_env	*init_env(t_minishell *minishell);
 
+////////////////////////builtin/////////////////////////////
+void	builtin(t_token *tokens);
 
 #endif
