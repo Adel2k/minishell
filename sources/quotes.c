@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void	remove_quotes(t_token *tokens, int count)
+void	remove_quotes(t_minishell *minishell)
 {
 	int	i;
 
 	i = 0;
-	while (i < count)
+	while (i < minishell->tokens_count)
 	{
-		loop_for_quotes(tokens, i, count);
+		loop_for_quotes(minishell->tokens, i, minishell->tokens_count);
 		i++;
 	}
 }
@@ -43,7 +43,7 @@ void	loop_for_quotes(t_token *tokens, int i, int count)
 				j++;
 			s = creating_new(tokens[i].str, start, j);
 			if (!s)
-				err(tokens, count, "Malloc error\n");
+				 err_and_free_tokens(tokens, count, "Malloc error\n");
 			free(tokens[i].str);
 			tokens[i].str = s;
 			j--;

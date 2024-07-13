@@ -16,8 +16,6 @@ int	pipe_count(t_minishell *minishell)
 {
 	int	i;
 	int	count;
-	int	i;
-	int	count;
 
 	i = 0;
 	count = 0;
@@ -30,58 +28,19 @@ int	pipe_count(t_minishell *minishell)
 	return (count);
 }
 
-void	init_fd(t_minishell *minishell)
-{
-	int	(*fd)[2];
-	int	i;
-
-	i = 0;
-	fd = malloc(sizeof(int [2]) * (minishell->pipe_count));
-	if (!fd)
-		err(minishell->tokens, minishell->tokens_count, "Malloc_err\n");
-	while (i < minishell->pipe_count)
-	{
-		if (pipe(fd[i]) == -1)
-		{
-			while (i > 0)
-			{
-				close(fd[i][0]);
-				close(fd[i--][1]);
-			}
-			free(fd);
-			err(minishell->tokens, minishell->tokens_count, "pipe error\n");
-		}
-		i++;
-	}
-	minishell->fd = fd;
-}
-
-void close_fd(t_minishell *minishell)
-{
-	int i;
-
-	i = 0;
-	while (i < minishell->pipe_count)
-	{
-		close(minishell->fd[i][0]);
-		close(minishell->fd[i][1]);
-		i++;
-	}
-}
-
 void	pipex(t_minishell *minishell)
 {
 	if (minishell->pipe_index != 0 && minishell->infile == 0
 			&& dup2(minishell->fd[minishell->pipe_index - 1][0], 0) == -1)
 	{
 		close_fd(minishell);
-		err(minishell->tokens, minishell->tokens_count, "pipe error\n");
+		err(minishell, "pipe error\n");
 	}
 	if  (minishell->pipe_index < minishell->pipe_count
 		&& dup2(minishell->fd[minishell->pipe_index][1], 1) == -1)
 	{
 		close_fd(minishell);
-		err(minishell->tokens, minishell->tokens_count, "pipe error\n");
+		err(minishell, "pipe error\n");
 	}
 	close_fd(minishell);
 }

@@ -65,19 +65,19 @@ void	check_for_invalid_input(t_token *tokens, int count)
 	{
 		if (!ft_strcmp(tokens[i].type, "in_redir") && (i + 1 == count
 				|| (i < count && ft_strcmp(tokens[i + 1].type, "in_file"))))
-			err(tokens, count, "there is in_redir but no in_file\n");
+			err_and_free_tokens(tokens, count, "there is in_redir but no in_file\n");
 		if (!ft_strcmp(tokens[i].type, "out_redir") && (i + 1 == count
 				|| (i < count && ft_strcmp(tokens[i + 1].type, "out_file"))))
-			err(tokens, count, "there is out_redir but no out_file\n");
+			err_and_free_tokens(tokens, count, "there is out_redir but no out_file\n");
 		if (!ft_strcmp(tokens[i].type, "append_redir") && (i + 1 == count
 				|| (i < count && ft_strcmp(tokens[i + 1].type, "append_file"))))
-			err(tokens, count, "there is append_redir but no append_file\n");
+			err_and_free_tokens(tokens, count, "there is append_redir but no append_file\n");
 		if (!ft_strcmp(tokens[i].type, "heredoc") && (i + 1 == count
 				|| (i < count && ft_strcmp(tokens[i + 1].type, "limiter"))))
-			err(tokens, count, "there is heredoc but no limiter\n");
+			err_and_free_tokens(tokens, count, "there is heredoc but no limiter\n");
 		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count
 				|| i == 0 || ft_strcmp(tokens[i + 1].type, "word")))
-			err(tokens, count, "there is pipe w/out commands\n");
+			err_and_free_tokens(tokens, count, "there is pipe w/out commands\n");
 	}
 }
 
