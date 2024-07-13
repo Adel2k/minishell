@@ -6,32 +6,45 @@ void	ft_putstr_fd(char *s)
 		write (1, s, ft_strlen(s));
 }
 
+int	check_newline(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == 0 || str[i] != '-')
+		return (0);
+	printf("hres\n");
+	if (str[i] == '-' && str[i + 1] == 'n')
+	{
+		i++;
+		while (str[i] == 'n' && (str[i + 1] == 'n' || str[i + 1] == ' ' || str[i + 1] == 0))
+		{
+			i++;
+			printf("%d\n", i);
+			// if (str[i + 1] == 0)
+			// 	return (1);
+		}
+	}
+	return (0);
+}
+
 void	echo(char **str)
 {
 	int	i;
 	int	flag;
-	int	j;
 
 	i = 1;
 	flag = 0;
+	while (check_newline(str[i]))
+	{
+		flag = 1;
+		i++;
+	}
 	while (str[i])
 	{
-		j = 0;
-		printf("i = %d,    j = %d\n",i , j);
-		if (str[i][j] == '-')
-		{
-			j++;
-			while (str[i][j] == 'n' && (str[i][j + 1] == 'n' || str[i][j + 1] == ' ' || str[i][j + 1] == 0))
-			{
-				if (str[i][j] != 'n')
-					break ;
-				j++;
-				flag = 1;
-			}
-			i++;
-		}
+		
 		ft_putstr_fd(str[i]);
-		if (i != matrix_len(str))
+		if (i + 1 != matrix_len(str))
 			write(1, " ", 1);
 		i++;
 	}
