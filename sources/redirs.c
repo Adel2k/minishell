@@ -27,7 +27,7 @@ void init_redirs(t_minishell *minishell)
 {
 	int i;
 
-	i = 0;
+	i = minishell->index;
 	while (i < minishell->tokens_count
 		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
@@ -65,7 +65,6 @@ void redirs(t_minishell *minishell)
 		close((*minishell -> here_doc)[0]);
 		close((*minishell->here_doc)[1]);
 	}
-	printf("aaaaa\n");
 	in_redir(minishell);
 	out_redir(minishell);
 

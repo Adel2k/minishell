@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:49:03 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:05:33 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ void	print_tokens(t_token *tokens, int tokens_count)
 	}
 }
 
+void check_for_valid_files(t_minishell *minishell)
+{
+	if (minishell->infile < 0)
+	{
+		write(2, minishell->infile_name, ft_strlen(minishell->infile_name));
+		err(minishell, ": No such file or directory\n");
+	}
+	if (minishell->outfile < 0)
+	{
+		write(2, minishell->outfile_name, ft_strlen(minishell->outfile_name));
+		err(minishell, ": No such file or directory\n");
+	}
+}
+
 void exec_cmd(t_minishell *minishell)
 {
 	while (minishell->index < minishell->tokens_count)
@@ -33,16 +47,7 @@ void exec_cmd(t_minishell *minishell)
 		minishell->if_here_doc = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
-		if (minishell->infile < 0)
-		{
-			write(2, minishell->infile_name, ft_strlen(minishell->infile_name));
-			err(minishell, ": No such file or directory\n");
-		}
-		if (minishell->outfile < 0)
-		{
-			write(2, minishell->outfile_name, ft_strlen(minishell->outfile_name));
-			err(minishell, ": No such file or directory\n");
-		}
+		check_for_valid_files(minishell);
 		if (count_cmd_args(minishell) == 0)
 			return ;
 		run_commands(minishell);

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:51:20 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:04:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,9 @@ void init_redirs(t_minishell *minishell);
 void redirs(t_minishell *minishell);
 void in_redir(t_minishell *minishell);
 void out_redir(t_minishell *minishell);
+
+////////////////////////builtin/////////////////////////////
+int	builtin(t_minishell *minishell, char **command);
 
 ////////////////////////here_doc/////////////////////////////
 int	here_doc(char *limiter, t_minishell *minishell);

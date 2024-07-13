@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:48:49 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:08:03 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	run_commands(t_minishell *minishell)
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
 		pipex(minishell);
 		redirs(minishell);
+		if (builtin(minishell, minishell->cmd))
+			exit(0);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)
 			err(minishell, "Executing command failed\n");
 	}
