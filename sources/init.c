@@ -72,7 +72,7 @@ void init_cmd_line(t_minishell *minishell, char *input)
 	minishell->index = 0;
 	init_fd(minishell);
 	check_for_invalid_input(minishell->tokens, minishell->tokens_count);
-	dollar_sign(minishell->tokens, minishell->tokens_count, minishell->env);
+	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
 }
 

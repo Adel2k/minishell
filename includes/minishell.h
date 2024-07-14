@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/14 13:15:02 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:38:26 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**ft_split_tokens(char *s);
 char	*init_tokens(int len, char **s);
 
 ////////////////////////dollar/////////////////////////////
-void	dollar_sign(t_token *tokens, int count, char **env);
+void	dollar_sign(t_token *tokens, int count, t_minishell	*minishell);
 int		quotes_type(char *str);
 
 ////////////////////////words_count/////////////////////////////

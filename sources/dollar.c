@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/09 15:53:35 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:42:04 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,26 @@ int	quotes_type(char *str)
 	return (-1);
 }
 
-char	*find_replacement(char **env, char *s)
+char	*find_replacement(t_minishell *minishell, char *s)
 {
-	int	i;
+	t_env	*start;
 
-	i = 0;
-	while (env[i])
+	start = minishell->envm;
+	while (minishell->envm)
 	{
-		if (!ft_strstr(env[i], s))
+		if (ft_strcmp(minishell->envm->key, s))
 		{
-			i++;
+			minishell->envm = minishell->envm->next;
 			continue ;
 		}
-		return (ft_strdup(env[i] + ft_strlen(s) + 1));
-		i++;
+		return (ft_strdup(minishell->envm->value));
+		minishell->envm = minishell->envm->next;
 	}
+	minishell->envm = start;
 	return (0);
 }
 
-int	dollar_sign2(int start, t_token *tokens, int i, char **env)
+int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 {
 	char	*s;
 	char	*l;
@@ -102,7 +103,7 @@ int	dollar_sign2(int start, t_token *tokens, int i, char **env)
 			l = join_trio(tokens[i].str, s, start, start + 2);
 		else
 		{
-			l = join_trio(tokens[i].str, find_replacement(env, s),
+			l = join_trio(tokens[i].str, find_replacement(minishell, s),
 					start, start + 1 + ft_strlen(s));
 			free(s);
 		}
@@ -113,7 +114,7 @@ int	dollar_sign2(int start, t_token *tokens, int i, char **env)
 	return (start);
 }
 
-void	dollar_sign(t_token *tokens, int count, char **env)
+void	dollar_sign(t_token *tokens, int count, t_minishell	*minishell)
 {
 	int	i;
 	int	start;
@@ -127,7 +128,7 @@ void	dollar_sign(t_token *tokens, int count, char **env)
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
 			start = quotes_type(tokens[i].str);
-			start = dollar_sign2(start, tokens, i, env);
+			start = dollar_sign2(start, tokens, i, minishell);
 			if (start == 0)
 				return ;
 		}

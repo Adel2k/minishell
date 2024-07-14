@@ -58,16 +58,19 @@ void	echo(char **str)
 }
 void	env(t_minishell *minishell)
 {
-	int	i;
-
-	i = 0;
-	while (minishell->env[i])
+	if (minishell->cmd[1])
 	{
-		ft_putstr_fd(minishell->env[i]);
-		write(1, "\n", 1);
-		i++;
+		// err(minishell, minishell->cmd[1], ": No such file or directory");
+		return ;
 	}
-	
+	while (minishell->envm)
+	{
+		ft_putstr_fd(minishell->envm->key);
+		write(1, "=", 1);
+		ft_putstr_fd(minishell->envm->value);
+		write(1, "\n", 1);
+		minishell->envm = minishell->envm->next;
+	}
 }
 
 int	builtin(t_minishell *minishell, char **command)
