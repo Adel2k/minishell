@@ -22,7 +22,7 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 	i = 0;
 	while (minishell -> cmd_dirs[i])
 	{
-		joined_cmd = ft_strjoin(minishell -> cmd_dirs[i], command);
+		joined_cmd = ft_strjoin_dirs(minishell -> cmd_dirs[i], command);
 		if (access(joined_cmd, X_OK | F_OK) != -1)
 		{
 			free(command);
@@ -64,7 +64,7 @@ char	**cmd_args(t_minishell *minishell)
 	j = 0;
 	args = malloc((count_cmd_args(minishell) + 1) * sizeof(char *));
 	if (!args)
-		err(minishell, "Malloc_err\n");
+		err(minishell, "Malloc_err\n", "");
 	while (i < minishell->tokens_count
 		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
@@ -89,8 +89,8 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	{
 		if (access(command[0], X_OK) == -1)
 		{
-			write(2, command[0], ft_strlen(command[0]));
-			err(minishell, ": command not found\n");
+			err(minishell, command[0], ": command not found\n");
+			return (0);
 		}
 	}
 	else
@@ -101,22 +101,31 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	return (command);
 }
 
-void	run_commands(t_minishell *minishell)
+int	run_commands(t_minishell *minishell)
 {
 	int		pid;
 
 	minishell->cmd = cmd_args(minishell);
 	pid = fork();
 	if (pid == -1)
-		err(minishell, "Fork failed");
+	{
+		err(minishell, "Fork failed\n", "");
+		return (-1);
+	}
 	if (pid == 0)
 	{
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
+		if (!minishell->cmd)
+			return (-1);
 		pipex(minishell);
 		redirs(minishell);
 		if (builtin(minishell, minishell->cmd))
 			exit(0);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)
-			err(minishell, "Executing command failed\n");
+		{
+			err(minishell, "Executing command failed\n", "");
+			return (-1);
+		}
 	}
+	return (1);
 }

@@ -24,20 +24,6 @@ void	print_tokens(t_token *tokens, int tokens_count)
 	}
 }
 
-void check_for_valid_files(t_minishell *minishell)
-{
-	if (minishell->infile < 0)
-	{
-		write(2, minishell->infile_name, ft_strlen(minishell->infile_name));
-		err(minishell, ": No such file or directory\n");
-	}
-	if (minishell->outfile < 0)
-	{
-		write(2, minishell->outfile_name, ft_strlen(minishell->outfile_name));
-		err(minishell, ": No such file or directory\n");
-	}
-}
-
 void exec_cmd(t_minishell *minishell)
 {
 	while (minishell->index < minishell->tokens_count)
@@ -47,9 +33,8 @@ void exec_cmd(t_minishell *minishell)
 		minishell->if_here_doc = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
-		check_for_valid_files(minishell);
-		if (count_cmd_args(minishell) == 0)
-			return ;
+		// if (count_cmd_args(minishell) == 0)
+		// 	return ;
 		run_commands(minishell);
 		if (minishell->index < minishell->tokens_count
 			&& !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
@@ -77,10 +62,12 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
-		init_cmd_line(minishell, input);
+		if (init_cmd_line(minishell, input) < 0)
+			continue ;
 		exec_cmd(minishell);
 		close_fd(minishell);
 		waiting_childs(minishell);
+		free_tokens(minishell->tokens, minishell->tokens_count);
 	}
 	return (0);
 }

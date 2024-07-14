@@ -12,16 +12,23 @@
 
 #include "minishell.h"
 
-void	err(t_minishell *minishell, char *message)
+void	err(t_minishell *minishell, char *message1, char *message2)
 {
-	free_tokens(minishell->tokens, minishell->tokens_count);
-	free_cmd(minishell->cmd);
-	close_fd(minishell);
-	if (minishell->pipe_count != 0)
-		free(minishell->fd);
-	if (minishell->if_here_doc != 0)
-		waiting_childs(minishell);
-	exit(printf("%s", message));
+	(void) minishell;
+	//free_tokens(minishell->tokens, minishell->tokens_count);
+	//free_cmd(minishell->cmd);
+	//close_fd(minishell);
+	// if (minishell->pipe_count != 0)
+	// 	free(minishell->fd);
+	// if (minishell->if_here_doc != 0)
+	// {
+	// 	close((*minishell->here_doc)[0]);
+	// 	close((*minishell->here_doc)[1]);
+	// 	free(minishell->here_doc);
+	// }
+	write(2, message1, ft_strlen(message1));
+	write(2, message2, ft_strlen(message2));
+	// exit(printf("%s", message));
 }
 
 void close_fd(t_minishell *minishell)
@@ -35,6 +42,15 @@ void close_fd(t_minishell *minishell)
 		close(minishell->fd[i][1]);
 		i++;
 	}
+	// if (minishell->infile > 0)
+	// 	close(minishell->infile);
+	// if (minishell->outfile > 1)
+	// 	close(minishell->outfile);
+	// if (minishell->if_here_doc == 1)
+	// {
+	// 	close((*minishell->here_doc)[0]);
+	// 	close((*minishell->here_doc)[1]);
+	// }
 }
 
 void waiting_childs(t_minishell *minishell)
@@ -67,6 +83,7 @@ void err_and_free_tokens(t_token *tokens, int tokens_count, char *message)
 	free_tokens(tokens, tokens_count);
 	exit(printf("%s", message));
 }
+
 void free_cmd(char **command)
 {
 	int i;

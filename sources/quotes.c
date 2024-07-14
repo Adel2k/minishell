@@ -19,12 +19,12 @@ void	remove_quotes(t_minishell *minishell)
 	i = 0;
 	while (i < minishell->tokens_count)
 	{
-		loop_for_quotes(minishell->tokens, i, minishell->tokens_count);
+		loop_for_quotes(minishell->tokens, i);
 		i++;
 	}
 }
 
-void	loop_for_quotes(t_token *tokens, int i, int count)
+void	loop_for_quotes(t_token *tokens, int i)
 {
 	int		j;
 	int		start;
@@ -42,8 +42,6 @@ void	loop_for_quotes(t_token *tokens, int i, int count)
 			while (tokens[i].str[j] && tokens[i].str[j] != c)
 				j++;
 			s = creating_new(tokens[i].str, start, j);
-			if (!s)
-				 err_and_free_tokens(tokens, count, "Malloc error\n");
 			free(tokens[i].str);
 			tokens[i].str = s;
 			j--;
@@ -60,8 +58,7 @@ char	*creating_new(char *old, int start, int j)
 	int		l;
 
 	s = malloc(ft_strlen(old) - 1);
-	if (!s)
-		return (0);
+	malloc_check(s);
 	k = 0;
 	l = 0;
 	while (old[k])

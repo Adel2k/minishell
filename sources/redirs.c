@@ -6,7 +6,11 @@ int	open_infile(char *file_name)
 
 	infile_fd = open(file_name, O_RDONLY);
 	if (infile_fd < 0)
+	{
+		write(2, file_name, ft_strlen(file_name));
+		write(2, ": No such file or directory\n", 28);
 		return (-1);
+	}
 	return (infile_fd);
 }
 
@@ -17,9 +21,13 @@ int	open_outfile(char *file_name, int i)
 	if (i == 0)
 		outfile_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-		outfile_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		outfile_fd = open(file_name, O_APPEND, 0644);
 	if (outfile_fd < 0)
+	{
+		write(2, file_name, ft_strlen(file_name));
+		write(2, ": No such file or directory\n", 28);
 		return (-1);
+	}
 	return (outfile_fd);
 }
 
@@ -54,19 +62,19 @@ void init_redirs(t_minishell *minishell)
 
 void redirs(t_minishell *minishell)
 {
+	in_redir(minishell);
+	out_redir(minishell);
 	if (minishell->if_here_doc)
 	{
 		if (dup2((*minishell -> here_doc)[0], 0) == -1)
 		{
 			close((*minishell -> here_doc)[0]);
 			close((*minishell -> here_doc)[1]);
-			err(minishell, "dup2 error\n");
+			err(minishell, "dup2 error\n", "");
 		}
 		close((*minishell -> here_doc)[0]);
 		close((*minishell->here_doc)[1]);
 	}
-	in_redir(minishell);
-	out_redir(minishell);
 
 }
 
@@ -77,7 +85,7 @@ void in_redir(t_minishell *minishell)
 		if (dup2(minishell->infile, 0) == -1)
 		{
 			close(minishell->infile);
-			err(minishell, "dup2 error\n");
+			err(minishell, "dup2 error\n", "");
 		}
 		close(minishell->infile);
 	}
@@ -89,7 +97,7 @@ void out_redir(t_minishell *minishell)
 		if (dup2(minishell->outfile, 1) == -1)
 		{
 			close(minishell->outfile);
-			err(minishell, "dup2 error\n");
+			err(minishell, "dup2 error\n", "");
 		}
 		close(minishell->outfile);
 	}

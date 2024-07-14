@@ -23,19 +23,22 @@ int	here_doc(char *limiter, t_minishell *minishell)
 	{
 		close((*fd)[0]);
 		close((*fd)[1]);
-		err(minishell, "pipe error\n");
+		err(minishell, "pipe error\n", "");
+		return (-1);
 	}
 	minishell->here_doc = fd;
 	minishell->if_here_doc = 1;
 	while (1)
 	{
 		str = readline(" > ");
+		if (!str)
+			break ;
 		if (!ft_strncmp(str, limiter, ft_strlen(str)))
 		{
 			free(str);
 			break ;
 		}
-		str = ft_strjoin(str, "\n"); // need to free
+		str = ft_strjoin(str, "\n");
 		len = ft_strlen(str);
 		write((*minishell -> here_doc)[1], str, len);
 		free(str);

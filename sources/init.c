@@ -52,39 +52,44 @@ char **init_dirs(t_minishell *minishell)
 	}
 	dirs = ft_split(minishell -> env[i] + 5, ':');
 	if (!dirs)
-		err(minishell, "split_err\n");
+	{
+		err(minishell, "split_err\n", "");
+		return (0);
+	}
 	return (dirs);
 }
 
-void init_cmd_line(t_minishell *minishell, char *input)
+int init_cmd_line(t_minishell *minishell, char *input)
 {
 	char **strs;
 
 	minishell->tokens_count = ft_words_count_tokens(input, ' ');
 	strs = ft_split_tokens(input);
-	if (!input)
-		exit(printf("No input received.\n"));
+	// if (!input)
+	// 	exit(printf("No input received.\n"));
 	minishell->tokens = tokenisation(strs, minishell->tokens_count);
 	free(strs);
 	free(input);
 	minishell->pipe_count = pipe_count(minishell);
 	minishell->pipe_index = 0;
 	minishell->index = 0;
-	init_fd(minishell);
-	check_for_invalid_input(minishell->tokens, minishell->tokens_count);
+	if (init_fd(minishell) < 0)
+		return (-1);
+	if (check_for_invalid_input(minishell->tokens, minishell->tokens_count) < 0)
+		return (-1);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell->env);
 	remove_quotes(minishell);
+	return (1);
 }
 
-void	init_fd(t_minishell *minishell)
+int	init_fd(t_minishell *minishell)
 {
 	int	(*fd)[2];
 	int	i;
 
 	i = 0;
 	fd = malloc(sizeof(int [2]) * (minishell->pipe_count));
-	if (!fd)
-		err(minishell, "Malloc_err\n");
+	malloc_check(fd);
 	while (i < minishell->pipe_count)
 	{
 		if (pipe(fd[i]) == -1)
@@ -95,9 +100,11 @@ void	init_fd(t_minishell *minishell)
 				close(fd[i--][1]);
 			}
 			free(fd);
-			err(minishell, "pipe error\n");
+			err(minishell, "pipe error\n", "");
+			return (-1);
 		}
 		i++;
 	}
 	minishell->fd = fd;
+	return (1);
 }
