@@ -106,6 +106,8 @@ int	run_commands(t_minishell *minishell)
 	int		pid;
 
 	minishell->cmd = cmd_args(minishell);
+	if (minishell->infile < 0 || minishell->outfile < 0 || count_cmd_args(minishell) == 0)
+		return -1;
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0 || ft_strcmp(minishell->cmd[0], "cd") == 0)
 		cd(minishell);
 	pid = fork();

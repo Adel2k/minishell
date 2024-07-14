@@ -21,7 +21,7 @@ int	open_outfile(char *file_name, int i)
 	if (i == 0)
 		outfile_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-		outfile_fd = open(file_name, O_APPEND, 0644);
+		outfile_fd = open(file_name, O_APPEND | O_WRONLY, 0777);
 	if (outfile_fd < 0)
 	{
 		write(2, file_name, ft_strlen(file_name));

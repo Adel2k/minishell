@@ -33,8 +33,6 @@ void exec_cmd(t_minishell *minishell)
 		minishell->if_here_doc = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
-		// if (count_cmd_args(minishell) == 0)
-		// 	return ;
 		run_commands(minishell);
 		if (minishell->index < minishell->tokens_count
 			&& !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))

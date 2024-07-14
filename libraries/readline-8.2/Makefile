@@ -31,11 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-<<<<<<< HEAD
 BUILD_DIR = /Users/aeminian/Desktop/minishell/libraries/readline-8.2
-=======
-BUILD_DIR = /Users/hrigrigo/Desktop/minishell2/libraries/readline-8.2
->>>>>>> 9acb1d87dd2eecace477efd2a37ebd6ea6c8ee23
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -52,11 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-<<<<<<< HEAD
 prefix = /Users/aeminian/Desktop/minishell/libraries/readline
-=======
-prefix = /Users/hrigrigo/Desktop/minishell2/libraries/readline
->>>>>>> 9acb1d87dd2eecace477efd2a37ebd6ea6c8ee23
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

@@ -32,6 +32,7 @@ t_token	*tokenisation(char **args, int count)
 
 char	*find_type(char *str, t_token *tokens, int i)
 {
+	printf( )
 	if (!ft_strcmp(str, "|"))
 		return ("pipe");
 	if (!ft_strcmp(str, "<"))
