@@ -20,7 +20,6 @@ void add_nodes(char *str, t_env **env)
 		return ;
 	}
 	tmp = *env;
-	printf("%d\n", __LINE__);
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = res;
@@ -37,4 +36,68 @@ t_env	*init_env(t_minishell *minishell)
 		add_nodes(ft_strdup(minishell->env[i]), &res);
 	}
 	return (res);
+}
+
+char **init_dirs(t_minishell *minishell)
+{
+	int		i;
+	char	**dirs;
+
+	i = 0;
+	while (minishell -> env[i])
+	{
+		if (ft_strstr_alt(minishell -> env[i], "PATH="))
+			break ;
+		i++;
+	}
+	dirs = ft_split(minishell -> env[i] + 5, ':');
+	if (!dirs)
+		err(minishell, "split_err\n");
+	return (dirs);
+}
+
+void init_cmd_line(t_minishell *minishell, char *input)
+{
+	char **strs;
+
+	minishell->tokens_count = ft_words_count_tokens(input, ' ');
+	strs = ft_split_tokens(input);
+	if (!input)
+		exit(printf("No input received.\n"));
+	minishell->tokens = tokenisation(strs, minishell->tokens_count);
+	free(strs);
+	free(input);
+	minishell->pipe_count = pipe_count(minishell);
+	minishell->pipe_index = 0;
+	minishell->index = 0;
+	init_fd(minishell);
+	check_for_invalid_input(minishell->tokens, minishell->tokens_count);
+	dollar_sign(minishell->tokens, minishell->tokens_count, minishell->env);
+	remove_quotes(minishell);
+}
+
+void	init_fd(t_minishell *minishell)
+{
+	int	(*fd)[2];
+	int	i;
+
+	i = 0;
+	fd = malloc(sizeof(int [2]) * (minishell->pipe_count));
+	if (!fd)
+		err(minishell, "Malloc_err\n");
+	while (i < minishell->pipe_count)
+	{
+		if (pipe(fd[i]) == -1)
+		{
+			while (i > 0)
+			{
+				close(fd[i][0]);
+				close(fd[i--][1]);
+			}
+			free(fd);
+			err(minishell, "pipe error\n");
+		}
+		i++;
+	}
+	minishell->fd = fd;
 }

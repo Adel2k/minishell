@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-char	*ft_strdup(const char *s)
-{
-	const char	*str;
-	size_t		size;
-	char		*result;
-
-	size = ft_strlen(s);
-	str = (char *)malloc(size + 1);
-	if (!str)
-		return (NULL);
-	result = (char *)ft_memcpy((void *)str, s, size);
-	result[size] = '\0';
-	return (result);
-}
-
 int	check1(char c)
 {
 	if ((c == ' ' || c == '\0' || c == '|'

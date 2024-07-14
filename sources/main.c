@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 21:04:37 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:14:02 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,143 +24,63 @@ void	print_tokens(t_token *tokens, int tokens_count)
 	}
 }
 
-char	*ft_strstr_alt(char *str, char *to_find)
+void check_for_valid_files(t_minishell *minishell)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	if (*to_find == '\0')
-		return (str);
-	while (str[i] != '\0')
+	if (minishell->infile < 0)
 	{
-		j = 0;
-		while (to_find[j] != '\0' && str[i + j] == to_find[j])
+		write(2, minishell->infile_name, ft_strlen(minishell->infile_name));
+		err(minishell, ": No such file or directory\n");
+	}
+	if (minishell->outfile < 0)
+	{
+		write(2, minishell->outfile_name, ft_strlen(minishell->outfile_name));
+		err(minishell, ": No such file or directory\n");
+	}
+}
+
+void exec_cmd(t_minishell *minishell)
+{
+	while (minishell->index < minishell->tokens_count)
+	{
+		minishell->infile = 0;
+		minishell->outfile = 1;
+		minishell->if_here_doc = 0;
+		minishell->cmd = NULL;
+		init_redirs(minishell);
+		check_for_valid_files(minishell);
+		if (count_cmd_args(minishell) == 0)
+			return ;
+		run_commands(minishell);
+		if (minishell->index < minishell->tokens_count
+			&& !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
 		{
-			if (to_find[j + 1] == 0)
-				return (&str[i]);
-			j++;
+			minishell->pipe_index++;
+			minishell->index++;
 		}
-		i++;
 	}
-	return (0);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	s1_size;
-	size_t	s2_size;
-	char	*s3;
-	int		i;
-
-	i = 0;
-	s1_size = ft_strlen(s1);
-	s2_size = ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(char) * (s1_size + s2_size + 2));
-	if (!s3)
-		return (NULL);
-	while (s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	s3[i++] = '/';
-	while (s2[i - s1_size - 1])
-	{
-		s3[i] = s2[i - s1_size - 1];
-		i++;
-	}
-	s3[i] = '\0';
-	return (s3);
-}
-
-char **init_dirs(t_minishell *minishell)
-{
-	int		i;
-	char	**dirs;
-
-	i = 0;
-	while (minishell -> env[i])
-	{
-		if (ft_strstr_alt(minishell -> env[i], "PATH="))
-			break ;
-		i++;
-	}
-	dirs = ft_split(minishell -> env[i] + 5, ':');
-	if (!dirs)
-		err(minishell->tokens, minishell->tokens_count, "split_err\n");
-	return (dirs);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*input;
-	t_token	*tokens;
-	char	**strs;
-	int		tokens_count;
+	t_minishell *minishell;
+	char *input;
 
 	(void) argc;
 	(void) argv;
+	minishell = malloc(sizeof(t_minishell));
+	if (!minishell)
+		return (1);
+	minishell->env = env;
+	minishell->envm = init_env(minishell);
+	minishell->cmd_dirs = init_dirs(minishell);
 	while (1)
 	{
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
-		tokens_count = ft_words_count_tokens(input, ' ');
-		strs = ft_split_tokens(input);
-		if (!input)
-			exit(printf("No input received.\n"));
-		tokens = tokenisation(strs, tokens_count);
-		free(strs);
-		free(input);
-		check_for_invalid_input(tokens, tokens_count);
-		dollar_sign(tokens, tokens_count, env);
-		remove_quotes(tokens, tokens_count);
-	// print_tokens(tokens, tokens_count);
-		t_minishell *minishell;
-
-		minishell = malloc(sizeof(t_minishell));
-		if (!minishell)
-			return (1);
-		minishell->tokens = tokens;
-		minishell->tokens_count = tokens_count;
-		minishell->env = env;
-
-		minishell->cmd_dirs = init_dirs(minishell);
-		minishell->pipe_count = pipe_count(minishell);
-		minishell->pipe_index = 0;
-		minishell->index = 0;
-		init_fd(minishell);
-		while (minishell->index < minishell->tokens_count)
-		{
-			// printf("%d\n", __LINE__);
-			minishell->infile = 0;
-			minishell->outfile = 1;
-			minishell->if_here_doc = 0;
-			run_commands(minishell);
-			if (minishell->index < minishell->tokens_count && !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
-			{
-				minishell->pipe_index++;
-				minishell->index++;
-			}
-			if (minishell->infile > 0)
-				close(minishell->infile);
-			if (minishell->outfile > 1)
-				close(minishell->outfile);
-			// printf("Im here\n");
-		}
-		int i = 0;
-		while (i < minishell->pipe_count)
-		{
-			close(minishell->fd[i][0]);
-			close(minishell->fd[i][1]);
-			i++;
-		}
-		int k = 0;
-		while (k < minishell->pipe_count + 1)
-		{
-			waitpid(-1, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
-			k++;
-		}
+		init_cmd_line(minishell, input);
+		exec_cmd(minishell);
+		close_fd(minishell);
+		waiting_childs(minishell);
 	}
 	return (0);
 }
