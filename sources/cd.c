@@ -4,6 +4,7 @@
 // {
 
 // }
+
 void	cd_home(t_minishell *minishell)
 {
 	char	*s;
