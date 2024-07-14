@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 prefix=/Users/aeminian/Desktop/minishell/libraries/readline
+=======
+prefix=/Users/hrigrigo/Desktop/minishell2/libraries/readline
+>>>>>>> 9acb1d87dd2eecace477efd2a37ebd6ea6c8ee23
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
