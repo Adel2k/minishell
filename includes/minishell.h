@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 21:11:50 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:15:02 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,9 @@ int	here_doc(char *limiter, t_minishell *minishell);
 ////////////////////////utils3//////////////////////////////
 int	matrix_len(char **array);
 void	ft_putstr_fd(char *s);
+
+////////////////////////builtin2/////////////////////////////
+void	cd(t_minishell *minishell);
+
 
 #endif
