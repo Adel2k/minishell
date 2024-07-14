@@ -53,22 +53,22 @@ typedef struct s_minishell
 	t_token	*tokens;
 	int		tokens_count;
 	int		index;
-	int (*fd)[2];
-	int pipe_count;
-	int pipe_index;
-	int infile;
-	char *infile_name;
-	int outfile;
-	char *outfile_name;
-	int if_here_doc;
-	int (*here_doc)[2];
-	char **cmd;
+	int		(*fd)[2];
+	int		pipe_count;
+	int		pipe_index;
+	int		infile;
+	char	*infile_name;
+	int		outfile;
+	char	*outfile_name;
+	int		if_here_doc;
+	int		(*here_doc)[2];
+	char	**cmd;
 }	t_minishell;
 
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
-void	check_for_invalid_input(t_token *tokens, int count);
+int	check_for_invalid_input(t_token *tokens, int count);
 
 ////////////////////////utils//////////////////////////////
 size_t	ft_strlen(const char *s);
@@ -86,11 +86,11 @@ char	*cut2(char **s, int *len);
 char	*ft_itoa(int n);
 
 ////////////////////////utils3//////////////////////////////
-int	matrix_len(char **array);
+int		matrix_len(char **array);
 char	*ft_strdup(const char *s);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strstr_alt(char *str, char *to_find);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_dirs(char *s1, char *s2);
 
 
 ////////////////////////ft_split_tokens///////////////////////////
@@ -104,7 +104,7 @@ int		quotes_type(char *str);
 ////////////////////////words_count/////////////////////////////
 int		ft_words_count_tokens(char *s, char c);
 void	remove_quotes(t_minishell *minishell);
-void	loop_for_quotes(t_token *tokens, int i, int count);
+void	loop_for_quotes(t_token *tokens, int i);
 char	*creating_new(char *old, int start, int j);
 
 ////////////////////////error/////////////////////////////
@@ -113,27 +113,26 @@ void	error_handle(void);
 
 ////////////////////////commands.c/////////////////////////////
 int		count_cmd_args(t_minishell *minishell);
-void	run_commands(t_minishell *minishell);
+int		run_commands(t_minishell *minishell);
 char	**cmd_args(t_minishell *minishell);
 
 ////////////////////////ft_split/////////////////////////////
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_dirs(char *s1, char *s2);
 int		pipe_count(t_minishell *minishell);
-void	init_fd(t_minishell *minishell);
 
 ////////////////////////init/////////////////////////////
 t_env	*init_env(t_minishell *minishell);
-char **init_dirs(t_minishell *minishell);
-void init_cmd_line(t_minishell *minishell, char *input);
-void	init_fd(t_minishell *minishell);
+char 	**init_dirs(t_minishell *minishell);
+int		init_cmd_line(t_minishell *minishell, char *input);
+int		init_fd(t_minishell *minishell);
 
 ////////////////////////pipex/////////////////////////////
 void	pipex(t_minishell *minishell);
 void close_fd(t_minishell *minishell);
 
 ////////////////////////close_free_err/////////////////////////////
-void	err(t_minishell *minishell, char *message);
+void	err(t_minishell *minishell, char *message1, char *message2);
 void close_fd(t_minishell *minishell);
 void waiting_childs(t_minishell *minishell);
 void free_tokens(t_token *tokens, int count);
@@ -157,6 +156,7 @@ int	here_doc(char *limiter, t_minishell *minishell);
 ////////////////////////utils3//////////////////////////////
 int	matrix_len(char **array);
 void	ft_putstr_fd(char *s);
+char	*ft_strjoin(char *s1, char *s2);
 
 ////////////////////////builtin2/////////////////////////////
 void	cd(t_minishell *minishell);

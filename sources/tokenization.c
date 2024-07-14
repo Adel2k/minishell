@@ -32,6 +32,7 @@ t_token	*tokenisation(char **args, int count)
 
 char	*find_type(char *str, t_token *tokens, int i)
 {
+	printf( )
 	if (!ft_strcmp(str, "|"))
 		return ("pipe");
 	if (!ft_strcmp(str, "<"))
@@ -56,55 +57,54 @@ char	*find_type(char *str, t_token *tokens, int i)
 	return ("word");
 }
 
-void	check_for_invalid_input(t_token *tokens, int count)
+int check_next(t_token *tokens, int i)
+{
+	if (!ft_strcmp(tokens[i].type, "heredoc") && !ft_strcmp(tokens[i + 1].type, "heredoc"))
+	{
+		write(2, "syntax error near unexpected token \'<\'\n", 39);
+		return (-1);
+	}
+	if ((!ft_strcmp(tokens[i].type, "in_redir") && ft_strcmp(tokens[i + 1].type, "in_file"))
+		|| (!ft_strcmp(tokens[i].type, "out_redir") && ft_strcmp(tokens[i + 1].type, "out_file"))
+		|| (!ft_strcmp(tokens[i].type, "append_redir") && ft_strcmp(tokens[i + 1].type, "append_file"))
+		|| (!ft_strcmp(tokens[i].type, "heredoc") && ft_strcmp(tokens[i + 1].type, "limiter")
+			&& ft_strcmp(tokens[i + 1].type, "inredir")))
+	{
+		write(2, "syntax error near unexpected token \'", 36);
+		write(2, tokens[i + 1].str, ft_strlen(tokens[i].str));
+		write(2, "\'\n", 2);
+		return (-1);
+	}
+	return (1);
+}
+
+int	check_for_invalid_input(t_token *tokens, int count)
 {
 	int	i;
 
 	i = -1;
 	while (++i < count)
 	{
-		if (!ft_strcmp(tokens[i].type, "in_redir") && (i + 1 == count
-				|| (i < count && ft_strcmp(tokens[i + 1].type, "in_file"))))
-			err_and_free_tokens(tokens, count, "there is in_redir but no in_file\n");
-		if (!ft_strcmp(tokens[i].type, "out_redir") && (i + 1 == count
-				|| (i < count && ft_strcmp(tokens[i + 1].type, "out_file"))))
-			err_and_free_tokens(tokens, count, "there is out_redir but no out_file\n");
-		if (!ft_strcmp(tokens[i].type, "append_redir") && (i + 1 == count
-				|| (i < count && ft_strcmp(tokens[i + 1].type, "append_file"))))
-			err_and_free_tokens(tokens, count, "there is append_redir but no append_file\n");
-		if (!ft_strcmp(tokens[i].type, "heredoc") && (i + 1 == count
-				|| (i < count && ft_strcmp(tokens[i + 1].type, "limiter"))))
-			err_and_free_tokens(tokens, count, "there is heredoc but no limiter\n");
-		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count
-				|| i == 0 || ft_strcmp(tokens[i + 1].type, "word")))
-			err_and_free_tokens(tokens, count, "there is pipe w/out commands\n");
+		if ((i + 1 == count) && (!ft_strcmp(tokens[i].type, "in_redir")
+			|| !ft_strcmp(tokens[i].type, "out_redir")
+			|| !ft_strcmp(tokens[i].type, "append_redir")
+			|| !ft_strcmp(tokens[i].type, "heredoc")))
+		{
+			free_tokens(tokens, count);
+			write(2, "syntax error near unexpected token \'newline\'\n", 45);
+			return (-1);
+		}
+		if (check_next(tokens, i) < 0)
+		{
+			free_tokens(tokens, count);
+			return (-1);
+		}
+		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
+		{
+			free_tokens(tokens, count);
+			write(2, "syntax error near unexpected token \'|\'\n", 40);
+			return (-1);
+		}
 	}
+	return (1);
 }
-
-// void	remove_quotes(t_token *tokens, int count)
-// {
-// 	int	i;
-// 	int	flag;
-// 	int	j;
-
-// 	i = 0;
-// 	while (i < count)
-// 	{
-// 		j = 0;
-// 		flag = 0;
-// 		while (tokens[i].str[j])
-// 		{
-// 			if (tokens[i].str[j] == 39)
-// 			{
-// 				flag = 1;
-// 				break ;
-// 			}
-// 			if (tokens[i].str[j] == '"')
-// 			{
-// 				flag = 2;
-// 				break ;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// }
