@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   word_count.c                                       :+:      :+:    :+:   */
+/*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:15:37 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/07 13:15:39 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:02:29 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	single_quote(char *s, int i, int flag2)
 		while (s[i] && s[i] != 39)
 			i++;
 		if (!s[i])
-			exit(printf("No closing qoute\n"));
+		{
+			err(NULL, "No closing qoute\n", "");
+			return (-1);
+		}
 	}
 	else if (s[i] == 39)
 	{
@@ -46,7 +49,10 @@ int	quotes(char *s, int i)
 		while (s[i] && s[i] != '"')
 			i++;
 		if (!s[i])
-			exit(printf("No closing qoute\n"));
+		{
+			err(NULL, "No closing qoute\n", "");
+			return (-1);
+		}
 	}
 	else if (s[i] == '"')
 	{
@@ -86,6 +92,8 @@ int	ft_words_count_tokens(char *s, char c)
 	while (i <= (int)ft_strlen(s))
 	{
 		i = quotes(s, i);
+		if (i < 0)
+			return (-1);
 		if (s[i] == c || s[i] == '\0' || s[i] == '|'
 			|| s[i] == '<' || s[i] == '>')
 		{

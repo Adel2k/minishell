@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/14 18:42:04 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:12:18 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	dollar_sign(t_token *tokens, int count, t_minishell	*minishell)
 	while (++i < count)
 	{
 		if (ft_strcmp(tokens[i].type, "word"))
-			return ;
+			continue ;
 		start = 0;
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/14 16:38:26 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:54:26 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_minishell
 	int		(*here_doc)[2];
 	char	**cmd;
 }	t_minishell;
+
+void	print_tokens(t_token *tokens, int tokens_count);
 
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
