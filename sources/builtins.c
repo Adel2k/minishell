@@ -75,17 +75,20 @@ void	env(t_minishell *minishell)
 
 int	builtin(t_minishell *minishell, char **command)
 {
-	if (ft_strcmp(command[0], "/bin/echo") == 0 || ft_strcmp(command[0], "echo") == 0)
+	char	*temp;
+
+	temp = ft_tolower(command[0]);
+	if (ft_strcmp(temp, "/bin/echo") == 0 || ft_strcmp(temp, "echo") == 0)
 	{
 		echo(command);
 		return (1);
 	}
-	if (ft_strcmp(command[0], "/usr/bin/env") == 0 || ft_strcmp(command[0], "env") == 0)
+	if (ft_strcmp(temp, "/usr/bin/env") == 0 || ft_strcmp(temp, "env") == 0)
 	{
 		env(minishell);
 		return (1);
 	}
-	if (ft_strcmp(command[0], "/bin/pwd") == 0 || ft_strcmp(command[0], "pwd") == 0)
+	if (ft_strcmp(temp, "/bin/pwd") == 0 || ft_strcmp(temp, "pwd") == 0)
 	{
 		pwd();
 		return (1);

@@ -109,7 +109,10 @@ int	run_commands(t_minishell *minishell)
 	if (minishell->infile < 0 || minishell->outfile < 0)
 		return -1;
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0 || ft_strcmp(minishell->cmd[0], "cd") == 0)
+	{
 		cd(minishell);
+		return (1);
+	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -123,7 +126,7 @@ int	run_commands(t_minishell *minishell)
 			return (-1);
 		pipex(minishell);
 		redirs(minishell);
-		printf("aaaa\n");
+
 		if (builtin(minishell, minishell->cmd))
 			exit(0);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)

@@ -128,3 +128,17 @@ char	*ft_strjoin(char *s1, char *s2)
 	s3[i] = '\0';
 	return (s3);
 }
+
+char	*ft_tolower(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 32;
+		i++;
+	}
+	return (str);
+}

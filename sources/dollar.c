@@ -67,22 +67,18 @@ int	quotes_type(char *str)
 	return (-1);
 }
 
-char	*find_replacement(t_minishell *minishell, char *s)
+char	*find_replacement(t_env *envm, char *s)
 {
-	t_env	*start;
-
-	start = minishell->envm;
-	while (minishell->envm)
+	while (envm)
 	{
-		if (ft_strcmp(minishell->envm->key, s))
+		if (ft_strcmp(envm->key, s))
 		{
-			minishell->envm = minishell->envm->next;
+			envm = envm->next;
 			continue ;
 		}
-		return (ft_strdup(minishell->envm->value));
-		minishell->envm = minishell->envm->next;
+		return (ft_strdup(envm->value));
+		envm = envm->next;
 	}
-	minishell->envm = start;
 	return (0);
 }
 
@@ -103,7 +99,7 @@ int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 			l = join_trio(tokens[i].str, s, start, start + 2);
 		else
 		{
-			l = join_trio(tokens[i].str, find_replacement(minishell, s),
+			l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
 					start, start + 1 + ft_strlen(s));
 			free(s);
 		}
@@ -123,7 +119,7 @@ void	dollar_sign(t_token *tokens, int count, t_minishell	*minishell)
 	while (++i < count)
 	{
 		if (ft_strcmp(tokens[i].type, "word"))
-			return ;
+			continue ;
 		start = 0;
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{

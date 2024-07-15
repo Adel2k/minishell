@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -157,6 +159,7 @@ int	here_doc(char *limiter, t_minishell *minishell);
 int	matrix_len(char **array);
 void	ft_putstr_fd(char *s);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_tolower(char *str);
 
 ////////////////////////builtin2/////////////////////////////
 void	cd(t_minishell *minishell);
