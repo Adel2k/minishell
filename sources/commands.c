@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 18:12:57 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 00:19:59 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 		i++;
 	}
 	if (!minishell -> cmd_dirs[i])
+	{
+		free(command);	
 		return (0);
+	}
 	return (command);
 }
 
@@ -63,14 +66,16 @@ char	**cmd_args(t_minishell *minishell)
 	i = minishell->index;
 	j = 0;
 	args = malloc((count_cmd_args(minishell) + 1) * sizeof(char *));
+	//printf("minishell->cmd malloced\n");
 	if (!args)
-		err(minishell, "Malloc_err\n", "");
+		err_message("minishell: ", "Malloc_err\n", "");
 	while (i < minishell->tokens_count
 		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
 		if (ft_strcmp(minishell->tokens[i].type, "word") == 0 && ft_strlen(minishell->tokens[i].str))
 		{
 			args[j] = ft_strdup(minishell->tokens[i].str);
+			//printf("minishell->cmd[i] malloced\n");
 			j++;
 		}
 		i++;
@@ -89,8 +94,9 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	{
 		if (access(command[0], X_OK) == -1)
 		{
-			err(minishell, command[0], ": command not found\n");
-			return (0);
+			err_message("minishell: ", command[0], ": command not found\n");
+			system("leaks minishell");
+			exit(1);
 		}
 	}
 	else
@@ -114,24 +120,24 @@ int	run_commands(t_minishell *minishell)
 		return (1);
 	}
 	pid = fork();
+	//system("leaks minishell");
 	if (pid == -1)
 	{
-		err(minishell, "Fork failed\n", "");
-		return (-1);
+		err_message("minishell: ", "Fork failed\n", "");
+		exit(1);
 	}
 	if (pid == 0)
 	{
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
-		if (!minishell->cmd)
-			return (-1);
 		pipex(minishell);
 		redirs(minishell);
 		if (builtin(minishell, minishell->cmd))
 			exit(0);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)
 		{
-			err(minishell, "Executing command failed\n", "");
-			return (-1);
+			err_message("minishell: ", "Executing command failed\n", "");
+			free_cmd(minishell->cmd);
+			exit(1);
 		}
 	}
 	return (1);

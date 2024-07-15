@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:40 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/13 12:48:15 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:06:28 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	pipex(t_minishell *minishell)
 			&& dup2(minishell->fd[minishell->pipe_index - 1][0], 0) == -1)
 	{
 		close_fd(minishell);
-		err(minishell, "pipe error\n", "");
+		err_message("minishell: ", "pipe error\n", "");
 		exit(1);
 	}
 	if  (minishell->pipe_index < minishell->pipe_count
 		&& dup2(minishell->fd[minishell->pipe_index][1], 1) == -1)
 	{
 		close_fd(minishell);
-		err(minishell, "pipe error\n", "");
+		err_message("minishell: ", "pipe error\n", "");
 		exit(1);
 	}
 	close_fd(minishell);

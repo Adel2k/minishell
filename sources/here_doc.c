@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 20:24:47 by hrigrigo          #+#    #+#             */
-/*   Updated: 2024/07/13 21:35:11 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:09:08 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ int	here_doc(char *limiter, t_minishell *minishell)
 	int (*fd)[2];
 
 	fd = malloc(sizeof(int[2]));
+	//printf("minishell->heredoc malloced\n");
 	if (pipe(*fd) == -1)
 	{
 		close((*fd)[0]);
 		close((*fd)[1]);
-		err(minishell, "pipe error\n", "");
+		err_message("minishell: ", "pipe error\n", "");
 		return (-1);
 	}
 	minishell->here_doc = fd;

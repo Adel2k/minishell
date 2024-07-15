@@ -70,7 +70,7 @@ void redirs(t_minishell *minishell)
 		{
 			close((*minishell -> here_doc)[0]);
 			close((*minishell -> here_doc)[1]);
-			err(minishell, "dup2 error\n", "");
+			err_message("minishell: ", "dup2 error\n", "");
 		}
 		close((*minishell -> here_doc)[0]);
 		close((*minishell->here_doc)[1]);
@@ -85,7 +85,7 @@ void in_redir(t_minishell *minishell)
 		if (dup2(minishell->infile, 0) == -1)
 		{
 			close(minishell->infile);
-			err(minishell, "dup2 error\n", "");
+			err_message("minishell: ", "dup2 error\n", "");
 		}
 		close(minishell->infile);
 	}
@@ -97,7 +97,7 @@ void out_redir(t_minishell *minishell)
 		if (dup2(minishell->outfile, 1) == -1)
 		{
 			close(minishell->outfile);
-			err(minishell, "dup2 error\n", "");
+			err_message("minishell: ", "dup2 error\n", "");
 		}
 		close(minishell->outfile);
 	}

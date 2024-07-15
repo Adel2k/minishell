@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:26 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:10:04 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,10 @@ void	pipex(t_minishell *minishell);
 void close_fd(t_minishell *minishell);
 
 ////////////////////////close_free_err/////////////////////////////
-void	err(t_minishell *minishell, char *message1, char *message2);
+void	err_message(char *message1, char *message2, char *message3);
 void close_fd(t_minishell *minishell);
 void waiting_childs(t_minishell *minishell);
 void free_tokens(t_token *tokens, int count);
-void err_and_free_tokens(t_token *tokens, int tokens_count, char *message);
 void free_cmd(char **command);
 
 ////////////////////////redirs/////////////////////////////
