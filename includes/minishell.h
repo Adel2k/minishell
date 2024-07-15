@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 23:10:04 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 02:10:03 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ char	*ft_tolower(char *str);
 
 ////////////////////////builtin2/////////////////////////////
 void	cd(t_minishell *minishell);
+
+void unset(t_env *env, char *key);
 
 
 #endif

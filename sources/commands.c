@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 00:19:59 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 02:26:17 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ int	run_commands(t_minishell *minishell)
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0 || ft_strcmp(minishell->cmd[0], "cd") == 0)
 	{
 		cd(minishell);
+		return (1);
+	}
+	if (ft_strcmp(ft_tolower(minishell->cmd[0]), "unset") == 0)
+	{
+		if (minishell->cmd[1])
+			unset(minishell->envm, minishell->cmd[1]);
 		return (1);
 	}
 	pid = fork();
