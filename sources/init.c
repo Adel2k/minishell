@@ -64,6 +64,11 @@ int init_cmd_line(t_minishell *minishell, char *input)
 	char **strs;
 
 	minishell->tokens_count = ft_words_count_tokens(input, ' ');
+	if (minishell->tokens_count < 0)
+	{
+		free(input);
+		return (-1);
+	}
 	strs = ft_split_tokens(input);
 	// if (!input)
 	// 	exit(printf("No input received.\n"));

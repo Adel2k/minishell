@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/14 21:28:00 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:36:20 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int check_next(t_token *tokens, int i)
 {
 	if (!ft_strcmp(tokens[i].type, "heredoc") && !ft_strcmp(tokens[i + 1].type, "heredoc"))
 	{
-		write(2, "syntax error near unexpected token \'<\'\n", 39);
+		write(2, "syntax error near unexpected token `<\'\n", 39);
 		return (-1);
 	}
 	if ((!ft_strcmp(tokens[i].type, "in_redir") && ft_strcmp(tokens[i + 1].type, "in_file"))
@@ -69,8 +69,8 @@ int check_next(t_token *tokens, int i)
 		|| (!ft_strcmp(tokens[i].type, "heredoc") && ft_strcmp(tokens[i + 1].type, "limiter")
 			&& ft_strcmp(tokens[i + 1].type, "inredir")))
 	{
-		write(2, "syntax error near unexpected token \'", 36);
-		write(2, tokens[i + 1].str, ft_strlen(tokens[i].str));
+		write(2, "syntax error near unexpected token `", 36);
+		write(2, tokens[i + 1].str, ft_strlen(tokens[i + 1].str));
 		write(2, "\'\n", 2);
 		return (-1);
 	}
@@ -89,19 +89,14 @@ int	check_for_invalid_input(t_token *tokens, int count)
 			|| !ft_strcmp(tokens[i].type, "append_redir")
 			|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
-			free_tokens(tokens, count);
-			write(2, "syntax error near unexpected token \'newline\'\n", 45);
+			write(2, "syntax error near unexpected token `newline\'\n", 45);
 			return (-1);
 		}
 		if (check_next(tokens, i) < 0)
-		{
-			free_tokens(tokens, count);
 			return (-1);
-		}
 		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
 		{
-			free_tokens(tokens, count);
-			write(2, "syntax error near unexpected token \'|\'\n", 40);
+			write(2, "syntax error near unexpected token `|\'\n", 40);
 			return (-1);
 		}
 	}
