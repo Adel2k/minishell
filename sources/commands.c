@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/14 15:37:26 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:17:12 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	run_commands(t_minishell *minishell)
 	int		pid;
 
 	minishell->cmd = cmd_args(minishell);
-	if (minishell->infile < 0 || minishell->outfile < 0 || count_cmd_args(minishell) == 0)
+	if (minishell->infile < 0 || minishell->outfile < 0)
 		return -1;
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0 || ft_strcmp(minishell->cmd[0], "cd") == 0)
 		cd(minishell);
@@ -123,6 +123,7 @@ int	run_commands(t_minishell *minishell)
 			return (-1);
 		pipex(minishell);
 		redirs(minishell);
+		printf("aaaa\n");
 		if (builtin(minishell, minishell->cmd))
 			exit(0);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)

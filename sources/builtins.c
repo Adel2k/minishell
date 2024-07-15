@@ -60,7 +60,7 @@ void	env(t_minishell *minishell)
 {
 	if (minishell->cmd[1])
 	{
-		// err(minishell, minishell->cmd[1], ": No such file or directory");
+		err(minishell, minishell->cmd[1], ": No such file or directory");
 		return ;
 	}
 	while (minishell->envm)

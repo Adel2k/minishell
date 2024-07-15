@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenisation.c                                     :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/09 15:53:15 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:28:00 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_token	*tokenisation(char **args, int count)
 
 char	*find_type(char *str, t_token *tokens, int i)
 {
-	printf( )
 	if (!ft_strcmp(str, "|"))
 		return ("pipe");
 	if (!ft_strcmp(str, "<"))

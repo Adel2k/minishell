@@ -73,17 +73,11 @@ int init_cmd_line(t_minishell *minishell, char *input)
 	minishell->pipe_count = pipe_count(minishell);
 	minishell->pipe_index = 0;
 	minishell->index = 0;
-<<<<<<< HEAD
-	init_fd(minishell);
-	check_for_invalid_input(minishell->tokens, minishell->tokens_count);
-	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
-=======
 	if (init_fd(minishell) < 0)
 		return (-1);
 	if (check_for_invalid_input(minishell->tokens, minishell->tokens_count) < 0)
 		return (-1);
-	dollar_sign(minishell->tokens, minishell->tokens_count, minishell->env);
->>>>>>> 9345277e7aaf33e4819917ea1e8f87ed61bc3a91
+	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
 	return (1);
 }
