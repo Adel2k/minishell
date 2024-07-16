@@ -65,10 +65,13 @@ void	env(t_minishell *minishell)
 	}
 	while (minishell->envm)
 	{
-		ft_putstr_fd(minishell->envm->key);
-		write(1, "=", 1);
-		ft_putstr_fd(minishell->envm->value);
-		write(1, "\n", 1);
+		if (minishell->envm->value)
+		{	
+			ft_putstr_fd(minishell->envm->key);
+			write(1, "=", 1);
+			ft_putstr_fd(minishell->envm->value);
+			write(1, "\n", 1);
+		}
 		minishell->envm = minishell->envm->next;
 	}
 }

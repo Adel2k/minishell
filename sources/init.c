@@ -68,6 +68,7 @@ int init_cmd_line(t_minishell *minishell, char *input)
 	minishell->tokens_count = ft_words_count_tokens(input, ' ');
 	if (minishell->tokens_count < 0)
 	{
+		printf("hehehe\n");
 		free(input);
 		//printf("input freed\n");
 		return (-1);

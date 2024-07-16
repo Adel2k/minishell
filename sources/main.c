@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 02:26:41 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 03:35:51 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **env)
 	minishell->env = env;
 	minishell->envm = init_env(minishell);
 	minishell->cmd_dirs = init_dirs(minishell);
+	minishell->tokens = NULL;
 	while (1)
 	{
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");

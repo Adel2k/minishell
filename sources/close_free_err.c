@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:07 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 23:10:00 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 03:35:13 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void waiting_childs(t_minishell *minishell)
 void free_tokens(t_token *tokens, int count)
 {
 	int	j;
-
+	if (!tokens)
+		return ;
 	j = 0;
 	while (j < count)
 	{

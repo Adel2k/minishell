@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 02:26:17 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 02:37:59 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,15 @@ int	run_commands(t_minishell *minishell)
 			unset(minishell->envm, minishell->cmd[1]);
 		return (1);
 	}
+	if (ft_strcmp(ft_tolower(minishell->cmd[0]), "export") == 0)
+	{
+		if (minishell->cmd[1])
+			export(minishell->envm, minishell->cmd[1]);
+		else
+			export_print(minishell->envm);
+		return (1);
+	}
 	pid = fork();
-	//system("leaks minishell");
 	if (pid == -1)
 	{
 		err_message("minishell: ", "Fork failed\n", "");
