@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 02:46:34 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 07:03:50 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_token
 	// append_file after >>
 	// limiter after <<
 }	t_token;
+
 typedef struct s_env
 {
 	char			*info;
@@ -167,7 +168,7 @@ void	cd(t_minishell *minishell);
 
 void unset(t_env *env, char *key);
 
-void export(t_env *env, char *str);
+void export(t_minishell *minishell, char *str);
 void export_print(t_env *env);
 
 
