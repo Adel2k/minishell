@@ -90,11 +90,9 @@ int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 	if (start != -1)
 	{
 		s = to_find(start, tokens, i);
-		//printf("s in dollar_sign2 malloced\n");	
 		if (ft_strlen(s) == 0)
 		{
 			free(s);
-		//printf("s in dollar_sign2 freed\n");	
 			return (0);
 		}
 		if (ft_strcmp(s, ft_itoa(getpid())) == 0)
@@ -104,8 +102,6 @@ int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 			l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
 					start, start + 1 + ft_strlen(s));
 			free(s);
-			//printf("s in dollar_sign2 freed\n");	
-
 		}
 		free(tokens[i].str);
 		tokens[i].str = l;

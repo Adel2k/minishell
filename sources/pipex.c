@@ -31,13 +31,13 @@ int	pipe_count(t_minishell *minishell)
 void	pipex(t_minishell *minishell)
 {
 	if (minishell->pipe_index != 0 && minishell->infile == 0
-			&& dup2(minishell->fd[minishell->pipe_index - 1][0], 0) == -1)
+		&& dup2(minishell->fd[minishell->pipe_index - 1][0], 0) == -1)
 	{
 		close_fd(minishell);
 		err_message("minishell: ", "pipe error\n", "");
 		exit(1);
 	}
-	if  (minishell->pipe_index < minishell->pipe_count
+	if (minishell->pipe_index < minishell->pipe_count
 		&& dup2(minishell->fd[minishell->pipe_index][1], 1) == -1)
 	{
 		close_fd(minishell);

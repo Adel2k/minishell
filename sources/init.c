@@ -1,45 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 08:50:53 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/16 08:50:55 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void add_nodes(char *str, t_env **env)
+void	init_redirs(t_minishell *minishell)
 {
-	t_env 	*res;
-	t_env 	*tmp;
-	char	**inf;
+	int	i;
 
-	res = malloc(sizeof(t_env));
-	malloc_check(res);
-	inf = ft_split(str, '=');
-	res->info = str;
-	res->key = inf[0];
-	res->value = inf[1];
-	free(inf);
-	res->next = NULL;
-	if (!*env)
+	i = minishell->index - 1;
+	while (++i < minishell->tokens_count
+		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
 	{
-		(*env) = res;
-		return ;
+		if (ft_strcmp(minishell->tokens[i].type, "in_file") == 0)
+		{
+			minishell->infile_name = minishell->tokens[i].str;
+			minishell->infile = open_infile(minishell->tokens[i].str);
+		}
+		if (ft_strcmp(minishell->tokens[i].type, "out_file") == 0)
+		{
+			minishell->outfile_name = minishell->tokens[i].str;
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 0);
+		}
+		if (ft_strcmp(minishell->tokens[i].type, "append_file") == 0)
+		{
+			minishell->outfile_name = minishell->tokens[i].str;
+			minishell->outfile = open_outfile(minishell->tokens[i].str, 1);
+		}
+		if (ft_strcmp(minishell->tokens[i].type, "limiter") == 0)
+			minishell->if_here_doc
+				= here_doc(minishell->tokens[i].str, minishell);
 	}
-	tmp = *env;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = res;
 }
 
 t_env	*init_env(t_minishell *minishell)
 {
-	t_env 	*res;
+	t_env	*res;
 	int		i;
+
 	res = NULL;
 	i = -1;
 	while (minishell->env[++i] != 0)
-	{
 		add_nodes(ft_strdup(minishell->env[i]), &res);
-		//printf("minishell->env_node malloced\n");
-	}
 	return (res);
 }
 
-char **init_dirs(t_minishell *minishell)
+char	**init_dirs(t_minishell *minishell)
 {
 	int		i;
 	char	**dirs;
@@ -52,7 +66,6 @@ char **init_dirs(t_minishell *minishell)
 		i++;
 	}
 	dirs = ft_split(minishell -> env[i] + 5, ':');
-	//printf("minishell->cmd_dirs malloced\n");
 	if (!dirs)
 	{
 		err_message("minishell: ", "split_err\n", "");
@@ -61,23 +74,21 @@ char **init_dirs(t_minishell *minishell)
 	return (dirs);
 }
 
-int init_cmd_line(t_minishell *minishell, char *input)
+int	init_cmd_line(t_minishell *minishell, char *input)
 {
-	char **strs;
+	char	**strs;
 
 	minishell->tokens_count = ft_words_count_tokens(input, ' ');
 	if (minishell->tokens_count < 0)
 	{
 		printf("hehehe\n");
 		free(input);
-		//printf("input freed\n");
 		return (-1);
 	}
 	strs = ft_split_tokens(input);
 	minishell->tokens = tokenisation(strs, minishell->tokens_count);
 	free(strs);
 	free(input);
-	//printf("input freed\n");
 	minishell->pipe_count = pipe_count(minishell);
 	minishell->pipe_index = 0;
 	minishell->index = 0;
@@ -97,7 +108,6 @@ int	init_fd(t_minishell *minishell)
 
 	i = 0;
 	fd = malloc(sizeof(int [2]) * (minishell->pipe_count));
-	//printf("minishell->fd malloced\n");
 	malloc_check(fd);
 	while (i < minishell->pipe_count)
 	{
@@ -109,7 +119,6 @@ int	init_fd(t_minishell *minishell)
 				close(fd[i--][1]);
 			}
 			free(fd);
-			//printf("minishell->fd freed\n");
 			err_message("minishell: ", "pipe error\n", "");
 			return (-1);
 		}

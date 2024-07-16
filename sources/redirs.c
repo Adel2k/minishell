@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirs.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 08:49:54 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/16 08:49:56 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	open_infile(char *file_name)
@@ -31,36 +43,7 @@ int	open_outfile(char *file_name, int i)
 	return (outfile_fd);
 }
 
-void init_redirs(t_minishell *minishell)
-{
-	int i;
-
-	i = minishell->index;
-	while (i < minishell->tokens_count
-		&& ft_strcmp(minishell->tokens[i].type, "pipe") != 0)
-	{
-		if (ft_strcmp(minishell->tokens[i].type, "in_file") == 0)
-		{
-			minishell->infile_name = minishell->tokens[i].str;
-			minishell->infile = open_infile(minishell->tokens[i].str);
-		}
-		if (ft_strcmp(minishell->tokens[i].type, "out_file") == 0)
-		{
-			minishell->outfile_name = minishell->tokens[i].str;
-			minishell->outfile = open_outfile(minishell->tokens[i].str, 0);
-		}
-		if (ft_strcmp(minishell->tokens[i].type, "append_file") == 0)
-		{
-			minishell->outfile_name = minishell->tokens[i].str;
-			minishell->outfile = open_outfile(minishell->tokens[i].str, 1);
-		}
-		if (ft_strcmp(minishell->tokens[i].type, "limiter") == 0)
-			minishell->if_here_doc = here_doc(minishell->tokens[i].str, minishell);
-		i++;
-	}
-}
-
-void redirs(t_minishell *minishell)
+void	redirs(t_minishell *minishell)
 {
 	in_redir(minishell);
 	out_redir(minishell);
@@ -75,10 +58,9 @@ void redirs(t_minishell *minishell)
 		close((*minishell -> here_doc)[0]);
 		close((*minishell->here_doc)[1]);
 	}
-
 }
 
-void in_redir(t_minishell *minishell)
+void	in_redir(t_minishell *minishell)
 {
 	if (minishell->infile > 0)
 	{
@@ -90,7 +72,8 @@ void in_redir(t_minishell *minishell)
 		close(minishell->infile);
 	}
 }
-void out_redir(t_minishell *minishell)
+
+void	out_redir(t_minishell *minishell)
 {
 	if (minishell->outfile > 1)
 	{

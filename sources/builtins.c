@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/16 08:48:36 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	pwd(void)
@@ -62,13 +74,14 @@ void	env(t_minishell *minishell)
 {
 	if (minishell->cmd[1])
 	{
-		err_message("minishell: ", minishell->cmd[1], ": No such file or directory");
+		err_message("minishell: ", minishell->cmd[1],
+			": No such file or directory");
 		return ;
 	}
 	while (minishell->envm)
 	{
 		if (minishell->envm->value)
-		{	
+		{
 			ft_putstr_fd(minishell->envm->key);
 			write(1, "=", 1);
 			ft_putstr_fd(minishell->envm->value);

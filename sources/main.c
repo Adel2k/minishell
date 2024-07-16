@@ -24,7 +24,8 @@ void	print_tokens(t_token *tokens, int tokens_count)
 	}
 }
 
-void exec_cmd(t_minishell *minishell)
+
+void	exec_cmd(t_minishell *minishell)
 {
 	while (minishell->index < minishell->tokens_count)
 	{
@@ -44,40 +45,20 @@ void exec_cmd(t_minishell *minishell)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
+void	loop_for_lines(t_minishell *minishell, char *input)
 {
-	t_minishell *minishell;
-	char *input;
-
-	(void) argc;
-	(void) argv;
-	minishell = malloc(sizeof(t_minishell));
-	//printf("minishell malloced\n");
-	if (!minishell)
-		return (1);
-	minishell->env = env;
-	minishell->envm = init_env(minishell);
-	minishell->cmd_dirs = init_dirs(minishell);
-	minishell->tokens = NULL;
 	while (1)
 	{
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
-		//printf("input malloced\n");
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
 			free_tokens(minishell->tokens, minishell->tokens_count);
 			free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
-			{
 				free(minishell->fd);
-				//printf("minishell->fd freed\n");	
-			}
 			if (minishell->if_here_doc)
-			{
 				free(minishell->here_doc);
-				//printf("minishell->heredoc freed\n");	
-			}
 			continue ;
 		}
 		exec_cmd(minishell);
@@ -85,24 +66,28 @@ int	main(int argc, char **argv, char **env)
 		waiting_childs(minishell);
 		free_tokens(minishell->tokens, minishell->tokens_count);
 		if (minishell->pipe_count > 0)
-		{
 			free(minishell->fd);
-			//printf("minishell->fd freed\n");	
-		}
 		if (minishell->if_here_doc)
-		{
 			free(minishell->here_doc);
-			//printf("minishell->heredoc freed\n");	
-		}
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
-	int i = 0;
-	while (minishell -> cmd_dirs[i])
-	{
-		free(minishell->cmd_dirs[i]);
-		i++;
-	}
-	free(minishell->cmd_dirs);
-	//printf("minishell->cmd_dirs malloced\n");
+}
+int	main(int argc, char **argv, char **env)
+{
+	t_minishell	*minishell;
+	char		*input;
+
+	(void) argc;
+	(void) argv;
+	input = NULL;
+	minishell = malloc(sizeof(t_minishell));
+	if (!minishell)
+		return (1);
+	minishell->env = env;
+	minishell->envm = init_env(minishell);
+	minishell->cmd_dirs = init_dirs(minishell);
+	minishell->tokens = NULL;
+	loop_for_lines(minishell, input);
+	free_dirs(minishell);
 	return (0);
 }

@@ -12,23 +12,11 @@
 
 #include "minishell.h"
 
-int	here_doc(char *limiter, t_minishell *minishell)
+void	run_here_doc(t_minishell *minishell, char *limiter)
 {
-	char	*str;
 	int		len;
-	int (*fd)[2];
+	char	*str;
 
-	fd = malloc(sizeof(int[2]));
-	//printf("minishell->heredoc malloced\n");
-	if (pipe(*fd) == -1)
-	{
-		close((*fd)[0]);
-		close((*fd)[1]);
-		err_message("minishell: ", "pipe error\n", "");
-		return (-1);
-	}
-	minishell->here_doc = fd;
-	minishell->if_here_doc = 1;
 	while (1)
 	{
 		str = readline(" > ");
@@ -44,6 +32,23 @@ int	here_doc(char *limiter, t_minishell *minishell)
 		write((*minishell -> here_doc)[1], str, len);
 		free(str);
 	}
+}
+
+int	here_doc(char *limiter, t_minishell *minishell)
+{
+	int	(*fd)[2];
+
+	fd = malloc(sizeof(int [2]));
+	if (pipe(*fd) == -1)
+	{
+		close((*fd)[0]);
+		close((*fd)[1]);
+		err_message("minishell: ", "pipe error\n", "");
+		return (-1);
+	}
+	minishell->here_doc = fd;
+	minishell->if_here_doc = 1;
+	run_here_doc(minishell, limiter);
 	close((*minishell -> here_doc)[1]);
 	return (1);
 }

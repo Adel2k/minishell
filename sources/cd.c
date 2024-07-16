@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/16 08:48:44 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/16 08:48:45 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	set_pwd(t_minishell *minishell, char *old, char *new)
@@ -49,7 +61,6 @@ void	cd_home(t_minishell *minishell)
 	{
 		if (ft_strcmp(start->key, "HOME") == 0)
 		{
-			printf("%s\n", start->value);
 			chdir (start->value);
 			break ;
 		}
@@ -97,18 +108,17 @@ void	cd(t_minishell *minishell)
 	{
 		if (stat(minishell->cmd[1], &info) < 0)
 		{
-			printf("%d\n", S_ISDIR(info.st_mode));
 			if (!(S_ISDIR(info.st_mode)) && !(S_ISREG(info.st_mode)))
-				err(minishell, minishell->cmd[1], " is not a directory or file\n");
+				err_message("minishell: ", minishell->cmd[1], " is not a directory or file\n");
 			else if ((S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)) && access(minishell->cmd[1], R_OK | X_OK))
-				err(minishell, "", "Permission denied.\n");
+				err_message("minishell: ", "", "Permission denied.\n");
 			else if (!(S_ISDIR(info.st_mode)))
-				err(minishell, minishell->cmd[1], " is not a directory\n");
+				err_message("minishell: ", minishell->cmd[1], " is not a directory\n");
 		}
 		else if (access(minishell->cmd[1], R_OK | X_OK) && (S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)))
-			err(minishell, "", "Permission denied.\n");
+			err_message("minishell: ", "", "Permission denied.\n");
 		else if (!(S_ISDIR(info.st_mode)))
-			err(minishell, minishell->cmd[1], " is not a directory\n");
+			err_message("minishell: ", minishell->cmd[1], " is not a directory\n");
 		cd_absolute(minishell);
 	}
 }

@@ -73,7 +73,13 @@ void	print_tokens(t_token *tokens, int tokens_count);
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
-int	check_for_invalid_input(t_token *tokens, int count);
+int		check_for_invalid_input(t_token *tokens, int count);
+
+//////////////////tokenisation_utils////////////////////////
+char	*cut2(char **s, int *len);
+int		check1(char c);
+char	*join_trio(char *s, char *s2, int start, int end);
+char	*to_find(int start, t_token *tokens, int i);
 
 ////////////////////////utils//////////////////////////////
 size_t	ft_strlen(const char *s);
@@ -81,22 +87,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strstr(char *str, char *to_find);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-
-////////////////////////utils2//////////////////////////////
-char	*ft_strdup(const char *s);
-char	*join_trio(char *s, char *s2, int start, int end);
-int		check1(char c);
-char	*to_find(int start, t_token *tokens, int i);
-char	*cut2(char **s, int *len);
-char	*ft_itoa(int n);
-
-////////////////////////utils3//////////////////////////////
-int		matrix_len(char **array);
-char	*ft_strdup(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strstr_alt(char *str, char *to_find);
-char	*ft_strjoin_dirs(char *s1, char *s2);
-
 
 ////////////////////////ft_split_tokens///////////////////////////
 char	**ft_split_tokens(char *s);
@@ -128,48 +118,61 @@ int		pipe_count(t_minishell *minishell);
 
 ////////////////////////init/////////////////////////////
 t_env	*init_env(t_minishell *minishell);
-char 	**init_dirs(t_minishell *minishell);
+char	**init_dirs(t_minishell *minishell);
 int		init_cmd_line(t_minishell *minishell, char *input);
 int		init_fd(t_minishell *minishell);
+void	init_redirs(t_minishell *minishell);
 
 ////////////////////////pipex/////////////////////////////
 void	pipex(t_minishell *minishell);
-void close_fd(t_minishell *minishell);
+void	close_fd(t_minishell *minishell);
 
 ////////////////////////close_free_err/////////////////////////////
 void	err_message(char *message1, char *message2, char *message3);
-void close_fd(t_minishell *minishell);
-void waiting_childs(t_minishell *minishell);
-void free_tokens(t_token *tokens, int count);
-void free_cmd(char **command);
+void	close_fd(t_minishell *minishell);
+void	waiting_childs(t_minishell *minishell);
+void	free_tokens(t_token *tokens, int count);
+void	free_cmd(char **command);
+void	free_dirs(t_minishell *minishell);
 
 ////////////////////////redirs/////////////////////////////
-int	open_infile(char *file_name);
-int	open_outfile(char *file_name, int i);
-void init_redirs(t_minishell *minishell);
-void redirs(t_minishell *minishell);
-void in_redir(t_minishell *minishell);
-void out_redir(t_minishell *minishell);
-
-////////////////////////builtin/////////////////////////////
-int	builtin(t_minishell *minishell, char **command);
+int		open_infile(char *file_name);
+int		open_outfile(char *file_name, int i);
+void	redirs(t_minishell *minishell);
+void	in_redir(t_minishell *minishell);
+void	out_redir(t_minishell *minishell);
 
 ////////////////////////here_doc/////////////////////////////
-int	here_doc(char *limiter, t_minishell *minishell);
+int		here_doc(char *limiter, t_minishell *minishell);
+
+////////////////////////utils2//////////////////////////////
+char	*ft_strjoin_dirs(char *s1, char *s2);
+void	ft_putstr_fd(char *s);
+char	*ft_strstr_alt(char *str, char *to_find);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s);
 
 ////////////////////////utils3//////////////////////////////
-int	matrix_len(char **array);
-void	ft_putstr_fd(char *s);
+void	add_nodes(char *str, t_env **env);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_tolower(char *str);
+int		matrix_len(char **array);
+char	*ft_strchr(char *s, int c);
 
-////////////////////////builtin2/////////////////////////////
+////////////////////////builtin/////////////////////////////
+int		builtin(t_minishell *minishell, char **command);
+
+////////////////////////cd////////////////////////////////////
 void	cd(t_minishell *minishell);
 
-void unset(t_env *env, char *key);
+////////////////////////export///////////////////////////////
+void	unset(t_env *env, char *key);
+void 	export(t_minishell *minishell, char *str);
+void 	export_print(t_env *env);
 
-void export(t_minishell *minishell, char *str);
-void export_print(t_env *env);
+////////////////////////export///////////////////////////////
+char	*ft_itoa(int n);
 
+char	**check_cmd(char **command, t_minishell *minishell);
 
 #endif

@@ -18,7 +18,6 @@ t_token	*tokenisation(char **args, int count)
 	int		i;
 
 	tokens = malloc(count * sizeof(t_token));
-	//printf("minishell->tokens malloced\n");
 	if (!tokens)
 		return (NULL);
 	i = 0;
@@ -57,17 +56,22 @@ char	*find_type(char *str, t_token *tokens, int i)
 	return ("word");
 }
 
-int check_next(t_token *tokens, int i)
+int	check_next(t_token *tokens, int i)
 {
-	if (!ft_strcmp(tokens[i].type, "heredoc") && !ft_strcmp(tokens[i + 1].type, "heredoc"))
+	if (!ft_strcmp(tokens[i].type, "heredoc")
+		&& !ft_strcmp(tokens[i + 1].type, "heredoc"))
 	{
 		write(2, "syntax error near unexpected token `<\'\n", 39);
 		return (-1);
 	}
-	if ((!ft_strcmp(tokens[i].type, "in_redir") && ft_strcmp(tokens[i + 1].type, "in_file"))
-		|| (!ft_strcmp(tokens[i].type, "out_redir") && ft_strcmp(tokens[i + 1].type, "out_file"))
-		|| (!ft_strcmp(tokens[i].type, "append_redir") && ft_strcmp(tokens[i + 1].type, "append_file"))
-		|| (!ft_strcmp(tokens[i].type, "heredoc") && ft_strcmp(tokens[i + 1].type, "limiter")
+	if ((!ft_strcmp(tokens[i].type, "in_redir")
+			&& ft_strcmp(tokens[i + 1].type, "in_file"))
+		|| (!ft_strcmp(tokens[i].type, "out_redir")
+			&& ft_strcmp(tokens[i + 1].type, "out_file"))
+		|| (!ft_strcmp(tokens[i].type, "append_redir")
+			&& ft_strcmp(tokens[i + 1].type, "append_file"))
+		|| (!ft_strcmp(tokens[i].type, "heredoc")
+			&& ft_strcmp(tokens[i + 1].type, "limiter")
 			&& ft_strcmp(tokens[i + 1].type, "inredir")))
 	{
 		write(2, "syntax error near unexpected token `", 36);
@@ -86,9 +90,9 @@ int	check_for_invalid_input(t_token *tokens, int count)
 	while (++i < count)
 	{
 		if ((i + 1 == count) && (!ft_strcmp(tokens[i].type, "in_redir")
-			|| !ft_strcmp(tokens[i].type, "out_redir")
-			|| !ft_strcmp(tokens[i].type, "append_redir")
-			|| !ft_strcmp(tokens[i].type, "heredoc")))
+				|| !ft_strcmp(tokens[i].type, "out_redir")
+				|| !ft_strcmp(tokens[i].type, "append_redir")
+				|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
 			write(2, "syntax error near unexpected token `newline\'\n", 45);
 			return (-1);
