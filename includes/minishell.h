@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:26 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/16 07:03:50 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_token
 	// append_file after >>
 	// limiter after <<
 }	t_token;
+
 typedef struct s_env
 {
 	char			*info;
@@ -136,11 +137,10 @@ void	pipex(t_minishell *minishell);
 void close_fd(t_minishell *minishell);
 
 ////////////////////////close_free_err/////////////////////////////
-void	err(t_minishell *minishell, char *message1, char *message2);
+void	err_message(char *message1, char *message2, char *message3);
 void close_fd(t_minishell *minishell);
 void waiting_childs(t_minishell *minishell);
 void free_tokens(t_token *tokens, int count);
-void err_and_free_tokens(t_token *tokens, int tokens_count, char *message);
 void free_cmd(char **command);
 
 ////////////////////////redirs/////////////////////////////
@@ -165,6 +165,11 @@ char	*ft_tolower(char *str);
 
 ////////////////////////builtin2/////////////////////////////
 void	cd(t_minishell *minishell);
+
+void unset(t_env *env, char *key);
+
+void export(t_minishell *minishell, char *str);
+void export_print(t_env *env);
 
 
 #endif

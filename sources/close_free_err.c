@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   close_free_err.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:07 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/09 15:53:09 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/16 03:35:13 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	err(t_minishell *minishell, char *message1, char *message2)
+void	err_message(char *message1, char *message2, char *message3)
 {
-	(void) minishell;
-	//free_tokens(minishell->tokens, minishell->tokens_count);
-	//free_cmd(minishell->cmd);
-	//close_fd(minishell);
-	// if (minishell->pipe_count != 0)
-	// 	free(minishell->fd);
-	// if (minishell->if_here_doc != 0)
-	// {
-	// 	close((*minishell->here_doc)[0]);
-	// 	close((*minishell->here_doc)[1]);
-	// 	free(minishell->here_doc);
-	// }
 	write(2, message1, ft_strlen(message1));
 	write(2, message2, ft_strlen(message2));
-	// exit(printf("%s", message));
+	write(2, message3, ft_strlen(message3));
 }
 
 void close_fd(t_minishell *minishell)
@@ -68,7 +56,8 @@ void waiting_childs(t_minishell *minishell)
 void free_tokens(t_token *tokens, int count)
 {
 	int	j;
-
+	if (!tokens)
+		return ;
 	j = 0;
 	while (j < count)
 	{
@@ -76,12 +65,7 @@ void free_tokens(t_token *tokens, int count)
 		j++;
 	}
 	free(tokens);
-}
-
-void err_and_free_tokens(t_token *tokens, int tokens_count, char *message)
-{
-	free_tokens(tokens, tokens_count);
-	exit(printf("%s", message));
+	//printf("minishell->tokens freed\n");	
 }
 
 void free_cmd(char **command)
@@ -97,4 +81,5 @@ void free_cmd(char **command)
 		i++;
 	}
 	free(command);
+	//printf("minishell->cmd freed\n");
 }

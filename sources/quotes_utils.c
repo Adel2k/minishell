@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:15:37 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 16:02:29 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:06:28 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	single_quote(char *s, int i, int flag2)
 			i++;
 		if (!s[i])
 		{
-			err(NULL, "No closing qoute\n", "");
+			err_message(NULL, "No closing qoute\n", "");
 			return (-1);
 		}
 	}
@@ -50,7 +50,7 @@ int	quotes(char *s, int i)
 			i++;
 		if (!s[i])
 		{
-			err(NULL, "No closing qoute\n", "");
+			err_message(NULL, "No closing qoute\n", "");
 			return (-1);
 		}
 	}

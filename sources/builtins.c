@@ -62,15 +62,18 @@ void	env(t_minishell *minishell)
 {
 	if (minishell->cmd[1])
 	{
-		err(minishell, minishell->cmd[1], ": No such file or directory");
+		err_message("minishell: ", minishell->cmd[1], ": No such file or directory");
 		return ;
 	}
 	while (minishell->envm)
 	{
-		ft_putstr_fd(minishell->envm->key);
-		write(1, "=", 1);
-		ft_putstr_fd(minishell->envm->value);
-		write(1, "\n", 1);
+		if (minishell->envm->value)
+		{	
+			ft_putstr_fd(minishell->envm->key);
+			write(1, "=", 1);
+			ft_putstr_fd(minishell->envm->value);
+			write(1, "\n", 1);
+		}
 		minishell->envm = minishell->envm->next;
 	}
 }

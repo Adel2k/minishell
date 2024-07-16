@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 20:36:20 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:08:00 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_token	*tokenisation(char **args, int count)
 	int		i;
 
 	tokens = malloc(count * sizeof(t_token));
+	//printf("minishell->tokens malloced\n");
 	if (!tokens)
 		return (NULL);
 	i = 0;
