@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 			free(minishell->fd);
 		if (minishell->if_here_doc)
 			free(minishell->here_doc);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 	int i = 0;
 	while (minishell -> cmd_dirs[i])

@@ -24,7 +24,8 @@ int	check_newline(char *str)
 	if (str[i] == '-' && str[i + 1] == 'n')
 	{
 		i++;
-		while (str[i] == 'n' && (str[i + 1] == 'n' || str[i + 1] == ' ' || str[i + 1] == 0))
+		while (str[i] == 'n' && (str[i + 1] == 'n'
+				|| str[i + 1] == ' ' || str[i + 1] == 0))
 		{
 			if (str[i + 1] == 0)
 				return (1);
@@ -56,6 +57,7 @@ void	echo(char **str)
 	if (flag == 0)
 		write(1, "\n", 1);
 }
+
 void	env(t_minishell *minishell)
 {
 	if (minishell->cmd[1])

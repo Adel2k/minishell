@@ -78,8 +78,7 @@ char	*ft_strjoin_dirs(char *s1, char *s2)
 	s1_size = ft_strlen(s1);
 	s2_size = ft_strlen(s2);
 	s3 = (char *)malloc(sizeof(char) * (s1_size + s2_size + 2));
-	if (!s3)
-		return (NULL);
+	malloc_check(s3);
 	while (s1[i])
 	{
 		s3[i] = s1[i];
