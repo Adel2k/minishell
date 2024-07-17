@@ -32,7 +32,7 @@ void	run_fork(t_minishell *minishell)
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)
 		{
 			err_message("minishell: ", "Executing command failed\n", "");
-			free_cmd(minishell->cmd);
+			// free_cmd(minishell->cmd);
 			exit(1);
 		}
 	}

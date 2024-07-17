@@ -42,7 +42,9 @@ int	quotes(char *s, int i)
 	int	flag;
 
 	flag = 0;
-	if (s[i] == '"' && flag == 0)
+	if (s == NULL)
+		return (-1);
+	if (s && s[i] == '"' && flag == 0)
 	{
 		flag = 1;
 		i++;
@@ -54,7 +56,7 @@ int	quotes(char *s, int i)
 			return (-1);
 		}
 	}
-	else if (s[i] == '"')
+	else if (s && s[i] == '"')
 	{
 		flag = 0;
 		i++;

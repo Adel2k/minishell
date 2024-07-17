@@ -41,7 +41,7 @@ void	exec_cmd(t_minishell *minishell)
 			minishell->pipe_index++;
 			minishell->index++;
 		}
-		free_cmd(minishell->cmd);
+		// free_cmd(minishell->cmd);
 	}
 }
 
@@ -49,16 +49,18 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 {
 	while (1)
 	{
+		signals();
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
+			input = NULL;
 			free_tokens(minishell->tokens, minishell->tokens_count);
-			free_cmd(minishell->cmd);
+			// free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);
-			if (minishell->if_here_doc)
-				free(minishell->here_doc);
+			// if (minishell->if_here_doc)
+			// 	free(minishell->here_doc);
 			continue ;
 		}
 		exec_cmd(minishell);

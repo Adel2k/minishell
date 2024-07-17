@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <signal.h>
 
 typedef struct s_token
 {
@@ -174,5 +175,9 @@ void 	export_print(t_env *env);
 char	*ft_itoa(int n);
 
 char	**check_cmd(char **command, t_minishell *minishell);
+
+////////////////////////signals///////////////////////////////
+void	signals(void);
+
 
 #endif
