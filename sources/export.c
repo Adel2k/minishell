@@ -19,6 +19,7 @@ t_env	*creating_new_node(char *key, t_env *env)
 	tmp = malloc(sizeof(t_env));
 	malloc_check(tmp);
 	tmp->key = key;
+	tmp->info = NULL;
 	tmp->next = NULL;
 	while (env->next)
 		env = env->next;

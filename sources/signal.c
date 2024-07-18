@@ -1,31 +1,32 @@
 #include "minishell.h"
 
-void	handle_quit(int sig)
+void	remove_sigmsg(void)
 {
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	struct termios	term;
+
+	if (tcgetattr(STDIN_FILENO, &term) != 0)
+		return ;
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	quit(int sig)
+void	handler(int sig)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
-
 void	signals(void)
 {
-	struct sigaction	no_quit;
+	struct sigaction	sa;
 
-	// no_quit.sa_handler = handle_quit;
-	no_quit.sa_handler = quit;
-	no_quit.sa_flags = 0;
-	sigemptyset(&no_quit.sa_mask);
+	sa.sa_handler = handler;
+	sa.sa_flags = 0;
 
-	// sigaction(SIGINT, &no_quit, NULL);
-	sigaction(SIGQUIT, &no_quit, NULL);
+	sigaction(SIGINT, &sa, NULL);
+	// signal(SIGQUIT, SIG_IGN);
+	remove_sigmsg();
 }

@@ -69,6 +69,8 @@ char	*ft_tolower(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] >= 'A' && str[i] <= 'Z')
@@ -92,6 +94,8 @@ int	matrix_len(char **array)
 
 char	*ft_strchr(char *s, int c)
 {
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == (char) c)

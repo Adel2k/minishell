@@ -24,6 +24,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <termios.h>
 
 typedef struct s_token
 {
@@ -161,7 +162,7 @@ int		matrix_len(char **array);
 char	*ft_strchr(char *s, int c);
 
 ////////////////////////builtin/////////////////////////////
-int		builtin(t_minishell *minishell, char **command);
+int	builtin(t_minishell *minishell, char **command);
 
 ////////////////////////cd////////////////////////////////////
 void	cd(t_minishell *minishell);
@@ -178,6 +179,5 @@ char	**check_cmd(char **command, t_minishell *minishell);
 
 ////////////////////////signals///////////////////////////////
 void	signals(void);
-
 
 #endif

@@ -41,26 +41,27 @@ void	exec_cmd(t_minishell *minishell)
 			minishell->pipe_index++;
 			minishell->index++;
 		}
-		// free_cmd(minishell->cmd);
+		free_cmd(minishell->cmd);
 	}
 }
 
 void	loop_for_lines(t_minishell *minishell, char *input)
 {
-	while (1)
+	while (input)
 	{
-		signals();
+		// signals();
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
 			input = NULL;
-			free_tokens(minishell->tokens, minishell->tokens_count);
-			// free_cmd(minishell->cmd);
+			printf("%d\n", init_cmd_line(minishell, input));
+			// free_tokens(minishell->tokens, minishell->tokens_count);
+			free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);
-			// if (minishell->if_here_doc)
-			// 	free(minishell->here_doc);
+			if (minishell->if_here_doc)
+				free(minishell->here_doc); 
 			continue ;
 		}
 		exec_cmd(minishell);
@@ -73,6 +74,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			free(minishell->here_doc);
 		// system("leaks minishell");
 	}
+	printf("exit\n");
 }
 int	main(int argc, char **argv, char **env)
 {
@@ -81,14 +83,16 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	input = NULL;
+	input = "";
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
 		return (1);
 	minishell->env = env;
+	minishell->cmd  = NULL;
 	minishell->envm = init_env(minishell);
 	minishell->cmd_dirs = init_dirs(minishell);
 	minishell->tokens = NULL;
+	minishell->if_here_doc = 0;
 	loop_for_lines(minishell, input);
 	free_dirs(minishell);
 	return (0);

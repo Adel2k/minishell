@@ -21,7 +21,8 @@ void	unset(t_env *env, char *key)
 		if (!ft_strcmp(env->key, key))
 		{
 			prev->next = env->next;
-			free(env->info);
+			if (env->info != NULL)
+				free(env->info);
 			free(env->key);
 			free(env->value);
 			free(env);

@@ -31,9 +31,9 @@ void	free_cmd(char **command)
 {
 	int	i;
 
+	i = 0;
 	if (!command)
 		return ;
-	i = 0;
 	while (command[i])
 	{
 		free(command[i]);
