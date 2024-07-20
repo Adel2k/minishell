@@ -36,7 +36,6 @@ void	run_fork(t_minishell *minishell)
 		redirs(minishell);
 		if (builtin(minishell, minishell->cmd))
 			exit(0);
-		printf("%s\n", minishell->cmd[0]);
 		if (execve(minishell->cmd[0], minishell->cmd, minishell -> env) == -1)
 		{
 			err_message("minishell: ", "Executing command failed\n", "");

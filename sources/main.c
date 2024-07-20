@@ -49,14 +49,13 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 {
 	while (input)
 	{
-		// signals();
+		signals();
 		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
 			input = NULL;
-			printf("%d\n", init_cmd_line(minishell, input));
-			// free_tokens(minishell->tokens, minishell->tokens_count);
+			free_tokens(minishell->tokens, minishell->tokens_count);
 			free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);

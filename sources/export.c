@@ -19,6 +19,7 @@ t_env	*creating_new_node(char *key, t_env *env)
 	tmp = malloc(sizeof(t_env));
 	malloc_check(tmp);
 	tmp->key = key;
+	tmp->value = NULL;
 	tmp->info = NULL;
 	tmp->next = NULL;
 	while (env->next)
@@ -48,7 +49,8 @@ void	export_change(t_env *env, char *str)
 		if (!ft_strchr(str, '='))
 			return ;
 	}
-	free(tmp->value);
+	if (tmp->value)
+		free(tmp->value);
 	if (ft_strchr(str, '='))
 		tmp->value = ft_substr(str, equal_index + 1,
 				ft_strlen(str + equal_index - 1));
