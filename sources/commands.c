@@ -15,14 +15,7 @@
 void	run_fork(t_minishell *minishell)
 {
 	int	pid;
-	// struct termios old_tio;
 
-	// if (ft_strcmp(temp, "exit") == 0)
-	// {
-	// 	write(1, "exit\n", 6);
-	// 	tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
-	// 	return ;
-	// }
 	pid = fork();
 	if (pid == -1)
 	{
@@ -47,7 +40,6 @@ void	run_fork(t_minishell *minishell)
 
 int	run_commands(t_minishell *minishell)
 {
-	minishell->cmd = cmd_args(minishell);
 	if (minishell->infile < 0 || minishell->outfile < 0)
 		return (-1);
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
@@ -70,6 +62,7 @@ int	run_commands(t_minishell *minishell)
 			export_print(minishell->envm);
 		return (1);
 	}
+	exit_alt(minishell);
 	run_fork(minishell);
 	return (1);
 }

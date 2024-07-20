@@ -77,9 +77,10 @@ char	**init_dirs(t_minishell *minishell)
 int	init_cmd_line(t_minishell *minishell, char *input)
 {
 	char	**strs;
+
 	if (ft_words_count_tokens(input, ' ') > 0)
 		minishell->tokens_count = ft_words_count_tokens(input, ' ');
-	else 
+	else
 		minishell->tokens_count = 1;
 	if (minishell->tokens_count < 0)
 	{

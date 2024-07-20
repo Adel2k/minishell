@@ -28,13 +28,11 @@ t_env	*creating_new_node(char *key, t_env *env)
 	return (tmp);
 }
 
-void	export_change(t_env *env, char *str)
+void	export_change(t_env *env, char *str, int equal_index)
 {
-	int		equal_index;
 	char	*key;
 	t_env	*tmp;
 
-	equal_index = 0;
 	while (str[equal_index] && str[equal_index] != '=')
 		equal_index++;
 	key = ft_substr(str, 0, equal_index);
@@ -101,6 +99,6 @@ void	export(t_minishell *minishell, char *str)
 		err_message("export: `", str, "': not a valid identifier");
 		return ;
 	}
-	export_change(minishell->envm, str);
+	export_change(minishell->envm, str, 0);
 	sorting(minishell->envm);
 }

@@ -34,6 +34,7 @@ void	exec_cmd(t_minishell *minishell)
 		minishell->if_here_doc = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
+		minishell->cmd = cmd_args(minishell);
 		run_commands(minishell);
 		if (minishell->index < minishell->tokens_count
 			&& !ft_strcmp(minishell->tokens[minishell->index].type, "pipe"))
@@ -63,6 +64,11 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 				free(minishell->here_doc); 
 			continue ;
 		}
+		// if (ft_strcmp(minishell->cmd[0], "cat"))
+		// {
+		// 	printf("hh");
+		// 	signal(SIGQUIT, SIG_IGN);
+		// }
 		exec_cmd(minishell);
 		close_fd(minishell);
 		waiting_childs(minishell);
@@ -75,6 +81,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 	}
 	printf("exit\n");
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*minishell;

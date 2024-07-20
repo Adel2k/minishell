@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 07:03:50 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:04:37 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,15 +162,15 @@ int		matrix_len(char **array);
 char	*ft_strchr(char *s, int c);
 
 ////////////////////////builtin/////////////////////////////
-int	builtin(t_minishell *minishell, char **command);
+int		builtin(t_minishell *minishell, char **command);
 
 ////////////////////////cd////////////////////////////////////
 void	cd(t_minishell *minishell);
 
 ////////////////////////export///////////////////////////////
 void	unset(t_env *env, char *key);
-void 	export(t_minishell *minishell, char *str);
-void 	export_print(t_env *env);
+void	export(t_minishell *minishell, char *str);
+void	export_print(t_env *env);
 
 ////////////////////////export///////////////////////////////
 char	*ft_itoa(int n);
@@ -180,4 +180,5 @@ char	**check_cmd(char **command, t_minishell *minishell);
 ////////////////////////signals///////////////////////////////
 void	signals(void);
 
+void	exit_alt(t_minishell *minishell);
 #endif
