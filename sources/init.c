@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/21 18:07:49 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:25:53 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_redirs(t_minishell *minishell)
 t_env	*init_env(t_minishell *minishell)
 {
 	t_env	*res;
+
 	int		i;
 
 	res = NULL;
@@ -59,7 +60,7 @@ char	**init_dirs(t_minishell *minishell)
 {
 	int		i;
 	char	**dirs;
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = minishell->envm;
 	i = 0;
