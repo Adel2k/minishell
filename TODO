@@ -8,15 +8,18 @@
 // minishell(56197,0x1166035c0) malloc: *** set a breakpoint in malloc_error_break to debug
 
 // echo $USER=4
-// hrigrigo=4
+// hrigrigo=4                 DONE
 
 
 
-//  export a = "l" 
+//  export a = "l"            DONE
 // echo$? lklkfl
 // catum ctrl+\ dzel
 // cd "$PWD/directory"
 // cd $OLDPWD/directory
-// echo "$USER""Users/$USER/file""'$USER'"'$USER'  ---->$USER-ic heto vor slasha tenum nulla tpum
+// echo "$USER""Users/$USER/file""'$USER'"'$USER'  ---->$USER-ic heto vor slasha tenum nulla tpum                     DONE
 // echo $PWD/file
 // cd .. | pwd
+
+
+// 

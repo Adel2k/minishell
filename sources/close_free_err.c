@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:07 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 03:35:13 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 15:27:23 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	free_dirs(t_minishell *minishell)
 {
 	int	i;
 
+	if (!minishell->cmd_dirs)
+		return ;
 	i = 0;
 	while (minishell -> cmd_dirs[i])
 	{

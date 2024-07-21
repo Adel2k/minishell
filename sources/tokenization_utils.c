@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 07:22:22 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 15:34:32 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*to_find(int start, t_token *tokens, int i)
 	{
 		if (tokens[i].str[end] == ' ' || tokens[i].str[end] == 39
 			|| tokens[i].str[end] == '"' || tokens[i].str[end] == '$'
-			|| tokens[i].str[end] == '\\' || tokens[i].str[end] == '=')
+			|| tokens[i].str[end] == '/' || tokens[i].str[end] == '=')
 		{
 			end--;
 			break ;
