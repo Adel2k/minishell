@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:51:58 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:53:04 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	cd(t_minishell *minishell);
 void	unset(t_env *env, char **cmd);
 void	export(t_minishell *minishell);
 void	export_print(t_env *env);
+void	sorting(t_env *env);
 
 ////////////////////////export///////////////////////////////
 char	*ft_itoa(int n);

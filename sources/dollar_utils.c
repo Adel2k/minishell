@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 15:34:32 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:17:24 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*join_trio(char *s, char *s2, int start, int end)
 	int		i;
 	int		j;
 
-	if (!s || !s2)
+	if (!s)
 		return (0);
 	res = malloc(start + ft_strlen(s2) + ft_strlen(s) - end + 1);
 	malloc_check(res);
