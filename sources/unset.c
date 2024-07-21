@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:04 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:49:05 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:59:18 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset(t_env *env, char *key)
+void	unset(t_env *env, char **cmd)
 {
 	t_env	*prev;
+	t_env *tmp;
+	int i;
 
-	while (env)
+	i = 0;
+	while (cmd[i])
 	{
-		if (!ft_strcmp(env->key, key))
+		tmp = env;
+		while (tmp)
 		{
-			prev->next = env->next;
-			if (env->info != NULL)
-				free(env->info);
-			free(env->key);
-			free(env->value);
-			free(env);
-			break ;
+			if (ft_strcmp(tmp->key, cmd[i]) == 0)
+			{
+				prev->next = tmp->next;
+				free(tmp->key);
+				free(tmp->value);
+				free(tmp);
+				break ;
+			}
+			prev = tmp;
+			tmp = tmp -> next;
 		}
-		prev = env;
-		env = env -> next;
+		i++;
 	}
 }

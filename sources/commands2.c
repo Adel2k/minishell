@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:13:07 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:13:01 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 	if (!command || !*command)
 		exit(0);
 	i = 0;
-	while (minishell -> cmd_dirs[i])
+	while (minishell -> cmd_dirs && minishell -> cmd_dirs[i])
 	{
 		joined_cmd = ft_strjoin_dirs(minishell -> cmd_dirs[i], command);
 		if (access(joined_cmd, X_OK | F_OK) != -1)
@@ -32,7 +32,7 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 		free(joined_cmd);
 		i++;
 	}
-	if (!minishell -> cmd_dirs[i])
+	if (!minishell -> cmd_dirs || !minishell -> cmd_dirs[i])
 	{
 		free(command);
 		return (0);

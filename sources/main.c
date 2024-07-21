@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:09:47 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:12:44 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		// 	printf("hh");
 		// 	signal(SIGQUIT, SIG_IGN);
 		// }
-	// print_tokens(minishell->tokens, minishell->tokens_count);
+		free_dirs(minishell);
+		minishell->cmd_dirs = init_dirs(minishell);
 		exec_cmd(minishell);
 		close_fd(minishell);
 		waiting_childs(minishell);
@@ -96,11 +97,10 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	minishell->env = env;
 	minishell->cmd  = NULL;
+	minishell->cmd_dirs  = NULL;
 	minishell->envm = init_env(minishell);
-	minishell->cmd_dirs = init_dirs(minishell);
 	minishell->tokens = NULL;
 	minishell->if_here_doc = 0;
 	loop_for_lines(minishell, input);
-	free_dirs(minishell);
 	return (0);
 }

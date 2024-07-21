@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 08:50:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:56:03 by aeminian         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/07/21 17:13:52 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -57,15 +59,19 @@ char	**init_dirs(t_minishell *minishell)
 {
 	int		i;
 	char	**dirs;
+	t_env *tmp;
 
+	tmp = minishell->envm;
 	i = 0;
-	while (minishell -> env[i])
+	while (tmp)
 	{
-		if (ft_strstr_alt(minishell -> env[i], "PATH="))
+		if (ft_strcmp(tmp->key, "PATH") == 0)
 			break ;
-		i++;
+		tmp = tmp->next;
 	}
-	dirs = ft_split(minishell -> env[i] + 5, ':');
+	if (!tmp)
+		return (0);
+	dirs = ft_split(tmp->value, ':');
 	if (!dirs)
 	{
 		err_message("minishell: ", "split_err\n", "");

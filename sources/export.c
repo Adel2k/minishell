@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:49:15 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:33:52 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,18 @@ void	sorting(t_env *env)
 	}
 }
 
-void	export(t_minishell *minishell, char *str)
+void	export(t_minishell *minishell)
 {
-	if (str[0] && str[0] == '=')
+	int i;
+
+	i = 1;
+	while (minishell->cmd[i])
 	{
-		err_message("export: `", str, "': not a valid identifier");
-		return ;
+		if (minishell->cmd[i][0] && (minishell->cmd[i][0] == '=' || ft_strstr_alt(minishell->cmd[i], " =")))
+			err_message("export: `", minishell->cmd[i], "': not a valid identifier\n");
+		else
+			export_change(minishell->envm, minishell->cmd[i], 0);
+		i++;
 	}
-	export_change(minishell->envm, str, 0);
 	sorting(minishell->envm);
 }
