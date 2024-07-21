@@ -13,13 +13,13 @@
 
 
 //  export a = "l"            DONE
-// echo$? lklkfl
+// echo$? lklkfl              DONE
 // catum ctrl+\ dzel
-// cd "$PWD/directory"
-// cd $OLDPWD/directory
+// cd "$PWD/directory"        DONE
+// cd $OLDPWD/directory       DONE
 // echo "$USER""Users/$USER/file""'$USER'"'$USER'  ---->$USER-ic heto vor slasha tenum nulla tpum                     DONE
-// echo $PWD/file
+// echo $PWD/file             DONE
 // cd .. | pwd
 
 
-// 
+// validation for export                   DONE

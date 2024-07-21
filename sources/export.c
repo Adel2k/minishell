@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:33:52 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:37:06 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,22 @@ void	export_change(t_env *env, char *str, int equal_index)
 		tmp->value = NULL;
 }
 
-void	swich(t_env *ptr1)
+int valid_export_arg(char *str)
 {
-	char	*temp_key;
-	char	*temp_value;
-
-	temp_key = ptr1->key;
-	temp_value = ptr1->value;
-	ptr1->key = ptr1->next->key;
-	ptr1->value = ptr1->next->value;
-	ptr1->next->key = temp_key;
-	ptr1->next->value = temp_value;
-}
-
-void	sorting(t_env *env)
-{
-	int		swapped;
-	t_env	*ptr1;
-
-	while (1)
+	int i;
+	
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
 	{
-		swapped = 0;
-		ptr1 = env;
-		while (ptr1->next)
-		{
-			if (ft_strcmp(ptr1->key, ptr1->next->key) > 0)
-			{
-				swich(ptr1);
-				swapped = 1;
-			}
-			ptr1 = ptr1->next;
-		}
-		if (!swapped)
+		if (str[i] == '=')
 			break ;
+		if ((str[i] < '0' || str[i] > '9') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') && str[i] != ' ' && str[i] != '=')
+			return (0);
+		i++;
 	}
+	return (1);
 }
 
 void	export(t_minishell *minishell)
@@ -99,8 +81,8 @@ void	export(t_minishell *minishell)
 	i = 1;
 	while (minishell->cmd[i])
 	{
-		if (minishell->cmd[i][0] && (minishell->cmd[i][0] == '=' || ft_strstr_alt(minishell->cmd[i], " =")))
-			err_message("export: `", minishell->cmd[i], "': not a valid identifier\n");
+		if ((minishell->cmd[i][0] && (minishell->cmd[i][0] == '=' || ft_strstr_alt(minishell->cmd[i], " ="))) || !valid_export_arg(minishell->cmd[i]))
+			err_message("minishell: export: `", minishell->cmd[i], "': not a valid identifier\n");
 		else
 			export_change(minishell->envm, minishell->cmd[i], 0);
 		i++;

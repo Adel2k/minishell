@@ -27,7 +27,7 @@ SRCS_NAME =		main.c \
 				signal.c \
 				quotes_utils.c \
 				dollar.c \
-				tokenization_utils.c \
+				dollar_utils.c \
 				close_free_err.c \
 				quotes.c \
 				ft_split.c \
