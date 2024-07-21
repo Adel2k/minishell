@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:48:45 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:14:22 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	cd(t_minishell *minishell)
 		if (stat(minishell->cmd[1], &info) < 0)
 		{
 			if (!(S_ISDIR(info.st_mode)) && !(S_ISREG(info.st_mode)))
-				err_message("minishell: ", minishell->cmd[1], " is not a directory or file\n");
+				err_message("minishell: ", minishell->cmd[1], ": No such file or directory\n");
 			else if ((S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)) && access(minishell->cmd[1], R_OK | X_OK))
 				err_message("minishell: ", "", "Permission denied.\n");
 			else if (!(S_ISDIR(info.st_mode)))
