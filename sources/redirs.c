@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:54 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:49:56 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:13:31 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	open_infile(char *file_name)
 	infile_fd = open(file_name, O_RDONLY);
 	if (infile_fd < 0)
 	{
-		write(2, file_name, ft_strlen(file_name));
-		write(2, ": No such file or directory\n", 28);
+		err_message("minishell: ", file_name, ": No such file or directory\n");
 		return (-1);
 	}
 	return (infile_fd);
@@ -36,8 +35,7 @@ int	open_outfile(char *file_name, int i)
 		outfile_fd = open(file_name, O_APPEND | O_WRONLY, 0777);
 	if (outfile_fd < 0)
 	{
-		write(2, file_name, ft_strlen(file_name));
-		write(2, ": No such file or directory\n", 28);
+		err_message("minishell: ", file_name, ": No such file or directory\n");
 		return (-1);
 	}
 	return (outfile_fd);

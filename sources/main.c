@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:12:44 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:07:36 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,14 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		{
 			input = "";
 			free_tokens(minishell->tokens, minishell->tokens_count);
-			free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);
 			if (minishell->if_here_doc)
 				free(minishell->here_doc);
 			continue ;
 		}
-		// if (ft_strcmp(minishell->cmd[0], "cat"))
-		// {
-		// 	printf("hh");
+		// if (ft_strcmp(minishell->cmd[0], "cat"))`	
 		// 	signal(SIGQUIT, SIG_IGN);
-		// }
 		free_dirs(minishell);
 		minishell->cmd_dirs = init_dirs(minishell);
 		exec_cmd(minishell);

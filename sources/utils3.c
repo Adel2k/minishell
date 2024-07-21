@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:58:19 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:55:41 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,24 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (s3);
 }
 
-char	*ft_tolower(char *str)
+int	ft_tolower(char *str, char *with_whom)
 {
 	int	i;
+	char *str1;
 
+	str1 = ft_strdup(str);
 	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i])
+	if (!str1)
+		return (0);
+	while (str1[i])
 	{
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			str[i] += 32;
+		if (str1[i] >= 'A' && str1[i] <= 'Z')
+			str1[i] += 32;
 		i++;
 	}
-	return (str);
+	i = ft_strcmp(str1, with_whom);
+	free(str1);
+	return (i);
 }
 
 int	matrix_len(char **array)

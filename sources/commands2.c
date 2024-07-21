@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:13:01 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:05:23 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	char	*cmd;
 
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
+	// print_tokens(minishell->tokens, minishell->tokens_count);
+
 	if (!cmd)
 	{
 		if (access(command[0], X_OK) == -1)

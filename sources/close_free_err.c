@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:07 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:12:13 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:25:10 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_cmd(char **command)
 	int	i;
 
 	i = 0;
-	if (!command || !*command)
+	if (!command)
 		return ;
 	while (command && command[i])
 	{

@@ -22,4 +22,4 @@
 // cd .. | pwd
 
 
-// 
+// (ls || (ls -la && ls || ls)) && ls

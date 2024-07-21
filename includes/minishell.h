@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:54:11 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:51:58 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ char	*ft_strdup(const char *s);
 ////////////////////////utils3//////////////////////////////
 void	add_nodes(char *str, t_env **env);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_tolower(char *str);
+int		ft_tolower(char *str, char *with_whom);
 int		matrix_len(char **array);
 char	*ft_strchr(char *s, int c);
 

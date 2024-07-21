@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:48:36 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:55:26 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,17 @@ void	env(t_minishell *minishell)
 
 int	builtin(t_minishell *minishell, char **command)
 {
-	char	*temp;
-
-	temp = ft_tolower(command[0]);
-	if (ft_strcmp(temp, "/bin/echo") == 0 || ft_strcmp(temp, "echo") == 0)
+	if (ft_tolower(command[0], "/bin/echo") == 0 || ft_tolower(command[0], "echo") == 0)
 	{
 		echo(command);
 		return (1);
 	}
-	if (ft_strcmp(temp, "/usr/bin/env") == 0 || ft_strcmp(temp, "env") == 0)
+	if (ft_tolower(command[0], "/usr/bin/env") == 0 || ft_tolower(command[0], "env") == 0)
 	{
 		env(minishell);
 		return (1);
 	}
-	if (ft_strcmp(temp, "/bin/pwd") == 0 || ft_strcmp(temp, "pwd") == 0)
+	if (ft_tolower(command[0], "/bin/pwd") == 0 || ft_tolower(command[0], "pwd") == 0)
 	{
 		pwd();
 		return (1);

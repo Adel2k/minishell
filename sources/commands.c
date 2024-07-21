@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:12:28 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:11:18 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	run_fork(t_minishell *minishell)
 
 int	run_commands(t_minishell *minishell)
 {
+	
 	if (minishell->infile < 0 || minishell->outfile < 0)
 		return (-1);
 	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
@@ -48,13 +49,13 @@ int	run_commands(t_minishell *minishell)
 		cd(minishell);
 		return (1);
 	}
-	if (ft_strcmp(ft_tolower(minishell->cmd[0]), "unset") == 0)
+	if (ft_tolower(minishell->cmd[0], "unset") == 0)
 	{
 		if (minishell->cmd[1])
 			unset(minishell->envm, minishell->cmd);
 		return (1);
 	}
-	if (ft_strcmp(ft_tolower(minishell->cmd[0]), "export") == 0)
+	if (ft_tolower(minishell->cmd[0], "export") == 0)
 	{
 		if (minishell->cmd[1])
 			export(minishell);
