@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:50:12 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:58:19 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	add_nodes(char *str, t_env **env)
 	res = malloc(sizeof(t_env));
 	malloc_check(res);
 	inf = ft_split(str, '=');
-	res->info = str;
 	res->key = inf[0];
 	res->value = inf[1];
 	free(inf);

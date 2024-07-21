@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_free_err.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:07 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 03:35:13 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:00:44 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	free_cmd(char **command)
 	int	i;
 
 	i = 0;
-	if (!command)
+	if (!command || !*command)
 		return ;
-	while (command[i])
+	while (command && command[i])
 	{
 		free(command[i]);
 		i++;

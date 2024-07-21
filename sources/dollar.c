@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 23:09:18 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:54:55 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 					start, start + 1 + ft_strlen(s));
 			free(s);
 		}
+			// printf("l = %s\n", l);
+			// print_tokens(minishell->tokens, minishell->tokens_count);
 		free(tokens[i].str);
 		tokens[i].str = l;
 		start++;

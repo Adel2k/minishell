@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/20 21:05:15 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:13:07 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	{
 		if (access(command[0], X_OK) == -1)
 		{
-			err_message("minishell: ", command[0], ": command not found\n");
+			err_message("minishell: ", minishell->cmd[0], ": command not found\n");
 			// system("leaks minishell");
 			exit(1);
 		}

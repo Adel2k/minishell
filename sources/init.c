@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:50:55 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:56:03 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 		return (-1);
 	if (check_for_invalid_input(minishell->tokens, minishell->tokens_count) < 0)
 		return (-1);
+	// print_tokens(minishell->tokens, minishell->tokens_count);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
 	return (1);

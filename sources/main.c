@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 03:35:51 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:09:47 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
-			input = NULL;
+			input = "";
 			free_tokens(minishell->tokens, minishell->tokens_count);
 			free_cmd(minishell->cmd);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);
 			if (minishell->if_here_doc)
-				free(minishell->here_doc); 
+				free(minishell->here_doc);
 			continue ;
 		}
 		// if (ft_strcmp(minishell->cmd[0], "cat"))
@@ -69,6 +69,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		// 	printf("hh");
 		// 	signal(SIGQUIT, SIG_IGN);
 		// }
+	// print_tokens(minishell->tokens, minishell->tokens_count);
 		exec_cmd(minishell);
 		close_fd(minishell);
 		waiting_childs(minishell);
