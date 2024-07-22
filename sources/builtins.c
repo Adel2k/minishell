@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:55:26 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:18:54 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,26 @@ int	builtin(t_minishell *minishell, char **command)
 		pwd();
 		return (1);
 	}
+	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
+		|| ft_strcmp(minishell->cmd[0], "cd") == 0)
+	{
+		cd(minishell);
+		return (1);
+	}
+	if (ft_tolower(minishell->cmd[0], "unset") == 0)
+	{
+		if (minishell->cmd[1])
+			unset(minishell->envm, minishell->cmd);
+		return (1);
+	}
+	if (ft_tolower(minishell->cmd[0], "export") == 0)
+	{
+		if (minishell->cmd[1])
+			export(minishell);
+		else
+			export_print(minishell->envm);
+		return (1);
+	}
+	exit_alt(minishell);
 	return (0);
 }
