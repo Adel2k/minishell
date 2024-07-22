@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:56:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/11 13:56:06 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:00:39 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	close_fd(t_minishell *minishell)
 void	waiting_childs(t_minishell *minishell)
 {
 	int	k;
+	int	exit_status;
 
 	k = 0;
 	while (k < minishell->pipe_count + 1)
 	{
-		waitpid(-1, NULL, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
+		waitpid(-1, &exit_status, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
+		if ((WTERMSIG(exit_status)) == 3)
+			printf("Quit : 3\n");
 		k++;
 	}
 }

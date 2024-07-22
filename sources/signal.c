@@ -6,39 +6,37 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:02:17 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/20 21:02:18 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:57:08 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_sigmsg(void)
-{
-	struct termios	term;
+static void	ft_irc(int signum);
 
-	if (tcgetattr(STDIN_FILENO, &term) != 0)
-		return ;
-	term.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
-void	handler(int sig)
+int	handler(void)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	return (0);
 }
 
 void	signals(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = handler;
-	sa.sa_flags = 0;
+	sa.sa_handler = &ft_irc;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
-	remove_sigmsg();
+	sigaction(SIGQUIT, &sa, NULL);
+	rl_catch_signals = 0;
+	rl_event_hook = &handler;
+}
+
+void	ft_irc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		rl_replace_line("", 0);
+		rl_done = 42;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 21:17:31 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:56:56 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 	while (input)
 	{
 		signals();
-		input = readline("\033[0;034mPONCHIKI_MINISHELL:  \033[0;000m");
+		input = readline("\033[38;5;43mPONCHIKI_MINISHELL:  \033[0;000m");
 		add_history(input);
 		if (init_cmd_line(minishell, input) < 0)
 		{
@@ -63,8 +63,6 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 				free(minishell->here_doc);
 			continue ;
 		}
-		// if (ft_strcmp(minishell->cmd[0], "cat"))`	
-		// 	signal(SIGQUIT, SIG_IGN);
 		free_dirs(minishell);
 		minishell->cmd_dirs = init_dirs(minishell);
 		exec_cmd(minishell);
@@ -78,6 +76,18 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		// system("leaks minishell");
 	}
 	printf("exit\n");
+}
+
+void	print_logo(void)
+{
+	printf("\e[38;5;43m%s\n%s\n%s\n%s\n%s\n%s\n\e[0m", \
+	"███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗     ", \
+	"████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     ", \
+	"██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     ", \
+	"██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     ", \
+	"██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗", \
+	"╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
+	printf("\e[0m\n");
 }
 
 int	main(int argc, char **argv, char **env)
@@ -94,10 +104,10 @@ int	main(int argc, char **argv, char **env)
 	minishell->env = env;
 	minishell->cmd  = NULL;
 	minishell->cmd_dirs  = NULL;
-	printf("aaa\n");
 	minishell->envm = init_env(minishell);
 	minishell->tokens = NULL;
 	minishell->if_here_doc = 0;
+	print_logo();
 	loop_for_lines(minishell, input);
 	return (0);
 }
