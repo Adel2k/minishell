@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/22 15:34:27 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:18:00 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	builtin(t_minishell *minishell, char **command)
 	if (ft_tolower(minishell->cmd[0], "unset") == 0)
 	{
 		if (minishell->cmd[1])
-			unset(minishell->envm, minishell->cmd);
+			unset(minishell, minishell->cmd);
 		return (1);
 	}
 	if (ft_tolower(minishell->cmd[0], "export") == 0)

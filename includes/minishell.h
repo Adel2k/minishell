@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/22 15:56:51 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:17:44 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int		builtin(t_minishell *minishell, char **command);
 void	cd(t_minishell *minishell);
 
 ////////////////////////export///////////////////////////////
-void	unset(t_env *env, char **cmd);
+void	unset(t_minishell *minishell, char **cmd);
 void	export(t_minishell *minishell);
 void	export_print(t_env *env);
 void	sorting(t_env *env);
