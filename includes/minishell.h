@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 18:53:04 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:19:03 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_token
 
 typedef struct s_env
 {
-	char			*info;
 	char			*key;
 	char			*value;
 	struct s_env	*next;

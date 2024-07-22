@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 18:07:36 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:17:31 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*minishell;
 	char		*input;
-
+	
 	(void) argc;
 	(void) argv;
 	input = "";
@@ -94,6 +94,7 @@ int	main(int argc, char **argv, char **env)
 	minishell->env = env;
 	minishell->cmd  = NULL;
 	minishell->cmd_dirs  = NULL;
+	printf("aaa\n");
 	minishell->envm = init_env(minishell);
 	minishell->tokens = NULL;
 	minishell->if_here_doc = 0;

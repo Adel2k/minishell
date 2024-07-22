@@ -23,3 +23,6 @@
 
 
 // validation for export                   DONE(ls || (ls -la && ls || ls)) && ls
+
+// shlvl
+// in fork add builtins 

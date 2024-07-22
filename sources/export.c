@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 18:37:06 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:35:09 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_env	*creating_new_node(char *key, t_env *env)
 	malloc_check(tmp);
 	tmp->key = key;
 	tmp->value = NULL;
-	tmp->info = NULL;
 	tmp->next = NULL;
 	while (env->next)
 		env = env->next;
