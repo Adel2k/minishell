@@ -6,11 +6,13 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:56:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/22 16:00:39 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:03:07 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 void	malloc_check(void *str)
 {
@@ -47,14 +49,18 @@ void	close_fd(t_minishell *minishell)
 void	waiting_childs(t_minishell *minishell)
 {
 	int	k;
-	int	exit_status;
+	int	exit_s;
 
 	k = 0;
 	while (k < minishell->pipe_count + 1)
 	{
-		waitpid(-1, &exit_status, 0); // AVELACNEL STATUSI STUGUM(2RD ARGUMENT)
-		if ((WTERMSIG(exit_status)) == 3)
+		waitpid(-1, &exit_s, 0);
+		if ((WTERMSIG(exit_s)) == 3)
 			printf("Quit : 3\n");
+		else if (WIFEXITED(exit_s))
+			exit_status = WEXITSTATUS(exit_s);
+		else if (WIFSIGNALED(exit_s))
+			exit_status = 128 + WTERMSIG(exit_s);
 		k++;
 	}
 }

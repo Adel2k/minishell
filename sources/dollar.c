@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 16:54:55 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:42:11 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*find_replacement(t_env *envm, char *s)
 	return (0);
 }
 
-int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
+int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 {
 	char	*s;
 	char	*l;
@@ -95,17 +95,9 @@ int	dollar_sign2(int start, t_token *tokens, int i, t_minishell	*minishell)
 			free(s);
 			return (0);
 		}
-		if (ft_strcmp(s, ft_itoa(getpid())) == 0)
-			l = join_trio(tokens[i].str, s, start, start + 2);
-		else
-		{
-			l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
-					start, start + 1 + ft_strlen(s));
-			free(s);
-		}
-			// printf("l = %s\n", l);
-			// print_tokens(minishell->tokens, minishell->tokens_count);
-		free(tokens[i].str);
+		l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
+				start, start + 1 + ft_strlen(s));
+		free(s);
 		tokens[i].str = l;
 		start++;
 	}
@@ -126,7 +118,7 @@ void	dollar_sign(t_token *tokens, int count, t_minishell	*minishell)
 		while ((size_t)start < ft_strlen(tokens[i].str))
 		{
 			start = quotes_type(tokens[i].str);
-			start = dollar_sign2(start, tokens, i, minishell);
+			start = dollar_if(start, tokens, i, minishell);
 			if (start == 0)
 				return ;
 		}

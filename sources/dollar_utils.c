@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenization_utils.c                               :+:      :+:    :+:   */
+/*   dollar_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:17:24 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:25:30 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 int	check1(char c)
 {
@@ -23,12 +25,10 @@ int	check1(char c)
 char	*to_find(int start, t_token *tokens, int i)
 {
 	int	end;
-	int	pid;
 
 	end = start + 1;
-	pid = getpid();
-	if (tokens[i].str[end] == '$')
-		return (ft_itoa(pid));
+	if (tokens[i].str[end] == '?')
+		return(ft_itoa(exit_status));
 	while (tokens[i].str[end])
 	{
 		if (tokens[i].str[end] == ' ' || tokens[i].str[end] == 39

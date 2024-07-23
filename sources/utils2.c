@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 08:48:55 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:02:53 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ char	*ft_strjoin_dirs(char *s1, char *s2)
 	return (s3);
 }
 
-void	ft_putstr_fd(char *s)
+void	ft_putstr_fd(char *s, int fd)
 {
 	if (s)
-		write (1, s, ft_strlen(s));
+		write (fd, s, ft_strlen(s));
 }

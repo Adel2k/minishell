@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 17:55:41 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:06:25 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,10 @@ char	*ft_strchr(char *s, int c)
 	if (c == '\0')
 		return ((char *) s);
 	return (0);
+}
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
 }
