@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 16:25:43 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:18:00 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 	char	*s;
 	char	*l;
 
+	(void)minishell;
 	if (start != -1)
 	{
 		s = to_find(start, tokens, i);
