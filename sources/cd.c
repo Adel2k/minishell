@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 13:14:22 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:42:14 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	cd_tilda(t_minishell *minishell)
 			minishell->envm = minishell->envm->next;
 		}
 		minishell->envm = start;
-		chdir(ft_strjoin(home, minishell->cmd[1] + 1));
+		chdir(ft_strjoin_heredoc(home, minishell->cmd[1] + 1));
 		set_pwd(minishell, old, getcwd(path2, PATH_MAX));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/22 16:18:00 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:06:23 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ void	echo(char **str)
 
 void	env(t_minishell *minishell)
 {
-	static int	shlvl;
-
-	shlvl = 1;
 	if (minishell->cmd[1])
 	{
 		err_message("minishell: ", minishell->cmd[1],
@@ -85,8 +82,6 @@ void	env(t_minishell *minishell)
 	{
 		if (minishell->envm->value)
 		{
-			if (ft_strcmp(minishell->envm->key, "SHLVL") == 0)
-				minishell->envm->value = ft_itoa(shlvl);
 			ft_putstr_fd(minishell->envm->key);
 			write(1, "=", 1);
 			ft_putstr_fd(minishell->envm->value);
