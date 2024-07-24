@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 21:42:11 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:30:40 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 	char	*s;
 	char	*l;
 
+	(void)minishell;
 	if (start != -1)
 	{
 		s = to_find(start, tokens, i);
@@ -95,9 +96,7 @@ int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 			free(s);
 			return (0);
 		}
-		l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
-				start, start + 1 + ft_strlen(s));
-		free(s);
+		l = join_trio(tokens[i].str, s, start, start + 2);
 		tokens[i].str = l;
 		start++;
 	}
