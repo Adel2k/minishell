@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 13:53:31 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:38:38 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	env(t_minishell *minishell)
 	{
 		if (minishell->envm->value)
 		{
-			if (ft_strcmp(minishell->envm->key, "SHLVL") == 0)
-				minishell->envm->value = ft_itoa(shlvl);
 			ft_putstr_fd(minishell->envm->key, 2);
 			write(1, "=", 1);
 			ft_putstr_fd(minishell->envm->value, 1);
