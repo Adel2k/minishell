@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:03:03 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 21:08:34 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:53:24 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	is_numeric(const char *str)
 
 void	len_error(char *str, unsigned long long nbr)
 {
-	if (nbr > (unsigned long long)LLONG_MAX + 1)
+	if (nbr > (unsigned long long)LLONG_MAX)
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str, 2);

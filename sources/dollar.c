@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 21:42:11 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:25:43 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 void	cut(char c, int *type, int *flag)
 {
@@ -95,9 +97,15 @@ int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 			free(s);
 			return (0);
 		}
-		l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
-				start, start + 1 + ft_strlen(s));
-		free(s);
+		if (ft_strcmp(s, ft_itoa(exit_status)) == 0)
+			l = join_trio(tokens[i].str, s, start, start + 2);
+		else
+		{
+			l = join_trio(tokens[i].str, find_replacement(minishell->envm, s),
+					start, start + 1 + ft_strlen(s));
+			free(s);
+		}
+		free(tokens[i].str);
 		tokens[i].str = l;
 		start++;
 	}

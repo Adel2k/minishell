@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/23 21:34:43 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:46:46 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_env	*init_env(t_minishell *minishell)
 	res = NULL;
 	i = -1;
 	while (minishell->env[++i] != 0)
-		add_nodes(ft_strdup(minishell->env[i]), &res);
+		add_nodes(minishell->env[i], &res);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:22:43 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:37:46 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	run_fork(t_minishell *minishell)
 	if (pid == 0)
 	{
 		if (builtin(minishell, minishell->cmd))
+		{
 			exit_status = 1;
+			exit(0);	
+		}
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
 		pipex(minishell);
 		redirs(minishell);

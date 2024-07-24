@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:22:07 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:52:06 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			free(minishell->fd);
 		if (minishell->if_here_doc)
 			free(minishell->here_doc);
-		// system("leaks minishell");
+		system("leaks minishell");
 	}
 	//change_shlvl(minishell, -1);
 	printf("exit\n");
