@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 21:35:12 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:22:54 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*to_find(int start, t_token *tokens, int i);
 size_t	ft_strlen(const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strstr(char *str, char *to_find);
+int		ft_atoi(const char *str);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 ////////////////////////ft_split_tokens///////////////////////////
@@ -145,6 +145,7 @@ void	out_redir(t_minishell *minishell);
 
 ////////////////////////here_doc/////////////////////////////
 int		here_doc(char *limiter, t_minishell *minishell);
+char	*ft_strjoin_heredoc(char *s1, char *s2);
 
 ////////////////////////utils2//////////////////////////////
 char	*ft_strjoin_dirs(char *s1, char *s2);
@@ -155,7 +156,6 @@ char	*ft_strdup(const char *s);
 
 ////////////////////////utils3//////////////////////////////
 void	add_nodes(char *str, t_env **env);
-char	*ft_strjoin(char *s1, char *s2);
 int		ft_tolower(char *str, char *with_whom);
 int		matrix_len(char **array);
 char	*ft_strchr(char *s, int c);
@@ -182,4 +182,9 @@ char	**check_cmd(char **command, t_minishell *minishell);
 void	signals(void);
 void	built_exit(t_minishell *minishell, int is_in_fork, int print);
 void	exit_alt(t_minishell *minishell);
+
+////////////////////////shlvl///////////////////////////////
+void	change_shlvl(t_minishell *minishell, int how);
+char	*ft_strjoin_shlvl(char *s1, char *s2);
+
 #endif

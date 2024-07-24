@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 13:47:55 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:53:31 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ void	echo(char **str)
 
 void	env(t_minishell *minishell)
 {
-	static int	shlvl;
-
-	shlvl = 1;
 	if (minishell->cmd[1])
 	{
 		err_message("minishell: ", minishell->cmd[1],

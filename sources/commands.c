@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 13:50:54 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:53:16 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int	run_commands(t_minishell *minishell)
 	
 	if (minishell->infile < 0 || minishell->outfile < 0)
 		return (-1);
-
 	if (minishell->pipe_count == 0)
-	{	
+	{
 		if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
 			|| ft_strcmp(minishell->cmd[0], "cd") == 0)
 		{

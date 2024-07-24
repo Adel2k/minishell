@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:15:25 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/16 02:09:57 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:27:58 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,31 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-int	ft_strstr(char *str, char *to_find)
+int	ft_atoi(const char *str)
 {
-	int		i;
+	int	i;
+	int	num;
+	int	sign;
 
+	sign = 1;
 	i = 0;
-	if (*to_find == '\0')
-		return (0);
-	while (str[i] && to_find[i])
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
 	{
-		if (str[i] != to_find[i])
-			return (0);
+		sign *= -1;
 		i++;
 	}
-	if (str[i] == '=')
-		return (1);
-	return (0);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = (num * 10) + (str[i] - 48);
+		i++;
+	}
+	return (sign * num);
 }
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
