@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 19:35:09 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:10:47 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	export_change(t_env *env, char *str, int equal_index)
 		if (!ft_strchr(str, '='))
 			return ;
 	}
+	printf("line: %d\n", __LINE__);
 	if (tmp->value)
 		free(tmp->value);
 	if (ft_strchr(str, '='))
@@ -66,7 +67,9 @@ int valid_export_arg(char *str)
 	{
 		if (str[i] == '=')
 			break ;
-		if ((str[i] < '0' || str[i] > '9') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') && str[i] != ' ' && str[i] != '=')
+			printf("str[i] = %c\n", str[i]);
+		if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
 			return (0);
 		i++;
 	}

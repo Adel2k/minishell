@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 15:38:38 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:31:16 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	builtin(t_minishell *minishell, char **command)
 	if (ft_tolower(command[0], "/bin/echo") == 0 || ft_tolower(command[0], "echo") == 0)
 	{
 		echo(command);
-		return (1);
+		exit(0);
 	}
 	if (ft_tolower(command[0], "/usr/bin/env") == 0 || ft_tolower(command[0], "env") == 0)
 	{

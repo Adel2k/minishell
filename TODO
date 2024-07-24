@@ -7,27 +7,14 @@
 // minishell(56197,0x1166035c0) malloc: *** error for object 0x7fff741e1196: pointer being freed was not allocated
 // minishell(56197,0x1166035c0) malloc: *** set a breakpoint in malloc_error_break to debug
 
-// echo $USER=4
-// hrigrigo=4                 DONE
-
-
-
-//  export a = "l"            DONE
-// echo$? lklkfl              DONE
-// catum ctrl+\ dzel
-// cd "$PWD/directory"        DONE
-// cd $OLDPWD/directory       DONE
-// echo "$USER""Users/$USER/file""'$USER'"'$USER'  ---->$USER-ic heto vor slasha tenum nulla tpum                     DONE
-// echo $PWD/file             DONE
 // cd .. | pwd
-
 
 // validation for export                   DONE(ls || (ls -la && ls || ls)) && ls
 
 // shlvl
-// in fork add builtins 
 
 // in dollar name is as long as it is underline number or alphabetic char also in export
 
+// in export not sort the list just print sorted list
 
-
+// heredoc i double free

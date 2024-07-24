@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 13:53:16 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:18:58 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	run_fork(t_minishell *minishell)
 		if (builtin(minishell, minishell->cmd))
 		{
 			exit_status = 1;
-			return ;
+			exit(0);	
 		}
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
 		pipex(minishell);
