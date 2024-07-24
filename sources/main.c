@@ -6,11 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:07:12 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:22:07 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exit_status = 0;
 
 void	print_tokens(t_token *tokens, int tokens_count)
 {
@@ -23,7 +25,6 @@ void	print_tokens(t_token *tokens, int tokens_count)
 		j++;
 	}
 }
-
 
 void	exec_cmd(t_minishell *minishell)
 {

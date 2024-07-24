@@ -6,11 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 11:37:02 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:22:43 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 void	run_fork(t_minishell *minishell)
 {
@@ -25,7 +27,7 @@ void	run_fork(t_minishell *minishell)
 	if (pid == 0)
 	{
 		if (builtin(minishell, minishell->cmd))
-			exit(0);
+			exit_status = 1;
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
 		pipex(minishell);
 		redirs(minishell);
@@ -63,6 +65,11 @@ int	run_commands(t_minishell *minishell)
 				export(minishell);
 			else
 				export_print(minishell->envm);
+			return (1);
+		}
+		if (ft_strcmp(minishell->cmd[0], "exit") == 0)
+		{
+			built_exit(minishell, 0, 0);
 			return (1);
 		}
 		exit_alt(minishell);

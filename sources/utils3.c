@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 11:34:50 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:23:47 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,10 @@ char	*ft_strchr(char *s, int c)
 	if (c == '\0')
 		return ((char *) s);
 	return (0);
+}
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
 }

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 11:34:22 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:22:54 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ char	*ft_strjoin_heredoc(char *s1, char *s2);
 
 ////////////////////////utils2//////////////////////////////
 char	*ft_strjoin_dirs(char *s1, char *s2);
-void	ft_putstr_fd(char *s);
+void	ft_putstr_fd(char *s, int fd);
 char	*ft_strstr_alt(char *str, char *to_find);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
@@ -159,6 +159,7 @@ void	add_nodes(char *str, t_env **env);
 int		ft_tolower(char *str, char *with_whom);
 int		matrix_len(char **array);
 char	*ft_strchr(char *s, int c);
+int		ft_isspace(char c);
 
 ////////////////////////builtin/////////////////////////////
 int		builtin(t_minishell *minishell, char **command);
@@ -179,7 +180,7 @@ char	**check_cmd(char **command, t_minishell *minishell);
 
 ////////////////////////signals///////////////////////////////
 void	signals(void);
-
+void	built_exit(t_minishell *minishell, int is_in_fork, int print);
 void	exit_alt(t_minishell *minishell);
 
 ////////////////////////shlvl///////////////////////////////

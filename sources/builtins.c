@@ -6,11 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 21:06:23 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:23:29 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int exit_status;
 
 int	pwd(void)
 {
@@ -18,10 +20,10 @@ int	pwd(void)
 
 	if (!getcwd(path, PATH_MAX))
 	{
-		ft_putstr_fd("getcwd ERROR!\n");
+		ft_putstr_fd("getcwd ERROR!\n", 2);
 		return (1);
 	}
-	ft_putstr_fd(path);
+	ft_putstr_fd(path, 1);
 	write(1, "\n", 1);
 	return (0);
 }
@@ -61,7 +63,7 @@ void	echo(char **str)
 	}
 	while (str[i])
 	{
-		ft_putstr_fd(str[i]);
+		ft_putstr_fd(str[i], 1);
 		if (i + 1 != matrix_len(str))
 			write(1, " ", 1);
 		i++;
@@ -82,9 +84,11 @@ void	env(t_minishell *minishell)
 	{
 		if (minishell->envm->value)
 		{
-			ft_putstr_fd(minishell->envm->key);
+			if (ft_strcmp(minishell->envm->key, "SHLVL") == 0)
+				minishell->envm->value = ft_itoa(shlvl);
+			ft_putstr_fd(minishell->envm->key, 2);
 			write(1, "=", 1);
-			ft_putstr_fd(minishell->envm->value);
+			ft_putstr_fd(minishell->envm->value, 1);
 			write(1, "\n", 1);
 		}
 		minishell->envm = minishell->envm->next;
@@ -128,6 +132,10 @@ int	builtin(t_minishell *minishell, char **command)
 			export_print(minishell->envm);
 		return (1);
 	}
-	exit_alt(minishell);
+	if (ft_strcmp(minishell->cmd[0], "exit") == 0)
+	{
+		built_exit(minishell, 1, 0);
+		return (1);
+	}
 	return (0);
 }
