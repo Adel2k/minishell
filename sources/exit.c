@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:03:03 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 16:53:24 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:57:05 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 void	exit_alt(t_minishell *minishell)
 {
@@ -23,17 +23,12 @@ void	exit_alt(t_minishell *minishell)
 	new_tio = old_tio;
 	if (ft_strcmp(minishell->cmd[0], "exit") == 0 && !(minishell->cmd[1]))
 	{
+		minishell->is_builtin = 1;
 		write(STDOUT_FILENO, "exit\n", 5);
 		exit(0);
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
-	// if (minishell->cmd[1])
-	// {
-	// 	write(STDOUT_FILENO, "exit\n", 5);
-	// 	err_message("minishell: ", "exit:", " too many arguments\n");
-	// }
 }
-
 
 int	is_numeric(const char *str)
 {
@@ -58,8 +53,8 @@ void	len_error(char *str, unsigned long long nbr)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit_status = 255;
-		exit (exit_status);
+		g_exit_status = 255;
+		exit (g_exit_status);
 	}
 }
 
@@ -101,21 +96,21 @@ void	built_exit(t_minishell *minishell, int is_in_fork, int print)
 		if (minishell->cmd[2])
 		{
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			exit_status = 1;
+			g_exit_status = 1;
 			print = 1;
 		}
 		else if (is_numeric(minishell->cmd[1]))
-			exit_status = (ft_latoi(minishell->cmd[1]) % 256);
+			g_exit_status = (ft_latoi(minishell->cmd[1]) % 256);
 		else
 		{
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(minishell->cmd[1], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
-			exit_status = 255;
+			g_exit_status = 255;
 		}
 	}
-	if (exit_status < 0)
-		exit_status += 256;
+	if (g_exit_status < 0)
+		g_exit_status += 256;
 	if (print != 1)
-		exit(exit_status);
+		exit(g_exit_status);
 }

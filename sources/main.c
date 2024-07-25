@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 13:52:06 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:55:54 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exit_status = 0;
+int	g_exit_status = 0;
 
 void	print_tokens(t_token *tokens, int tokens_count)
 {
@@ -33,6 +33,7 @@ void	exec_cmd(t_minishell *minishell)
 		minishell->infile = 0;
 		minishell->outfile = 1;
 		minishell->if_here_doc = 0;
+		minishell->is_builtin = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
 		minishell->cmd = cmd_args(minishell);
@@ -74,9 +75,8 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			free(minishell->fd);
 		if (minishell->if_here_doc)
 			free(minishell->here_doc);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
-	//change_shlvl(minishell, -1);
 	printf("exit\n");
 }
 
@@ -92,17 +92,6 @@ void	print_logo(void)
 	printf("\e[0m\n");
 }
 
-void free_shlvl(t_minishell *minishell)
-{
-	int	i;
-	
-	i = 0;
-	while (minishell->env[i] && !ft_strstr_alt(minishell->env[i], "SHLVL="))
-		i++;
-	if (minishell->env[i])
-		free(minishell->env[i]);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*minishell;
@@ -115,14 +104,12 @@ int	main(int argc, char **argv, char **env)
 	if (!minishell)
 		return (1);
 	minishell->env = env;
-	change_shlvl(minishell, 1);
 	minishell->cmd  = NULL;
-	minishell->cmd_dirs = NULL;
-	minishell->tokens = NULL;
+	minishell->cmd_dirs  = NULL;
 	minishell->envm = init_env(minishell);
+	minishell->tokens = NULL;
 	minishell->if_here_doc = 0;
-	// print_logo();
+	print_logo();
 	loop_for_lines(minishell, input);
-	free_shlvl(minishell);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:22:54 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:54:23 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_minishell
 	int		if_here_doc;
 	int		(*here_doc)[2];
 	char	**cmd;
+	int		is_builtin;
 }	t_minishell;
 
 void	print_tokens(t_token *tokens, int tokens_count);
@@ -187,4 +188,6 @@ void	exit_alt(t_minishell *minishell);
 void	change_shlvl(t_minishell *minishell, int how);
 char	*ft_strjoin_shlvl(char *s1, char *s2);
 
+int	check_newline(char *str);
+void	set_pwd(t_minishell *minishell, char *old, char *new);
 #endif

@@ -565,9 +565,9 @@ fi
 $debug ||
 {
   tmp= ac_tmp=
-  trap 'exit_status=$?
+  trap 'g_exit_status=$?
   : "${ac_tmp:=$tmp}"
-  { test ! -d "$ac_tmp" || rm -fr "$ac_tmp"; } && exit $exit_status
+  { test ! -d "$ac_tmp" || rm -fr "$ac_tmp"; } && exit $g_exit_status
 ' 0
   trap 'as_fn_exit 1' 1 2 13 15
 }

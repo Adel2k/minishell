@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:56:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 16:44:56 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:18:24 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 void	malloc_check(void *str)
 {
@@ -52,18 +52,17 @@ void	waiting_childs(t_minishell *minishell)
 	int	exit_s;
 
 	k = 0;
+	// if (minishell->pipe_count == 0 && minishell->is_builtin == 1)
+	// 	return ;
 	while (k < minishell->pipe_count + 1)
 	{
-		if (minishell->pipe_count)
-		{
-			waitpid(-1, &exit_s, 0);
-			if ((WTERMSIG(exit_s)) == 3)
-				printf("Quit : 3\n");
-			else if (WIFEXITED(exit_s))
-				exit_status = WEXITSTATUS(exit_s);
-			else if (WIFSIGNALED(exit_s))
-				exit_status = 128 + WTERMSIG(exit_s);
-		}
+		waitpid(-1, &exit_s, 0);
+		if ((WTERMSIG(exit_s)) == 3)
+			printf("Quit : 3\n");
+		else if (WIFEXITED(exit_s))
+			g_exit_status = WEXITSTATUS(exit_s);
+		else if (WIFSIGNALED(exit_s))
+			g_exit_status = 128 + WTERMSIG(exit_s);
 		k++;
 	}
 }

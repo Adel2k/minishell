@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/24 13:46:46 by hrigrigo         ###   ########.fr       */
+/*   Created: 2024/07/24 18:07:00 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/24 18:07:15 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 
@@ -46,7 +44,6 @@ void	init_redirs(t_minishell *minishell)
 t_env	*init_env(t_minishell *minishell)
 {
 	t_env	*res;
-
 	int		i;
 
 	res = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:23:47 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:10:25 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	add_nodes(char *str, t_env **env)
 
 int	ft_tolower(char *str, char *with_whom)
 {
-	int	i;
-	char *str1;
+	int		i;
+	char	*str1;
 
 	str1 = ft_strdup(str);
 	i = 0;

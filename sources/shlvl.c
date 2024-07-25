@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/24 18:07:53 by aeminian          #+#    #+#             */
+/*   Updated: 2024/07/24 18:08:04 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_strjoin_shlvl(char *s1, char *s2)
@@ -27,7 +39,7 @@ char	*ft_strjoin_shlvl(char *s1, char *s2)
 	return (s3);
 }
 
-void change_shlvl(t_minishell *minishell, int how)
+void	change_shlvl(t_minishell *minishell, int how)
 {
 	int		i;
 	char	*num_str;

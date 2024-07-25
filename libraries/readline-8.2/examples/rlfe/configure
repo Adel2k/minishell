@@ -1826,7 +1826,7 @@ done
 # would cause problems or look ugly.
 # WARNING: Use '\'' to represent an apostrophe within the trap.
 # WARNING: Do not start the trap code with a newline, due to a FreeBSD 4.0 bug.
-trap 'exit_status=$?
+trap 'g_exit_status=$?
   # Save into config.log some information that might help in debugging.
   {
     echo
@@ -1907,11 +1907,11 @@ $as_echo "$as_me: WARNING: cache variable $ac_var contains a newline" >&2;} ;;
     fi
     test "$ac_signal" != 0 &&
       $as_echo "$as_me: caught signal $ac_signal"
-    $as_echo "$as_me: exit $exit_status"
+    $as_echo "$as_me: exit $g_exit_status"
   } >&5
   rm -f core *.core core.conftest.* &&
     rm -f -r conftest* confdefs* conf$$* $ac_clean_files &&
-    exit $exit_status
+    exit $g_exit_status
 ' 0
 for ac_signal in 1 2 13 15; do
   trap 'ac_signal='$ac_signal'; as_fn_exit 1' $ac_signal
@@ -5078,9 +5078,9 @@ fi
 $debug ||
 {
   tmp= ac_tmp=
-  trap 'exit_status=$?
+  trap 'g_exit_status=$?
   : "${ac_tmp:=$tmp}"
-  { test ! -d "$ac_tmp" || rm -fr "$ac_tmp"; } && exit $exit_status
+  { test ! -d "$ac_tmp" || rm -fr "$ac_tmp"; } && exit $g_exit_status
 ' 0
   trap 'as_fn_exit 1' 1 2 13 15
 }

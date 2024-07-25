@@ -6,13 +6,13 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 19:11:33 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:08:48 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 t_token	*tokenisation(char **args, int count)
 {
@@ -79,7 +79,7 @@ int	check_next(t_token *tokens, int i)
 		write(2, "syntax error near unexpected token `", 36);
 		write(2, tokens[i + 1].str, ft_strlen(tokens[i + 1].str));
 		write(2, "\'\n", 2);
-		exit_status = 2;
+		g_exit_status = 2;
 		return (-1);
 	}
 	return (1);
@@ -98,18 +98,18 @@ int	check_for_invalid_input(t_token *tokens, int count)
 				|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
 			write(2, "syntax error near unexpected token `newline\'\n", 45);
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
 		if (check_next(tokens, i) < 0)
 		{
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
 		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
 		{
 			write(2, "syntax error near unexpected token `|\'\n", 40);
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
 	}
