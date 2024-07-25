@@ -6,13 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 15:25:16 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:28:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exit_status = 0;
+int	g_exit_status = 0;
 
 void	print_tokens(t_token *tokens, int tokens_count)
 {
@@ -33,6 +33,7 @@ void	exec_cmd(t_minishell *minishell)
 		minishell->infile = 0;
 		minishell->outfile = 1;
 		minishell->if_here_doc = 0;
+		minishell->is_builtin = 0;
 		minishell->cmd = NULL;
 		init_redirs(minishell);
 		minishell->cmd = cmd_args(minishell);
@@ -79,6 +80,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			free(minishell->fd);
 		if (minishell->if_here_doc)
 			free(minishell->here_doc);
+		// system("leaks minishell");
 	}
 	free_array(minishell->env);
 	printf("exit\n");

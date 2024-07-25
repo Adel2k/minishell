@@ -6,11 +6,9 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/25 15:23:22 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:33:03 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 
@@ -103,7 +101,7 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 	minishell->index = 0;
 	if (minishell->pipe_count && init_fd(minishell) < 0)
 		return (-1);
-	if (check_for_invalid_input(minishell->tokens, minishell->tokens_count) < 0)
+	if (if_invalid_input(minishell->tokens, minishell->tokens_count, -1) < 0)
 		return (-1);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);

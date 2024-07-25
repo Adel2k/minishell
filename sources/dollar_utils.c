@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:21 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 17:18:38 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:01:14 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 int	check1(char c)
 {
@@ -28,13 +28,13 @@ char	*to_find(int start, t_token *tokens, int i)
 
 	end = start + 1;
 	if (tokens[i].str[end] == '?')
-		return(ft_itoa(exit_status));
+		return (ft_itoa(g_exit_status));
 	while (tokens[i].str[end])
 	{
 		if (!((tokens[i].str[end] >= 'A' && tokens[i].str[end] <= 'Z')
-			|| (tokens[i].str[end] >= 'a' && tokens[i].str[end] <= 'z')
-			|| (tokens[i].str[end] >= '0' && tokens[i].str[end] <= '9')
-			|| tokens[i].str[end] == '_'))
+				|| (tokens[i].str[end] >= 'a' && tokens[i].str[end] <= 'z')
+				|| (tokens[i].str[end] >= '0' && tokens[i].str[end] <= '9')
+				|| tokens[i].str[end] == '_'))
 		{
 			end--;
 			break ;

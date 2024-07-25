@@ -6,13 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 14:44:02 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:33:49 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 t_token	*tokenisation(char **args, int count)
 {
@@ -77,17 +77,14 @@ int	check_next(t_token *tokens, int i)
 			&& ft_strcmp(tokens[i + 1].type, "inredir")))
 	{
 		err_message("syntax error near unexpected token `", tokens[i + 1].str, "\'\n");
-		exit_status = 2;
+		g_exit_status = 2;
 		return (-1);
 	}
 	return (1);
 }
 
-int	check_for_invalid_input(t_token *tokens, int count)
+int	if_invalid_input(t_token *tokens, int count, int i)
 {
-	int	i;
-
-	i = -1;
 	while (++i < count)
 	{
 		if ((i + 1 == count) && (!ft_strcmp(tokens[i].type, "in_redir")
@@ -96,18 +93,18 @@ int	check_for_invalid_input(t_token *tokens, int count)
 				|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
 			err_message("syntax error near unexpected token `newline\'\n", "", "");
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
 		if (check_next(tokens, i) < 0)
 		{
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
-		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
+		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0 || ft_strcmp(tokens[i].type, "word")))
 		{
 			err_message("syntax error near unexpected token `|\'\n", "", "");
-			exit_status = 2;
+			g_exit_status = 2;
 			return (-1);
 		}
 	}

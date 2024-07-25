@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 17:19:26 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:15:59 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int exit_status;
+extern int	g_exit_status;
 
 int	pwd(void)
 {
@@ -25,27 +25,6 @@ int	pwd(void)
 	}
 	ft_putstr_fd(path, 1);
 	write(1, "\n", 1);
-	return (0);
-}
-
-int	check_newline(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || str[i] == 0 || str[i] != '-')
-		return (0);
-	if (str[i] == '-' && str[i + 1] == 'n')
-	{
-		i++;
-		while (str[i] == 'n' && (str[i + 1] == 'n'
-				|| str[i + 1] == ' ' || str[i + 1] == 0))
-		{
-			if (str[i + 1] == 0)
-				return (1);
-			i++;
-		}
-	}
 	return (0);
 }
 
@@ -93,29 +72,8 @@ void	env(t_minishell *minishell)
 	}
 }
 
-int	builtin(t_minishell *minishell, char **command)
+int	builtin2(t_minishell *minishell)
 {
-	if (ft_tolower(command[0], "/bin/echo") == 0 || ft_tolower(command[0], "echo") == 0)
-	{
-		echo(command);
-		exit(0);
-	}
-	if (ft_tolower(command[0], "/usr/bin/env") == 0 || ft_tolower(command[0], "env") == 0)
-	{
-		env(minishell);
-		return (1);
-	}
-	if (ft_tolower(command[0], "/bin/pwd") == 0 || ft_tolower(command[0], "pwd") == 0)
-	{
-		pwd();
-		return (1);
-	}
-	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
-		|| ft_strcmp(minishell->cmd[0], "cd") == 0)
-	{
-		cd(minishell);
-		return (1);
-	}
 	if (ft_tolower(minishell->cmd[0], "unset") == 0)
 	{
 		if (minishell->cmd[1])
@@ -130,10 +88,40 @@ int	builtin(t_minishell *minishell, char **command)
 			export_print(minishell->envm);
 		return (1);
 	}
+	if (ft_strcmp(minishell->cmd[0], "/usr/bin/cd") == 0
+		|| ft_strcmp(minishell->cmd[0], "cd") == 0)
+	{
+		cd(minishell);
+		return (1);
+	}
+	return (0);
+}
+
+int	builtin(t_minishell *minishell, char **command)
+{
+	if (ft_tolower(command[0], "/bin/echo") == 0
+		|| ft_tolower(command[0], "echo") == 0)
+	{
+		echo(command);
+		exit(0);
+	}
 	if (ft_strcmp(minishell->cmd[0], "exit") == 0)
 	{
 		built_exit(minishell, 1, 0);
 		return (1);
 	}
+	if (ft_tolower(command[0], "/usr/bin/env") == 0
+		|| ft_tolower(command[0], "env") == 0)
+	{
+		env(minishell);
+		return (1);
+	}
+	if (ft_tolower(command[0], "/bin/pwd") == 0
+		|| ft_tolower(command[0], "pwd") == 0)
+	{
+		pwd();
+		return (1);
+	}
+	builtin2(minishell);
 	return (0);
 }

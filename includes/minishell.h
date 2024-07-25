@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:52:27 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:26:59 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_minishell
 	int		if_here_doc;
 	int		(*here_doc)[2];
 	char	**cmd;
+	int		is_builtin;
 }	t_minishell;
 
 void	print_tokens(t_token *tokens, int tokens_count);
@@ -74,7 +75,7 @@ void	print_tokens(t_token *tokens, int tokens_count);
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
-int		check_for_invalid_input(t_token *tokens, int count);
+int		if_invalid_input(t_token *tokens, int count, int i);
 
 //////////////////tokenisation_utils////////////////////////
 char	*cut2(char **s, int *len);
@@ -189,4 +190,6 @@ char	*ft_strjoin_env(char *s1, char *s2);
 void	free_array(char **env);
 void	print_env(char **env);
 
+int	check_newline(char *str);
+void	set_pwd(t_minishell *minishell, char *old, char *new);
 #endif

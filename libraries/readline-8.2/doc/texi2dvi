@@ -312,8 +312,8 @@ ensure_dir ()
 }
 
 
-# error EXIT_STATUS LINE1 LINE2... - Report an error and exit with
-#   failure if EXIT_STATUS is non-null.
+# error g_exit_status LINE1 LINE2... - Report an error and exit with
+#   failure if g_exit_status is non-null.
 error ()
 {
   error_status="$1"

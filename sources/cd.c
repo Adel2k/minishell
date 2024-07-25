@@ -3,36 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 19:42:14 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:00:57 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_pwd(t_minishell *minishell, char *old, char *new)
-{
-	t_env	*start;
-
-	start = minishell->envm;
-	while (minishell->envm)
-	{
-		if (ft_strcmp(minishell->envm->key, "PWD") == 0)
-		{
-			free(minishell->envm->value);
-			minishell->envm->value = ft_strdup(new);
-		}
-		if (ft_strcmp(minishell->envm->key, "OLDPWD") == 0)
-		{
-			free(minishell->envm->value);
-			minishell->envm->value = ft_strdup(old);
-		}
-		minishell->envm = minishell->envm->next;
-	}
-	minishell->envm = start;
-}
+extern int	g_exit_status;
 
 void	cd_absolute(t_minishell *minishell)
 {
@@ -45,6 +25,7 @@ void	cd_absolute(t_minishell *minishell)
 	chdir(minishell->cmd[1]);
 	new = getcwd(path2, PATH_MAX);
 	set_pwd(minishell, old, new);
+	g_exit_status = 0;
 }
 
 void	cd_home(t_minishell *minishell)
@@ -96,30 +77,43 @@ void	cd_tilda(t_minishell *minishell)
 	}
 }
 
-void	cd(t_minishell *minishell)
+void	cd_error(t_minishell *minishell)
 {
 	struct stat	info;
 
+	if (stat(minishell->cmd[1], &info) < 0)
+	{
+		if (!(S_ISDIR(info.st_mode)) && !(S_ISREG(info.st_mode)))
+			err_message("minishell: cd: ", minishell->cmd[1],
+				": No such file or directory\n");
+		else if (!(S_ISDIR(info.st_mode)))
+			err_message("minishell: cd: ", minishell->cmd[1],
+				": Not a directory\n");
+		else if ((S_ISDIR(info.st_mode) || S_ISREG(info.st_mode))
+			&& access(minishell->cmd[1], R_OK | X_OK))
+			err_message("minishell: cd: ", minishell->cmd[1],
+				": Permission denied.\n");
+	}
+	else if (!(S_ISDIR(info.st_mode)))
+		err_message("minishell: cd: ", minishell->cmd[1],
+			": Not a directory\n");
+	else if (access(minishell->cmd[1], R_OK | X_OK)
+		&& (S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)))
+		err_message("minishell: cd: ", minishell->cmd[1],
+			": Permission denied.\n");
+	else
+		cd_absolute(minishell);
+}
+
+void	cd(t_minishell *minishell)
+{
 	if (!(minishell->cmd[1]))
 		cd_home(minishell);
 	if (minishell->cmd[1] && minishell->cmd[1][0] == '~')
 		cd_tilda(minishell);
 	else if (minishell->cmd[1])
 	{
-		if (stat(minishell->cmd[1], &info) < 0)
-		{
-			if (!(S_ISDIR(info.st_mode)) && !(S_ISREG(info.st_mode)))
-				err_message("minishell: ", minishell->cmd[1], ": No such file or directory\n");
-			else if ((S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)) && access(minishell->cmd[1], R_OK | X_OK))
-				err_message("minishell: ", "", "Permission denied.\n");
-			else if (!(S_ISDIR(info.st_mode)))
-				err_message("minishell: ", minishell->cmd[1], " is not a directory\n");
-		}
-		else if (access(minishell->cmd[1], R_OK | X_OK) && (S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)))
-			err_message("minishell: ", "", "Permission denied.\n");
-		else if (!(S_ISDIR(info.st_mode)))
-			err_message("minishell: ", minishell->cmd[1], " is not a directory\n");
-		else
-			cd_absolute(minishell);
+		cd_error(minishell);
+		g_exit_status = 1;
 	}
 }
