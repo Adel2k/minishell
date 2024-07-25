@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 15:28:15 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:44:36 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 	while (input)
 	{
 		signals();
-		input = readline("\033[38;5;43mPONCHIKI_MINISHELL:  \033[0;000m");
+		input = readline("\033[38;5;43mPONCHIKI_MINISHELL: \033[0;000m");
 		add_history(input);
+		if (!input)
+			break ;
 		minishell->cmd  = NULL;
 		minishell->cmd_dirs = NULL;
 		minishell->tokens = NULL;
@@ -80,9 +82,8 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			free(minishell->fd);
 		if (minishell->if_here_doc)
 			free(minishell->here_doc);
-		// system("leaks minishell");
+		//system("leaks minishell");
 	}
-	free_array(minishell->env);
 	printf("exit\n");
 }
 
@@ -106,11 +107,13 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	input = "";
+	// int fd = open("aaa.txt", O_WRONLY);
+	// write(fd, "?????????\n", 20);
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
 		return (1);
 	minishell->envm = init_env(env);
-	minishell->env = NULL;
+	//minishell->env = NULL;
 	// print_logo();
 	loop_for_lines(minishell, input);
 	return (0);

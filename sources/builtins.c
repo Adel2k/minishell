@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 12:15:59 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:32:01 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,31 @@ void	env(t_minishell *minishell)
 	if (minishell->cmd[1])
 	{
 		err_message("minishell: ", minishell->cmd[1],
-			": No such file or directory");
+			": No such file or directory\n");
 		return ;
 	}
 	while (minishell->envm)
 	{
 		if (minishell->envm->value)
 		{
-			ft_putstr_fd(minishell->envm->key, 2);
-			write(1, "=", 1);
+			ft_putstr_fd(minishell->envm->key, 1);
+			write(1, " = ", 3);
 			ft_putstr_fd(minishell->envm->value, 1);
 			write(1, "\n", 1);
 		}
 		minishell->envm = minishell->envm->next;
 	}
+	// char **env;
+	// int i;
+
+	// i = 0;
+	// env = list_to_array(minishell->envm);
+	// while (env[i])
+	// {
+	// 	ft_putstr_fd(env[i], 1);
+	// 	i++;
+	// }
+	// free_array(env);
 }
 
 int	builtin2(t_minishell *minishell)
@@ -122,6 +133,7 @@ int	builtin(t_minishell *minishell, char **command)
 		pwd();
 		return (1);
 	}
-	builtin2(minishell);
+	if (builtin2(minishell))
+		return (1);
 	return (0);
 }

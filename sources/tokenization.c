@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 15:33:49 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:27:23 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	if_invalid_input(t_token *tokens, int count, int i)
 			g_exit_status = 2;
 			return (-1);
 		}
-		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0 || ft_strcmp(tokens[i].type, "word")))
+		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0 || ft_strcmp(tokens[i + 1].type, "pipe") == 0))
 		{
 			err_message("syntax error near unexpected token `|\'\n", "", "");
 			g_exit_status = 2;
