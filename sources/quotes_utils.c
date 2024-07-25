@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:15:37 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/15 23:06:28 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:15:51 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	single_quote(char *s, int i, int flag2)
 			i++;
 		if (!s[i])
 		{
-			err_message(NULL, "No closing qoute\n", "");
+			err_message(NULL, "No closing quote\n", "");
 			return (-1);
 		}
 	}
@@ -52,7 +52,7 @@ int	quotes(char *s, int i)
 			i++;
 		if (!s[i])
 		{
-			err_message(NULL, "No closing qoute\n", "");
+			err_message(NULL, "No closing quote\n", "");
 			return (-1);
 		}
 	}

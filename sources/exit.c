@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:03:03 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 20:57:05 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:37:33 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,20 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-void	len_error(char *str, unsigned long long nbr)
+void	len_error(char *str, unsigned long long nbr, int sign)
 {
-	if (nbr > (unsigned long long)LLONG_MAX)
+	if (sign)
+	{
+		if (nbr > (unsigned long long)LLONG_MIN)
+		{
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			g_exit_status = 255;
+			exit (g_exit_status);
+		}
+	}
+	else if (nbr > (unsigned long long)LLONG_MAX)
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str, 2);
@@ -79,7 +90,7 @@ int	ft_latoi(char *str)
 	{
 		nbr = (nbr * 10) + (str[i] - '0');
 		if (nbr > LLONG_MAX)
-			len_error(str, nbr);
+			len_error(str, nbr, sign);
 		++i;
 	}
 	if (sign)
