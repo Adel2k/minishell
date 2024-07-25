@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:56:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:07:35 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:05:33 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	waiting_childs(t_minishell *minishell)
 	int	exit_s;
 
 	k = 0;
-	// if (minishell->pipe_count == 0 && minishell->is_builtin == 1)
-	// 	return ;
+	if (minishell->pipe_count == 0 && minishell->is_builtin == 1)
+		return ;
 	while (k < minishell->pipe_count + 1)
 	{
 		waitpid(-1, &exit_s, 0);

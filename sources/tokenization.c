@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 18:08:48 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:33:53 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,8 @@ int	check_next(t_token *tokens, int i)
 	return (1);
 }
 
-int	check_for_invalid_input(t_token *tokens, int count)
+int	if_invalid_input(t_token *tokens, int count, int i)
 {
-	int	i;
-
-	i = -1;
 	while (++i < count)
 	{
 		if ((i + 1 == count) && (!ft_strcmp(tokens[i].type, "in_redir")
@@ -106,7 +103,7 @@ int	check_for_invalid_input(t_token *tokens, int count)
 			g_exit_status = 2;
 			return (-1);
 		}
-		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
+		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0 || ft_strcmp(tokens[i].type, "word")))
 		{
 			write(2, "syntax error near unexpected token `|\'\n", 40);
 			g_exit_status = 2;

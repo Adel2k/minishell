@@ -6,11 +6,13 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 19:24:45 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:05:48 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 char	*check_in_dirs(char *command, t_minishell *minishell)
 {
@@ -18,7 +20,7 @@ char	*check_in_dirs(char *command, t_minishell *minishell)
 	char	*joined_cmd;
 
 	if (!command || !*command)
-		exit(0);
+		exit(1);
 	i = 0;
 	while (minishell -> cmd_dirs && minishell -> cmd_dirs[i])
 	{
@@ -94,10 +96,11 @@ char	**check_cmd(char **command, t_minishell *minishell)
 	{
 		if (access(command[0], X_OK) == -1)
 		{
+			g_exit_status = 127;
 			err_message("minishell: ", minishell->cmd[0],
 				": command not found\n");
 			// system("leaks minishell");
-			exit(1);
+			exit(127);
 		}
 	}
 	else

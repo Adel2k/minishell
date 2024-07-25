@@ -6,11 +6,13 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:00:00 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:00:57 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 void	cd_absolute(t_minishell *minishell)
 {
@@ -23,6 +25,7 @@ void	cd_absolute(t_minishell *minishell)
 	chdir(minishell->cmd[1]);
 	new = getcwd(path2, PATH_MAX);
 	set_pwd(minishell, old, new);
+	g_exit_status = 0;
 }
 
 void	cd_home(t_minishell *minishell)
@@ -88,25 +91,29 @@ void	cd_error(t_minishell *minishell)
 				": Not a directory\n");
 		else if ((S_ISDIR(info.st_mode) || S_ISREG(info.st_mode))
 			&& access(minishell->cmd[1], R_OK | X_OK))
-			err_message("minishell: cd: ", minishell->cmd[1], ": Permission denied.\n");
+			err_message("minishell: cd: ", minishell->cmd[1],
+				": Permission denied.\n");
 	}
 	else if (!(S_ISDIR(info.st_mode)))
 		err_message("minishell: cd: ", minishell->cmd[1],
 			": Not a directory\n");
 	else if (access(minishell->cmd[1], R_OK | X_OK)
 		&& (S_ISDIR(info.st_mode) || S_ISREG(info.st_mode)))
-			err_message("minishell: cd: ", minishell->cmd[1], ": Permission denied.\n");
+		err_message("minishell: cd: ", minishell->cmd[1],
+			": Permission denied.\n");
 	else
 		cd_absolute(minishell);
 }
 
 void	cd(t_minishell *minishell)
 {
-
 	if (!(minishell->cmd[1]))
 		cd_home(minishell);
 	if (minishell->cmd[1] && minishell->cmd[1][0] == '~')
 		cd_tilda(minishell);
 	else if (minishell->cmd[1])
+	{
 		cd_error(minishell);
+		g_exit_status = 1;
+	}
 }

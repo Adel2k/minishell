@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:08:37 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:55:27 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	run_fork(t_minishell *minishell)
 		if (builtin(minishell, minishell->cmd))
 		{
 			g_exit_status = 1;
-			exit(0);	
+			exit(0);
 		}
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
 		pipex(minishell);

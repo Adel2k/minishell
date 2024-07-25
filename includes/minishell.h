@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:05:13 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:18:52 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_tokens(t_token *tokens, int tokens_count);
 ////////////////////////tokenisation////////////////////////
 t_token	*tokenisation(char **args, int count);
 char	*find_type(char *str, t_token *tokens, int i);
-int		check_for_invalid_input(t_token *tokens, int count);
+int		if_invalid_input(t_token *tokens, int count, int i);
 
 //////////////////tokenisation_utils////////////////////////
 char	*cut2(char **s, int *len);

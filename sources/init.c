@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:07:00 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 13:07:45 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:18:52 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 	minishell->index = 0;
 	if (minishell->pipe_count && init_fd(minishell) < 0)
 		return (-1);
-	if (check_for_invalid_input(minishell->tokens, minishell->tokens_count) < 0)
+	if (if_invalid_input(minishell->tokens, minishell->tokens_count, -1) < 0)
 		return (-1);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
