@@ -6,62 +6,59 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:03:22 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 18:37:11 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:07:31 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	export_print(t_env *env)
-{
-	while (env)
+int env_len(t_env *env) {
+    int i;
+	
+	i = 0;
+    while (env)
 	{
-		write(1, "declare -x ", 12);
-		write(1, env->key, ft_strlen(env->key));
-		if (env->value)
-		{
-			write(1, "=", 1);
-			write(1, "\"", 1);
-			write(1, env->value, ft_strlen(env->value));
-			write(1, "\"", 1);
-		}
-		write(1, "\n", 1);
-		env = env->next;
-	}
+        i++;
+        env = env->next;
+    }
+    return i;
 }
 
-void	swich(t_env *ptr1)
+t_env *find_min(t_env *env, t_env *prev_min)
 {
-	char	*temp_key;
-	char	*temp_value;
-
-	temp_key = ptr1->key;
-	temp_value = ptr1->value;
-	ptr1->key = ptr1->next->key;
-	ptr1->value = ptr1->next->value;
-	ptr1->next->key = temp_key;
-	ptr1->next->value = temp_value;
+	t_env *min;
+	
+    min = NULL;
+    while (env) {
+        if ((!prev_min || ft_strcmp(env->key, prev_min->key) > 0) &&
+            (!min || ft_strcmp(env->key, min->key) < 0))
+            min = env;
+        env = env->next;
+    }
+    return (min);
 }
 
-void	sorting(t_env *env)
+void export_print(t_env *env)
 {
-	int		swapped;
-	t_env	*ptr1;
-
-	while (1)
+    int len;
+    t_env *prev_min;
+	int k;
+	t_env *current_min;
+	
+	prev_min = NULL;
+	len = env_len(env);
+	k = 0;
+    while(k < len)
 	{
-		swapped = 0;
-		ptr1 = env;
-		while (ptr1->next)
-		{
-			if (ft_strcmp(ptr1->key, ptr1->next->key) > 0)
-			{
-				swich(ptr1);
-				swapped = 1;
-			}
-			ptr1 = ptr1->next;
-		}
-		if (!swapped)
-			break ;
-	}
+        current_min = find_min(env, prev_min);
+        if (current_min == NULL)
+            break;
+        printf("declare -x %s", current_min->key);
+        if (current_min->value)
+            printf("=\"%s\"", current_min->value);
+        printf("\n");
+        prev_min = current_min;
+		k++;
+    }
 }
+

@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 18:05:07 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:11:07 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	export_change(t_env *env, char *str, int equal_index)
 		if (!ft_strchr(str, '='))
 			return ;
 	}
-	printf("line: %d\n", __LINE__);
 	if (tmp->value)
 		free(tmp->value);
 	if (ft_strchr(str, '='))
@@ -93,5 +92,4 @@ void	export(t_minishell *minishell)
 			export_change(minishell->envm, minishell->cmd[i], 0);
 		i++;
 	}
-	sorting(minishell->envm);
 }

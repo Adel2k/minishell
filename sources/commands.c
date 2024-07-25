@@ -6,7 +6,7 @@
 /*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 12:48:38 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:08:37 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	run_fork(t_minishell *minishell)
 
 	pid = fork();
 	if (pid == -1)
-	{
 		err_message("minishell: ", "Fork failed\n", "");
-		exit(1);
-	}
 	if (pid == 0)
 	{
 		if (builtin(minishell, minishell->cmd))
