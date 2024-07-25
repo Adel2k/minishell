@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:50:08 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:23:47 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:22:48 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	add_nodes(char *str, t_env **env)
 	res->value = inf[1];
 	free(inf);
 	res->next = NULL;
+	if (ft_strcmp(res->key, "SHLVL") == 0)
+	{
+		res->value = ft_itoa(ft_atoi(inf[1]) + 1);
+		free(inf[1]);
+	}
 	if (!*env)
 	{
 		(*env) = res;

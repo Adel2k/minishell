@@ -6,13 +6,14 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:03:22 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 20:07:31 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:36:21 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int env_len(t_env *env) {
+int env_len(t_env *env)
+{
     int i;
 	
 	i = 0;

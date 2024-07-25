@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:25 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:23:22 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,23 @@ void	init_redirs(t_minishell *minishell)
 	}
 }
 
-t_env	*init_env(t_minishell *minishell)
+t_env	*init_env(char **env)
 {
 	t_env	*res;
-
+	t_env *tmp;
 	int		i;
 
 	res = NULL;
 	i = -1;
-	while (minishell->env[++i] != 0)
-		add_nodes(minishell->env[i], &res);
+	while (env[++i] != 0)
+		add_nodes(env[i], &res);
+	tmp = res;
+	while (tmp && ft_strcmp(tmp->key, "SHLVL"))
+		tmp = tmp->next;
+	if (!tmp)
+	{
+		add_nodes("SHLVL=0", &res);
+	}
 	return (res);
 }
 
@@ -85,19 +92,12 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 {
 	char	**strs;
 
-	if (ft_words_count_tokens(input, ' ') > 0)
-		minishell->tokens_count = ft_words_count_tokens(input, ' ');
-	else
-		minishell->tokens_count = 1;
+	minishell->tokens_count = ft_words_count_tokens(input, ' ');
 	if (minishell->tokens_count < 0)
-	{
-		free(input);
 		return (-1);
-	}
 	strs = ft_split_tokens(input);
 	minishell->tokens = tokenisation(strs, minishell->tokens_count);
 	free(strs);
-	free(input);
 	minishell->pipe_count = pipe_count(minishell);
 	minishell->pipe_index = 0;
 	minishell->index = 0;
@@ -107,6 +107,7 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 		return (-1);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
+	free(input);
 	return (1);
 }
 

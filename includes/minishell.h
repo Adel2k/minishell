@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 12:37:07 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:52:27 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*ft_strjoin_dirs(char *s1, char *s2);
 int		pipe_count(t_minishell *minishell);
 
 ////////////////////////init/////////////////////////////
-t_env	*init_env(t_minishell *minishell);
+t_env	*init_env(char **env);
 char	**init_dirs(t_minishell *minishell);
 int		init_cmd_line(t_minishell *minishell, char *input);
 int		init_fd(t_minishell *minishell);
@@ -173,18 +173,20 @@ void	export(t_minishell *minishell);
 void	export_print(t_env *env);
 void	sorting(t_env *env);
 
-////////////////////////export///////////////////////////////
+////////////////////////export2///////////////////////////////
 char	*ft_itoa(int n);
-
 char	**check_cmd(char **command, t_minishell *minishell);
+int		env_len(t_env *env);
 
 ////////////////////////signals///////////////////////////////
 void	signals(void);
 void	built_exit(t_minishell *minishell, int is_in_fork, int print);
 void	exit_alt(t_minishell *minishell);
 
-////////////////////////shlvl///////////////////////////////
-void	change_shlvl(t_minishell *minishell, int how);
-char	*ft_strjoin_shlvl(char *s1, char *s2);
+////////////////////////env///////////////////////////////
+char	**list_to_array(t_env *env_list);
+char	*ft_strjoin_env(char *s1, char *s2);
+void	free_array(char **env);
+void	print_env(char **env);
 
 #endif

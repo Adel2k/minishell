@@ -41,7 +41,7 @@ SRCS_NAME =		main.c \
 				export.c \
 				export2.c \
 				exit.c \
-				shlvl.c
+				env.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

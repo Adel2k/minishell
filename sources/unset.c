@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:04 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 12:18:27 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:17:29 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void unset_cut(t_minishell *minishell, t_env *tmp, t_env *prev)
 {
-	if (ft_strcmp(tmp->key, "SHLVL") == 0)
-	{
-		change_shlvl(minishell, 0);
-	}
 	if (!prev)
 	{
 		tmp = tmp->next;

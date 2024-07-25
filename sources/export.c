@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 17:47:27 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:12:09 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int valid_export_arg(char *str)
 	{
 		if (str[i] == '=')
 			break ;
-			printf("str[i] = %c\n", str[i]);
 		if (!((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
 			return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/23 19:11:33 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:44:02 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_next(t_token *tokens, int i)
 	if (!ft_strcmp(tokens[i].type, "heredoc")
 		&& !ft_strcmp(tokens[i + 1].type, "heredoc"))
 	{
-		write(2, "syntax error near unexpected token `<\'\n", 39);
+		err_message("syntax error near unexpected token `<\'\n", "", "");
 		return (-1);
 	}
 	if ((!ft_strcmp(tokens[i].type, "in_redir")
@@ -76,9 +76,7 @@ int	check_next(t_token *tokens, int i)
 			&& ft_strcmp(tokens[i + 1].type, "limiter")
 			&& ft_strcmp(tokens[i + 1].type, "inredir")))
 	{
-		write(2, "syntax error near unexpected token `", 36);
-		write(2, tokens[i + 1].str, ft_strlen(tokens[i + 1].str));
-		write(2, "\'\n", 2);
+		err_message("syntax error near unexpected token `", tokens[i + 1].str, "\'\n");
 		exit_status = 2;
 		return (-1);
 	}
@@ -97,7 +95,7 @@ int	check_for_invalid_input(t_token *tokens, int count)
 				|| !ft_strcmp(tokens[i].type, "append_redir")
 				|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
-			write(2, "syntax error near unexpected token `newline\'\n", 45);
+			err_message("syntax error near unexpected token `newline\'\n", "", "");
 			exit_status = 2;
 			return (-1);
 		}
@@ -108,7 +106,7 @@ int	check_for_invalid_input(t_token *tokens, int count)
 		}
 		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0))
 		{
-			write(2, "syntax error near unexpected token `|\'\n", 40);
+			err_message("syntax error near unexpected token `|\'\n", "", "");
 			exit_status = 2;
 			return (-1);
 		}
