@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 15:10:47 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:47:27 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	export_change(t_env *env, char *str, int equal_index)
 		if (!ft_strchr(str, '='))
 			return ;
 	}
-	printf("line: %d\n", __LINE__);
 	if (tmp->value)
 		free(tmp->value);
 	if (ft_strchr(str, '='))
@@ -89,5 +88,4 @@ void	export(t_minishell *minishell)
 			export_change(minishell->envm, minishell->cmd[i], 0);
 		i++;
 	}
-	sorting(minishell->envm);
 }

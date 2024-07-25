@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:56:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 16:44:56 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:50:48 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,13 @@ void	waiting_childs(t_minishell *minishell)
 	k = 0;
 	while (k < minishell->pipe_count + 1)
 	{
-		if (minishell->pipe_count)
-		{
-			waitpid(-1, &exit_s, 0);
-			if ((WTERMSIG(exit_s)) == 3)
-				printf("Quit : 3\n");
-			else if (WIFEXITED(exit_s))
-				exit_status = WEXITSTATUS(exit_s);
-			else if (WIFSIGNALED(exit_s))
-				exit_status = 128 + WTERMSIG(exit_s);
-		}
+		waitpid(-1, &exit_s, 0);
+		if ((WTERMSIG(exit_s)) == 3)
+			printf("Quit : 3\n");
+		else if (WIFEXITED(exit_s))
+			exit_status = WEXITSTATUS(exit_s);
+		else if (WIFSIGNALED(exit_s))
+			exit_status = 128 + WTERMSIG(exit_s);
 		k++;
 	}
 }

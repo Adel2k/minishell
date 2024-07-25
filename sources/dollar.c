@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:53:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/24 17:18:00 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:39:05 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	dollar_if(int start, t_token *tokens, int i, t_minishell	*minishell)
 			free(s);
 			return (0);
 		}
-		if (ft_strcmp(s, ft_itoa(exit_status)) == 0)
+		if (ft_strstr_alt(tokens[i].str, "$?"))
 			l = join_trio(tokens[i].str, s, start, start + 2);
 		else
 		{
