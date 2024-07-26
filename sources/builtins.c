@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 19:32:01 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:40:19 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,12 @@ void	env(t_minishell *minishell)
 		if (minishell->envm->value)
 		{
 			ft_putstr_fd(minishell->envm->key, 1);
-			write(1, " = ", 3);
+			write(1, "=", 1);
 			ft_putstr_fd(minishell->envm->value, 1);
 			write(1, "\n", 1);
 		}
 		minishell->envm = minishell->envm->next;
 	}
-	// char **env;
-	// int i;
-
-	// i = 0;
-	// env = list_to_array(minishell->envm);
-	// while (env[i])
-	// {
-	// 	ft_putstr_fd(env[i], 1);
-	// 	i++;
-	// }
-	// free_array(env);
 }
 
 int	builtin2(t_minishell *minishell)
@@ -112,28 +101,18 @@ int	builtin(t_minishell *minishell, char **command)
 {
 	if (ft_tolower(command[0], "/bin/echo") == 0
 		|| ft_tolower(command[0], "echo") == 0)
-	{
 		echo(command);
-		exit(0);
-	}
-	if (ft_strcmp(minishell->cmd[0], "exit") == 0)
-	{
+	else if (ft_strcmp(minishell->cmd[0], "exit") == 0)
 		built_exit(minishell, 1, 0);
-		return (1);
-	}
-	if (ft_tolower(command[0], "/usr/bin/env") == 0
+	else if (ft_tolower(command[0], "/usr/bin/env") == 0
 		|| ft_tolower(command[0], "env") == 0)
-	{
 		env(minishell);
-		return (1);
-	}
-	if (ft_tolower(command[0], "/bin/pwd") == 0
+	else if (ft_tolower(command[0], "/bin/pwd") == 0
 		|| ft_tolower(command[0], "pwd") == 0)
-	{
 		pwd();
+	else if (builtin2(minishell))
 		return (1);
-	}
-	if (builtin2(minishell))
-		return (1);
-	return (0);
+	else
+		return (0);
+	return (1);
 }

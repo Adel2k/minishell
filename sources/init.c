@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/07/25 18:54:22 by hrigrigo         ###   ########.fr       */
+/*   Created: 2024/07/26 12:26:44 by hrigrigo          #+#    #+#             */
+/*   Updated: 2024/07/26 12:30:16 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_redirs(t_minishell *minishell)
 t_env	*init_env(char **env)
 {
 	t_env	*res;
-	t_env *tmp;
+	t_env	*tmp;
 	int		i;
 
 	res = NULL;
@@ -105,7 +105,6 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 		return (-1);
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
-	free(input);
 	return (1);
 }
 

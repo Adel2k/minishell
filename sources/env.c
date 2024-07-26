@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/26 12:35:27 by hrigrigo          #+#    #+#             */
+/*   Updated: 2024/07/26 12:36:34 by hrigrigo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_strjoin_env(char *s1, char *s2)
@@ -28,12 +40,12 @@ char	*ft_strjoin_env(char *s1, char *s2)
 	return (s3);
 }
 
-char **list_to_array(t_env *env_list)
+char	**list_to_array(t_env *env_list)
 {
-	int len;
-	char **env;
-	int i;
-	
+	int		len;
+	char	**env;
+	int		i;
+
 	len = env_len(env_list);
 	env = malloc(sizeof(char *) * (len + 1));
 	malloc_check(env);
@@ -45,34 +57,4 @@ char **list_to_array(t_env *env_list)
 		env_list = env_list->next;
 	}
 	return (env);
-}
-
-void free_array(char **env)
-{
-	if (!env)
-		return ;
-	int i;
-
-	i = 0;
-	while (env[i])
-	{
-		free(env[i]);
-		i++;
-	}
-	free(env);
-}
-void print_env(char **env)
-{
-
-	printf("\n\nTHIS IS MY PRINT\n\n");
-	if (!env)
-		return ;
-	int i;
-
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
 }

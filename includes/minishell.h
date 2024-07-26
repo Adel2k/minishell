@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 15:26:59 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:26:04 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
-	char	**env;
 	t_env	*envm;
 	char	**cmd_dirs;
 	t_token	*tokens;

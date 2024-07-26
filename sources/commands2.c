@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 18:57:29 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:37:04 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	**cmd_args(t_minishell *minishell)
 char	**check_cmd(char **command, t_minishell *minishell)
 {
 	char	*cmd;
+
 	if (access(command[0], X_OK) != -1 && ft_strstr_alt(command[0], "./"))
 		return (command);
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
@@ -98,7 +99,6 @@ char	**check_cmd(char **command, t_minishell *minishell)
 		g_exit_status = 127;
 		err_message("minishell: ", minishell->cmd[0],
 			": command not found\n");
-		// system("leaks minishell");
 		exit(127);
 	}
 	else

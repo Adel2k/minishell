@@ -6,25 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 20:44:36 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:34:59 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit_status = 0;
-
-void	print_tokens(t_token *tokens, int tokens_count)
-{
-	int	j;
-
-	j = 0;
-	while (j < tokens_count)
-	{
-		printf("str: %s, type: %s\n", tokens[j].str, tokens[j].type);
-		j++;
-	}
-}
 
 void	exec_cmd(t_minishell *minishell)
 {
@@ -48,6 +36,20 @@ void	exec_cmd(t_minishell *minishell)
 	}
 }
 
+void	loop_for_lines2(t_minishell *minishell)
+{
+	minishell->cmd_dirs = init_dirs(minishell);
+	exec_cmd(minishell);
+	close_fd(minishell);
+	waiting_childs(minishell);
+	free_dirs(minishell);
+	free_tokens(minishell->tokens, minishell->tokens_count);
+	if (minishell->pipe_count > 0)
+		free(minishell->fd);
+	if (minishell->if_here_doc)
+		free(minishell->here_doc);
+}
+
 void	loop_for_lines(t_minishell *minishell, char *input)
 {
 	while (input)
@@ -57,14 +59,13 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 		add_history(input);
 		if (!input)
 			break ;
-		minishell->cmd  = NULL;
+		minishell->cmd = NULL;
 		minishell->cmd_dirs = NULL;
 		minishell->tokens = NULL;
 		minishell->if_here_doc = 0;
 		if (init_cmd_line(minishell, input) < 0)
 		{
-			free(input);
-			//input = "";
+			input = "";
 			free_tokens(minishell->tokens, minishell->tokens_count);
 			if (minishell->pipe_count > 0)
 				free(minishell->fd);
@@ -72,17 +73,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 				free(minishell->here_doc);
 			continue ;
 		}
-		minishell->cmd_dirs = init_dirs(minishell);
-		exec_cmd(minishell);
-		close_fd(minishell);
-		waiting_childs(minishell);
-		free_dirs(minishell);
-		free_tokens(minishell->tokens, minishell->tokens_count);
-		if (minishell->pipe_count > 0)
-			free(minishell->fd);
-		if (minishell->if_here_doc)
-			free(minishell->here_doc);
-		//system("leaks minishell");
+		loop_for_lines2(minishell);
 	}
 	printf("exit\n");
 }
@@ -103,18 +94,15 @@ int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*minishell;
 	char		*input;
-	
+
 	(void) argc;
 	(void) argv;
 	input = "";
-	// int fd = open("aaa.txt", O_WRONLY);
-	// write(fd, "?????????\n", 20);
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
 		return (1);
 	minishell->envm = init_env(env);
-	//minishell->env = NULL;
-	// print_logo();
+	print_logo();
 	loop_for_lines(minishell, input);
 	return (0);
 }

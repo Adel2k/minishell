@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:59 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 18:27:23 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:22:30 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	check_next(t_token *tokens, int i)
 		&& !ft_strcmp(tokens[i + 1].type, "heredoc"))
 	{
 		err_message("syntax error near unexpected token `<\'\n", "", "");
+		g_exit_status = 2;
 		return (-1);
 	}
 	if ((!ft_strcmp(tokens[i].type, "in_redir")
@@ -76,7 +77,8 @@ int	check_next(t_token *tokens, int i)
 			&& ft_strcmp(tokens[i + 1].type, "limiter")
 			&& ft_strcmp(tokens[i + 1].type, "inredir")))
 	{
-		err_message("syntax error near unexpected token `", tokens[i + 1].str, "\'\n");
+		err_message("syntax error near unexpected token `",
+			tokens[i + 1].str, "\'\n");
 		g_exit_status = 2;
 		return (-1);
 	}
@@ -92,16 +94,15 @@ int	if_invalid_input(t_token *tokens, int count, int i)
 				|| !ft_strcmp(tokens[i].type, "append_redir")
 				|| !ft_strcmp(tokens[i].type, "heredoc")))
 		{
-			err_message("syntax error near unexpected token `newline\'\n", "", "");
+			err_message("syntax error near unexpected token `newline\'\n",
+				"", "");
 			g_exit_status = 2;
 			return (-1);
 		}
 		if (check_next(tokens, i) < 0)
-		{
-			g_exit_status = 2;
 			return (-1);
-		}
-		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count || i == 0 || ft_strcmp(tokens[i + 1].type, "pipe") == 0))
+		if (!ft_strcmp(tokens[i].type, "pipe") && (i + 1 == count
+				|| i == 0 || ft_strcmp(tokens[i + 1].type, "pipe") == 0))
 		{
 			err_message("syntax error near unexpected token `|\'\n", "", "");
 			g_exit_status = 2;
