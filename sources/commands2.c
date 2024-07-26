@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:05:14 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 12:37:04 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:44:13 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**check_cmd(char **command, t_minishell *minishell)
 {
 	char	*cmd;
 
-	if (access(command[0], X_OK) != -1 && ft_strstr_alt(command[0], "./"))
+	if (access(command[0], X_OK) != -1)
 		return (command);
 	cmd = check_in_dirs(ft_strdup(command[0]), minishell);
 	if (!cmd)

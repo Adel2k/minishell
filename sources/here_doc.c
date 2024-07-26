@@ -6,11 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 20:24:47 by hrigrigo          #+#    #+#             */
-/*   Updated: 2024/07/23 19:41:56 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:14:28 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 char	*ft_strjoin_heredoc(char *s1, char *s2)
 {
@@ -71,6 +73,7 @@ int	here_doc(char *limiter, t_minishell *minishell)
 		close((*fd)[0]);
 		close((*fd)[1]);
 		err_message("minishell: ", "pipe error\n", "");
+		g_exit_status = 1;
 		return (-1);
 	}
 	minishell->here_doc = fd;

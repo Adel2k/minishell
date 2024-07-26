@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 12:34:59 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:50:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	main(int argc, char **argv, char **env)
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
 		return (1);
+	minishell->env = env;
 	minishell->envm = init_env(env);
 	print_logo();
 	loop_for_lines(minishell, input);

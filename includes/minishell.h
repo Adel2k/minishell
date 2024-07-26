@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 12:26:04 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:42:15 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
+	char **env;
 	t_env	*envm;
 	char	**cmd_dirs;
 	t_token	*tokens;
@@ -185,8 +186,7 @@ void	exit_alt(t_minishell *minishell);
 
 ////////////////////////env///////////////////////////////
 char	**list_to_array(t_env *env_list);
-char	*ft_strjoin_env(char *s1, char *s2);
-void	free_array(char **env);
+char	*ft_strjoin(char const *s1, char const *s2, char sep);
 void	print_env(char **env);
 
 int	check_newline(char *str);

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:55:19 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 12:40:31 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:35:26 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 extern int	g_exit_status;
 
-void	run_fork(t_minishell *minishell)
+void	run_fork(t_minishell *minishell, int pid)
 {
-	int	pid;
-
 	pid = fork();
 	if (pid == -1)
+	{
 		err_message("minishell: ", "Fork failed\n", "");
+		g_exit_status = 1;
+	}
 	if (pid == 0)
 	{
 		pipex(minishell);
@@ -31,8 +32,9 @@ void	run_fork(t_minishell *minishell)
 			exit(0);
 		}
 		minishell->cmd = check_cmd(minishell->cmd, minishell);
+		char **env_array = list_to_array(minishell->envm);
 		if (execve(minishell->cmd[0], minishell->cmd,
-				list_to_array(minishell->envm)) == -1)
+				env_array) == -1)
 		{
 			err_message("minishell: ", "Executing command failed\n", "");
 			free_cmd(minishell->cmd);
@@ -71,6 +73,9 @@ int	run_commands2(t_minishell *minishell)
 
 int	run_commands(t_minishell *minishell)
 {
+	int	pid;
+
+	pid = 0;
 	if (minishell->infile < 0 || minishell->outfile < 0)
 		return (-1);
 	if (minishell->pipe_count == 0)
@@ -85,6 +90,6 @@ int	run_commands(t_minishell *minishell)
 		}
 		exit_alt(minishell);
 	}
-	run_fork(minishell);
+	run_fork(minishell, pid);
 	return (1);
 }

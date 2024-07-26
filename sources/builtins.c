@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:48:35 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 12:40:19 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:04:36 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	env(t_minishell *minishell)
 	{
 		err_message("minishell: ", minishell->cmd[1],
 			": No such file or directory\n");
+		g_exit_status = 1;
 		return ;
 	}
 	while (minishell->envm)

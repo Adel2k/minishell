@@ -6,11 +6,13 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/25 19:42:17 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:14:07 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 t_env	*creating_new_node(char *key, t_env *env)
 {
@@ -68,7 +70,7 @@ int	valid_export_arg(char *str)
 			break ;
 		if (!((str[i] >= 'A' && str[i] <= 'Z')
 				|| (str[i] >= 'a' && str[i] <= 'z')
-				|| (str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
+				|| (str[i] >= '0' && str[i] <= '9' && i > 0) || str[i] == '_'))
 			return (0);
 		i++;
 	}
@@ -85,8 +87,11 @@ void	export(t_minishell *minishell)
 		if ((minishell->cmd[i][0] && (minishell->cmd[i][0] == '='
 			|| ft_strstr_alt(minishell->cmd[i], " =")))
 			|| !valid_export_arg(minishell->cmd[i]))
+		{
 			err_message("minishell: export: `", minishell->cmd[i],
 				"': not a valid identifier\n");
+			g_exit_status = 1;
+		}
 		else
 			export_change(minishell->envm, minishell->cmd[i], 0);
 		i++;

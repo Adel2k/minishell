@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeminian <aeminian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:54 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/21 18:13:31 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:12:12 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 int	open_infile(char *file_name)
 {
@@ -20,6 +22,7 @@ int	open_infile(char *file_name)
 	if (infile_fd < 0)
 	{
 		err_message("minishell: ", file_name, ": No such file or directory\n");
+		g_exit_status = 1;
 		return (-1);
 	}
 	return (infile_fd);
@@ -36,6 +39,7 @@ int	open_outfile(char *file_name, int i)
 	if (outfile_fd < 0)
 	{
 		err_message("minishell: ", file_name, ": No such file or directory\n");
+		g_exit_status = 1;
 		return (-1);
 	}
 	return (outfile_fd);
@@ -52,6 +56,7 @@ void	redirs(t_minishell *minishell)
 			close((*minishell -> here_doc)[0]);
 			close((*minishell -> here_doc)[1]);
 			err_message("minishell: ", "dup2 error\n", "");
+			g_exit_status = 2;	
 		}
 		close((*minishell -> here_doc)[0]);
 		close((*minishell->here_doc)[1]);
@@ -66,6 +71,7 @@ void	in_redir(t_minishell *minishell)
 		{
 			close(minishell->infile);
 			err_message("minishell: ", "dup2 error\n", "");
+			g_exit_status = 2;
 		}
 		close(minishell->infile);
 	}
@@ -79,6 +85,7 @@ void	out_redir(t_minishell *minishell)
 		{
 			close(minishell->outfile);
 			err_message("minishell: ", "dup2 error\n", "");
+			g_exit_status = 2;
 		}
 		close(minishell->outfile);
 	}

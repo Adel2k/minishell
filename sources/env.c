@@ -6,55 +6,89 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:35:27 by hrigrigo          #+#    #+#             */
-/*   Updated: 2024/07/26 12:36:34 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:41:41 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoin_env(char *s1, char *s2)
+int	ft_lstsize(t_env *lst)
 {
-	size_t	s1_size;
-	size_t	s2_size;
-	char	*s3;
-	int		i;
+	int			i;
+	t_env	*current;
 
-	if (!s1 || !s2)
-		return (0);
-	i = -1;
-	s1_size = ft_strlen(s1);
-	s2_size = ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(char) * (s1_size + s2_size + 2));
-	if (!s3)
-		return (NULL);
-	while (s1[++i])
-		s3[i] = s1[i];
-	s3[i] = '=';
-	i++;
-	while (s2[i - s1_size - 1])
+	i = 0;
+	current = lst;
+	while (current)
 	{
-		s3[i] = s2[i - s1_size - 1];
+		i++;
+		current = current->next;
+	}
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2, char sep)
+{
+	char	*r_s;
+	size_t	i;
+	size_t	j;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	r_s = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (!r_s)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		r_s[j++] = s1[i];
 		i++;
 	}
-	s3[i] = '\0';
-	return (s3);
+	r_s[j++] = sep;
+	i = 0;
+	while (s2[i])
+	{
+		r_s[j++] = s2[i];
+		i++;
+	}
+	r_s[j] = '\0';
+	return (r_s);
 }
 
 char	**list_to_array(t_env *env_list)
 {
-	int		len;
-	char	**env;
-	int		i;
+	char		**env;
+	int			len;
+	int			i;
 
-	len = env_len(env_list);
+	len = ft_lstsize(env_list);
 	env = malloc(sizeof(char *) * (len + 1));
-	malloc_check(env);
+	if (!env)
+		return (NULL);
 	i = 0;
-	while (env_list)
+	while (i < len)
 	{
-		env[i] = ft_strjoin_env(env_list->key, env_list->value);
-		i++;
+		env[i] = ft_strjoin(env_list->key, env_list->value, '=');
 		env_list = env_list->next;
+		i++;
 	}
+	env[i] = NULL;
 	return (env);
+}
+
+void	print_env(char **env)
+{
+
+	printf("\n\nTHIS IS MY PRINT\n\n");
+	if (!env)
+		return ;
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 }
