@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:44 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 13:42:15 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:49:38 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	cd(t_minishell *minishell);
 ////////////////////////export///////////////////////////////
 void	unset(t_minishell *minishell, char **cmd);
 void	export(t_minishell *minishell);
+int		valid_export_arg(char *str);
 void	export_print(t_env *env);
 void	sorting(t_env *env);
 

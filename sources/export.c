@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 08:49:12 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 13:14:07 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:53:33 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ void	export(t_minishell *minishell)
 			g_exit_status = 1;
 		}
 		else
+		{
 			export_change(minishell->envm, minishell->cmd[i], 0);
+			g_exit_status = 0;	
+		}
 		i++;
 	}
 }

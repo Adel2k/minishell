@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 13:14:53 by aeminian          #+#    #+#             */
-/*   Updated: 2024/07/26 13:50:15 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:07:50 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	loop_for_lines(t_minishell *minishell, char *input)
 			continue ;
 		}
 		loop_for_lines2(minishell);
+		free(input);
 	}
 	printf("exit\n");
 }

@@ -6,7 +6,7 @@
 /*   By: hrigrigo <hrigrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:26:44 by hrigrigo          #+#    #+#             */
-/*   Updated: 2024/07/26 12:30:16 by hrigrigo         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:09:26 by hrigrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,22 @@ int	init_cmd_line(t_minishell *minishell, char *input)
 
 	minishell->tokens_count = ft_words_count_tokens(input, ' ');
 	if (minishell->tokens_count < 0)
+	{
+		free(input);	
 		return (-1);
+	}
 	strs = ft_split_tokens(input);
 	minishell->tokens = tokenisation(strs, minishell->tokens_count);
 	free(strs);
 	minishell->pipe_count = pipe_count(minishell);
 	minishell->pipe_index = 0;
 	minishell->index = 0;
-	if (minishell->pipe_count && init_fd(minishell) < 0)
+	if ((minishell->pipe_count && init_fd(minishell) < 0)
+		|| if_invalid_input(minishell->tokens, minishell->tokens_count, -1) < 0)
+	{
+		free(input);
 		return (-1);
-	if (if_invalid_input(minishell->tokens, minishell->tokens_count, -1) < 0)
-		return (-1);
+	}
 	dollar_sign(minishell->tokens, minishell->tokens_count, minishell);
 	remove_quotes(minishell);
 	return (1);
