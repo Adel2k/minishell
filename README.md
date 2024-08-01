@@ -9,12 +9,7 @@
 3. [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-4. [Usage](#usage)
-5. [Examples](#examples)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Contact](#contact)
-
+      
 ## About the Project
 
 Minishell is a simple shell implementation project developed as part of the curriculum at 42 School. The project aims to deepen understanding of the workings of a shell by building one from scratch. This project is a partial implementation of a Unix shell and supports various essential features and commands.
