@@ -1,6 +1,6 @@
 # Minishell
 
-![42 School](https://your-image-link-here)
+![42 School]([https://your-image-link-here](https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2F42-coding-schools-germany&psig=AOvVaw1mDGCOngCMSm3GvbZ2R5_e&ust=1722629705247000&source=images&cd=vfe&opi=89978449&ved=0CBQQjhxqFwoTCLj2re_N1IcDFQAAAAAdAAAAABAI))
 
 ## Table of Contents
 
