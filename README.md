@@ -44,4 +44,16 @@ You will need to have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/minishell.git
+   git clone https://github.com/Adel2k/minishell.git
+
+2. Build the project: 
+
+    ```bash
+    make
+    # for linux
+    make linux_minishell
+
+3. Usage:
+
+    ```bash
+    ./minishell
