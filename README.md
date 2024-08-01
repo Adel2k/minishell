@@ -1,6 +1,6 @@
 # Minishell
 
-![42 School](https://42yerevan.am/wp-content/uploads/2022/10/blog-860x500-1.jpg)
+![42 School](https://42yerevan.am/wp-content/uploads/2022/10/blog400-x150-1.jpg)
 
 ## Table of Contents
 
