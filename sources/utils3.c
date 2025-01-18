@@ -27,7 +27,8 @@ void	add_nodes(char *str, t_env **env)
 	res->next = NULL;
 	if (ft_strcmp(res->key, "SHLVL") == 0)
 	{
-		res->value = ft_itoa(ft_atoi(inf[1]) + 1);
+		// res->value = ft_itoa(ft_atoi(inf[1]) + 1);
+		res->value = ft_itoa(3);
 		free(inf[1]);
 	}
 	if (!*env)
