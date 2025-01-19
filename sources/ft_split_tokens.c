@@ -33,21 +33,14 @@ char	*init_tokens(int len, char **s)
 
 int	fill_tokens_single_quotes(char *s, int len, int flag)
 {
-	int	flag2;
-
-	flag2 = 0;
 	if (s[len] == 39 && flag == 0)
 	{
-		flag2 = 1;
 		len++;
 		while (s[len] && s[len] != 39)
 			len++;
 	}
 	else if (s[len] == 39)
-	{
-		flag2 = 0;
 		len++;
-	}
 	return (len);
 }
 

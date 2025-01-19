@@ -27,6 +27,7 @@ uname -v = #52-Ubuntu SMP PREEMPT_DYNAMIC Thu Dec  5 13:09:44 UTC 2024
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
+PATH: /home/alian/.local/bin/
 PATH: /home/alian/.sdkman/candidates/grails/current/bin/
 PATH: /home/alian/.sdkman/candidates/gradle/current/bin/
 PATH: /home/alian/.local/bin/
@@ -40,6 +41,7 @@ PATH: /usr/games/
 PATH: /usr/local/games/
 PATH: /snap/bin/
 PATH: /snap/bin/
+PATH: /home/alian/.local/bin/
 PATH: /home/alian/.local/bin/
 PATH: /home/alian/.local/bin/
 PATH: /home/alian/.local/bin/
@@ -1952,7 +1954,7 @@ configure:7048: $? = 0
 configure:7048: result: yes
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccfuD1eE.o: in function `main':
+/usr/bin/ld: /tmp/ccHBmLpt.o: in function `main':
 /home/alian/42/minishell/libraries/readline-8.2/conftest.c:123:(.text.startup+0xb): undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 configure:7074: $? = 1
@@ -2247,7 +2249,7 @@ configure:7414: $? = 0
 configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccBRMJ5e.o: in function `main':
+/usr/bin/ld: /tmp/ccKqKZcA.o: in function `main':
 /home/alian/42/minishell/libraries/readline-8.2/conftest.c:128:(.text.startup+0xb): undefined reference to `mbscasecmp'
 collect2: error: ld returned 1 exit status
 configure:7421: $? = 1
@@ -2386,7 +2388,7 @@ configure: failed program was:
 configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/cchSPTVv.o: in function `main':
+/usr/bin/ld: /tmp/ccWannur.o: in function `main':
 /home/alian/42/minishell/libraries/readline-8.2/conftest.c:128:(.text.startup+0xb): undefined reference to `mbscmp'
 collect2: error: ld returned 1 exit status
 configure:7428: $? = 1
@@ -2533,7 +2535,7 @@ configure:7442: $? = 0
 configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/cc4VfjzH.o: in function `main':
+/usr/bin/ld: /tmp/ccXeKDlE.o: in function `main':
 /home/alian/42/minishell/libraries/readline-8.2/conftest.c:130:(.text.startup+0xb): undefined reference to `mbschr'
 collect2: error: ld returned 1 exit status
 configure:7450: $? = 1

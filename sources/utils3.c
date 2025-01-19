@@ -23,14 +23,13 @@ void	add_nodes(char *str, t_env **env)
 	inf = ft_split(str, '=');
 	res->key = inf[0];
 	res->value = inf[1];
-	free(inf);
 	res->next = NULL;
 	if (ft_strcmp(res->key, "SHLVL") == 0)
 	{
-		// res->value = ft_itoa(ft_atoi(inf[1]) + 1);
-		res->value = ft_itoa(3);
+		res->value = ft_itoa(ft_atoi(inf[1]) + 1);
 		free(inf[1]);
 	}
+	free(inf);
 	if (!*env)
 	{
 		(*env) = res;

@@ -35,7 +35,7 @@ int	open_outfile(char *file_name, int i)
 	if (i == 0)
 		outfile_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-		outfile_fd = open(file_name, O_APPEND | O_WRONLY, 0777);
+		outfile_fd = open(file_name, O_APPEND | O_WRONLY | O_CREAT, 0777);
 	if (outfile_fd < 0)
 	{
 		err_message("minishell: ", file_name, ": No such file or directory\n");

@@ -63,12 +63,10 @@ t_env	*init_env(char **env)
 
 char	**init_dirs(t_minishell *minishell)
 {
-	int		i;
 	char	**dirs;
 	t_env	*tmp;
 
 	tmp = minishell->envm;
-	i = 0;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, "PATH") == 0)

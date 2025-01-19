@@ -14,12 +14,8 @@
 
 int	single_quote(char *s, int i, int flag2)
 {
-	int	flag;
-
-	flag = 0;
 	if (s[i] == 39 && flag2 == 0)
 	{
-		flag = 1;
 		i++;
 		while (s[i] && s[i] != 39)
 			i++;
@@ -30,10 +26,7 @@ int	single_quote(char *s, int i, int flag2)
 		}
 	}
 	else if (s[i] == 39)
-	{
-		flag = 0;
 		i++;
-	}
 	return (i);
 }
 
